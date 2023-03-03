@@ -1,7 +1,25 @@
+import os
+import pathlib
 import pandas as pd
-import csv
 
-tables=['abstracts', 'authors', 'citations', 'embeddings', 'paper-ids', 'papers', 'publication-venues', 's2orc', 'tldrs']
-for table in tables:
-    df = pd.read_json('./data/samples/'+table+'/'+table+'-sample.jsonl.gz', lines=True, compression='gzip')
-    df.to_csv('./data/csv/SemanticScholar/'+table+'.csv')
+DATA_FOLDER = 'sample'
+OUTPUT_FOLDER = 'sample_csv'
+
+directory = os.getcwd()
+data_source = directory + '\\' + DATA_FOLDER
+
+#Create the output folder
+directory = os.getcwd()
+pathlib.Path(directory+'\\'+OUTPUT_FOLDER).mkdir(parents=True, exist_ok=True)
+
+for filename in os.listdir(data_source):
+    inputfile = DATA_FOLDER + '/' + filename
+    outputfile = OUTPUT_FOLDER + '/' + filename.split('.')[0] + '.csv'
+    print(inputfile)
+    df = pd.read_json(inputfile, lines=True, compression='gzip')
+    df.to_csv(outputfile, encoding='utf-8',index=False)
+
+
+
+
+
