@@ -23,4 +23,4 @@ for dataset in datasets:
     dwld_links = requests.get(get_link, headers={'x-api-key': API_KEY}).json()
     # Download the datasets
     print(dwld_links['files'][0])
-    urllib.request.urlretrieve(dwld_links['files'][0], 'data/'+dataset['name'] + ".jsonl.gz")
+    # urllib.request.urlretrieve(dwld_links['files'][0], 'data/'+dataset  + ".jsonl.gz")
