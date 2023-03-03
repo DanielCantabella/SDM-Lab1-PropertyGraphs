@@ -33,3 +33,11 @@ MATCH (paper:Paper {id: toInteger(rowRelation.paperID)})
 CREATE (paper)-[:WRITTEN_BY]->(author);
 ```
 
+#### citingPaper - [REFERENCES] -> citedPaper
+```
+LOAD CSV WITH HEADERS FROM "file:///citations-sample.csv" AS rowCitation
+MATCH (citingPaper:Paper {id: toInteger(rowCitation.citingcorpusid)})
+MATCH (citedPaper:Paper {id: toInteger(rowCitation.citedcorpusid)})
+CREATE (citingPaper)-[:REFERENCES]->(citedPaper);
+```
+
