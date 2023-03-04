@@ -4,18 +4,52 @@ driver = GraphDatabase.driver("bolt://localhost:7687",auth=( "neo4j", "password"
 
 with driver.session() as session:
     session.run('''
-    LOAD CSV WITH HEADERS FROM 'file:///authors.csv' AS rowAuthor
-    CREATE (:Scientist{name: rowAuthor["name"], ID: toInteger(rowAuthor["authorid"])})
+    LOAD CSV WITH HEADERS FROM "file:///authors-sample.csv" AS rowAuthor
+    CREATE (a:Author {id: toInteger(rowAuthor.authorid), name: rowAuthor.name, url: rowAuthor.ur});
     ''')
 
-#Borrar
-# file= ''' 'file:///authors.csv' '''
-# with driver.session() as session:
-#     result= session.run('''
-#     Call dbms.listConfig() YIELD name, value
-# WHERE name='dbms.directories.import'
-# RETURN value
-#     ''')
+    session.run('''
+    LOAD CSV WITH HEADERS FROM "file:///papers-sample.csv" AS rowPaper
+    CREATE (p:Paper {id: toInteger(rowPaper.corpusid), title: rowPaper.title, year:toInteger(rowPaper.year)});
+    ''')
+
+    session.run('''
+    LOAD CSV WITH HEADERS FROM "file:///written-by.csv" AS rowRelation
+    MATCH (author:Author {id: toInteger(rowRelation.authorID)})
+    MATCH (paper:Paper {id: toInteger(rowRelation.paperID)})
+    CREATE (paper)-[:WRITTEN_BY{corresponding_author: rowRelation.is_corresponding}]->(author);
+    ''')
+
+    session.run('''
+    LOAD CSV WITH HEADERS FROM "file:///citations-sample.csv" AS rowCitation
+    MATCH (citingPaper:Paper {id: toInteger(rowCitation.citingcorpusid)})
+    MATCH (citedPaper:Paper {id: toInteger(rowCitation.citedcorpusid)})
+    CREATE (citingPaper)-[:REFERENCES]->(citedPaper);
+    ''')
+
+    session.run('''
+    LOAD CSV WITH HEADERS FROM "file:///reviewed-by.csv" AS rowReview
+    MATCH (reviewer:Author {id: toInteger(rowReview.reviewerID)})
+    MATCH (paper:Paper {id: toInteger(rowReview.paperID)})
+    CREATE (paper)-[:REVIEWED_BY {with_grade: toInteger(rowReview.grade)}]->(reviewer);
+    ''')
+
+    session.run('''
+        LOAD CSV WITH HEADERS FROM 'file:///abstracts-sample.csv' AS rowAbstract
+        MATCH (p:Paper {id: toInteger(rowAbstract.corpusid)}) SET p.abstract=rowAbstract.abstract;
+     ''')
+
+    session.run('''
+        LOAD CSV WITH HEADERS FROM 'file:///belongs-to.csv' AS rowBelongs
+        MATCH (p:Paper {id: toInteger(rowBelongs.paperID)}) SET p.venueId=rowBelongs.venueID;
+     ''')
+
+    session.run('''
+        LOAD CSV WITH HEADERS FROM 'file:///publication-venues-sample.csv' AS rowVenues
+        MATCH (p:Paper {venueId: rowVenues.id}) SET p.venueType=rowVenues.type;
+     ''')
+
+
 
 
 # class HelloWorldExample:
