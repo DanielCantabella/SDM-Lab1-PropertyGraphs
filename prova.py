@@ -13,6 +13,7 @@ VENUES_SOURCE = 'sample_csv/publication-venues-sample.csv'
 OUTPUT_PATH_WRITTEN_BY = 'sample_csv/written-by.csv'
 OUTPUT_PATH_REVIEWED_BY = 'sample_csv/reviewed-by.csv'
 OUTPUT_PATH_BELONGS_TO = 'sample_csv/belongs-to.csv'
+OUTPUT_PATH_JOURNALS = 'sample_csv/journals.csv'
 
 papers = pd.read_csv(PAPERS_SOURCE)
 authors = pd.read_csv(AUTHORS_SOURCE)
@@ -23,19 +24,26 @@ random.seed(random_seed)
 
 #Generate files
 
+journals = pd.DataFrame(columns=['venueID', 'journalName', 'pages', 'volume'])
 belongs_to = pd.DataFrame(columns=['venueID', 'paperID'])
 written_by = pd.DataFrame(columns=['paperID', 'authorID', 'is_corresponding'])
 written_by['is_corresponding'] = written_by['is_corresponding'].astype(bool)
 reviewed_by = pd.DataFrame(columns=['paperID', 'reviewerID', 'grade'])
 
+
+
 venue_ids = venues['id'].unique()
 authors_ids = list(authors['authorid'].unique())
 
 for index, row in papers.iterrows():
+
     #Assign venue
     venue_id = random.choice(venue_ids)
     row_data = {'venueID': venue_id, 'paperID': row['corpusid']}
     belongs_to = pd.concat([belongs_to, pd.DataFrame([row_data])], ignore_index=True)
+    if row['journals'].notnull():
+        row_data_journals = row['journals'].json()
+        journals = pd.concat([journals, pd.DataFrame([])])
     #Assign authors
     n_authors = random.randint(1, 5)
     authors = random.sample(authors_ids, n_authors)
