@@ -18,6 +18,9 @@ with driver.session() as session:
     # session.run('''
     # CREATE CONSTRAINT conferenceIdConstraint FOR (conference:Conference) REQUIRE conference.id IS UNIQUE;
     # ''')
+    # session.run('''
+    # CREATE CONSTRAINT categoryIdConstraint FOR (category:Category) REQUIRE category.name IS UNIQUE;
+    # ''')
 
     #LOAD AUTHORS
     session.run('''
@@ -38,6 +41,11 @@ with driver.session() as session:
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///conferences.csv" AS rowConference
     CREATE (c:Conference {id: rowConference.venueID, name: rowConference.conferenceName, edition: rowConference.edition, date: rowConference.date});
+    ''')
+    #LOAD CATEGORIES
+    session.run('''
+    LOAD CSV WITH HEADERS FROM "file:///uniqueCategories.csv" AS rowCategory
+    CREATE (c:Category {name: rowCategory.categoryName});
     ''')
 
     #ADD WRITTEN_BY RELATIONS
@@ -73,6 +81,13 @@ with driver.session() as session:
     MATCH (conference:Conference {id: rowBelongs.venueID})
     MATCH (paper:Paper {id: toInteger(rowBelongs.paperID)})
     CREATE (paper)-[:BELONGS_TO]->(conference);
+    ''')
+    #ADD IS_ABOUT RELATIONS
+    session.run('''
+    LOAD CSV WITH HEADERS FROM "file:///categoriesRelations.csv" AS rowCategory
+    MATCH (category:Category {name: rowCategory.categoryName})
+    MATCH (paper:Paper {id: toInteger(rowCategory.paperID)})
+    CREATE (paper)-[:IS_ABOUT]->(category);
     ''')
 
     #ADD ABSTRACTS

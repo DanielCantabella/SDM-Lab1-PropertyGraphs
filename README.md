@@ -15,6 +15,9 @@ CREATE CONSTRAINT journalIdConstraint FOR (journal:Journal) REQUIRE journal.id I
 ```
 CREATE CONSTRAINT conferenceIdConstraint FOR (conference:Conference) REQUIRE conference.id IS UNIQUE;
 ```
+```
+CREATE CONSTRAINT categoryIdConstraint FOR (category:Category) REQUIRE category.name IS UNIQUE;
+```
 
 ### CSV Loadings
 #### Load Authors
@@ -36,6 +39,11 @@ CREATE (j:Journal {id: rowJournal.venueID, name: rowJournal.journalName, pages: 
 ```
 LOAD CSV WITH HEADERS FROM "file:///conferences.csv" AS rowConference
 CREATE (c:Conference {id: rowConference.venueID, name: rowConference.conferenceName, edition: rowConference.edition, date: rowConference.date});
+```
+#### Load Categories
+```
+LOAD CSV WITH HEADERS FROM "file:///uniqueCategories.csv" AS rowCategory
+CREATE (c:Category {name: rowCategory.categoryName});
 ```
 
 ### Relationships
@@ -76,7 +84,13 @@ MATCH (conference:Conference {id: rowBelongs.venueID})
 MATCH (paper:Paper {id: toInteger(rowBelongs.paperID)})
 CREATE (paper)-[:BELONGS_TO]->(conference);
 ```
-
+#### Paper - [IS_ABOUT] -> Category
+```
+LOAD CSV WITH HEADERS FROM "file:///categoriesRelations.csv" AS rowCategory
+MATCH (category:Category {name: rowCategory.categoryName})
+MATCH (paper:Paper {id: toInteger(rowCategory.paperID)})
+CREATE (paper)-[:IS_ABOUT]->(category);
+```
 
 ### Adding external attributes
 #### Adding Abstracts to Papers

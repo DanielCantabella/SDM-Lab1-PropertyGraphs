@@ -24,7 +24,6 @@ random_seed = 123
 random.seed(random_seed)
 
 #Generate files
-
 conferences = pd.DataFrame(columns=['venueID', 'conferenceName', 'edition', 'date'])
 journals = pd.DataFrame(columns=['venueID', 'journalName', 'pages', 'volume'])
 belongs_to = pd.DataFrame(columns=['venueID', 'paperID'])
