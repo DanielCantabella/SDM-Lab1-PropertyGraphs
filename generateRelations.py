@@ -35,7 +35,7 @@ for index, row in papers.iterrows():
     #Conference
     if random_type == 0:
         conference = conferences.sample(1)
-        row_data = {'venueID': conference['venueID'], 'paperID': row['corpusid']}
+        row_data = {'venueID': conference.loc[conference.index[0], 'venueID'], 'paperID': row['corpusid']}
         belongs_to = pd.concat([belongs_to, pd.DataFrame([row_data])], ignore_index=True)
     #Journal
     else:
@@ -44,7 +44,7 @@ for index, row in papers.iterrows():
         volume = random.randint(1, 20)
         startPage = random.randint(1, 100)
         endPage = startPage + random.randint(1, 100)
-        row_data = {'venueID': journal['venueID'], 'paperID': row['corpusid'],  'year': year, 'volume': volume,
+        row_data = {'venueID':  journal.loc[journal.index[0], 'venueID'], 'paperID': row['corpusid'],  'year': year, 'volume': volume,
                     'startPage': startPage, 'endPage':endPage}
         published_in = pd.concat([published_in, pd.DataFrame([row_data])], ignore_index=True)
     #Assign authors
