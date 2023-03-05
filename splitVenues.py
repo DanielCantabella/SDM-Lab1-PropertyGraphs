@@ -1,5 +1,6 @@
 import pandas as pd
 import random
+import datetime
 
 '''
 SPLIT VENUES BETWEEN JOURNALS AND CONFERENCES.
@@ -17,23 +18,31 @@ random_seed = 123
 random.seed(random_seed)
 
 #Generate files
-conferences = pd.DataFrame(columns=['venueID', 'conferenceName', 'edition', 'date'])
-journals = pd.DataFrame(columns=['venueID', 'journalName', 'pages', 'volume'])
+conferences = pd.DataFrame(columns=['venueID', 'conferenceName', 'edition', 'startDate','endDate', 'issn', 'url'])
+journals = pd.DataFrame(columns=['venueID', 'journalName', 'issn', 'url'])
 
 for index, row in venues.iterrows():
     #Journals
     if row['type']=='journal':
-        row_data = {'venueID': row['id'], 'journalName': row['name'], 'pages': random.randint(30,300), 'volume': random.randint(1,100)}
+        row_data = {'venueID': row['id'], 'journalName': row['name'], 'issn' : row['issn'], 'url' : row['url']}
         journals = pd.concat([journals, pd.DataFrame([row_data])], ignore_index=True)
-    #Conferences
-    elif row['type']=='conference':
-        row_data = {'venueID': row['id'], 'conferenceName': row['name'], 'edition': random.randint(1,70), 'date': str(random.randint(1940,2023))+'-'+str(random.randint(1,12))+'-'+str(random.randint(1,31))}
-        conferences = pd.concat([conferences, pd.DataFrame([row_data])], ignore_index=True)
-    #More conferences (we assume null values are conferences)
+    #Conferences (we assume null values are conferences)
     else:
-        row_data = {'venueID': row['id'], 'conferenceName': row['name'], 'edition': random.randint(1, 70),
-                    'date': str(random.randint(1940, 2023)) + '-' + str(random.randint(1, 12)) + '-' + str(
-                        random.randint(1, 31))}
+        #Generate duration of the conference
+        n = random.randint(1,30)  # Random duration days
+
+        start_date = datetime.date(1940, 1, 1)
+        end_date = datetime.date.today()
+
+        days_between_dates = (end_date - start_date).days - n + 1
+        random_number_of_days = random.randrange(days_between_dates)
+
+        start_date = start_date + datetime.timedelta(days=random_number_of_days)
+        end_date = start_date + datetime.timedelta(days=n - 1)
+
+
+        row_data = {'venueID': row['id'], 'conferenceName': row['name'], 'edition': random.randint(1,70),
+                    'startDate': start_date, 'endDate': end_date,  'issn' : row['issn'], 'url' : row['url']}
         conferences = pd.concat([conferences, pd.DataFrame([row_data])], ignore_index=True)
 
 
