@@ -33,12 +33,12 @@ CREATE (p:Paper {id: toInteger(rowPaper.corpusid), title: rowPaper.title, year:t
 #### Load Journals
 ```
 LOAD CSV WITH HEADERS FROM "file:///journals.csv" AS rowJournal
-CREATE (j:Journal {id: rowJournal.venueID, name: rowJournal.journalName, pages: rowJournal.pages, volume: rowJournal.volume});
+CREATE (j:Journal {id: rowJournal.venueID, name: rowJournal.journalName, issn: rowJournal.issn, url: rowJournal.url});
 ```
 #### Load Conferences
 ```
 LOAD CSV WITH HEADERS FROM "file:///conferences.csv" AS rowConference
-CREATE (c:Conference {id: rowConference.venueID, name: rowConference.conferenceName, edition: rowConference.edition, date: rowConference.date});
+CREATE (c:Conference {id: rowConference.venueID, name: rowConference.conferenceName, edition: toINteger(rowConference.edition),issn: rowConference.issn,url:rowConference.url, startDate: date(rowConference.startDate), endDate: date(rowConference.endDate)});
 ```
 #### Load Categories
 ```
@@ -52,7 +52,7 @@ CREATE (c:Category {name: rowCategory.categoryName});
 LOAD CSV WITH HEADERS FROM "file:///written-by.csv" AS rowRelation
 MATCH (author:Author {id: toInteger(rowRelation.authorID)})
 MATCH (paper:Paper {id: toInteger(rowRelation.paperID)})
-CREATE (paper)-[:WRITTEN_BY{corresponding_author: rowRelation.is_corresponding}]->(author);
+CREATE (paper)-[:WRITTEN_BY{corresponding_author: toBoolean(rowRelation.is_corresponding)}]->(author);
 ```
 
 #### citingPaper - [REFERENCES] -> citedPaper
@@ -97,4 +97,9 @@ CREATE (paper)-[:IS_ABOUT]->(category);
 ```
 LOAD CSV WITH HEADERS FROM 'file:///abstracts-sample.csv' AS rowAbstract
 MATCH (p:Paper {id: toInteger(rowAbstract.corpusid)}) SET p.abstract=rowAbstract.abstract;
+```
+### Updates
+#### Accepted/Non-accepted status
+```
+MATCH (p:Person)-[l:REVIEWED_BY]->(r:Author) WITH count(l) AS connexions, COUNT(l.with_grade=5) AS approved  WHERE approved > connexions/2 RETURN count(*);
 ```
