@@ -101,5 +101,5 @@ MATCH (p:Paper {id: toInteger(rowAbstract.corpusid)}) SET p.abstract=rowAbstract
 ### Updates
 #### Accepted/Non-accepted status
 ```
-MATCH (p:Person)-[l:REVIEWED_BY]->(r:Author) WITH count(l) AS connexions, COUNT(l.with_grade=5) AS approved  WHERE approved > connexions/2 RETURN count(*);
+MATCH (p:Paper)-[l:REVIEWED_BY]->(r:Author) WITH count(l) AS connexions, COUNT(l.with_grade>2) AS approved  WHERE approved > connexions/2 RETURN count(*);
 ```

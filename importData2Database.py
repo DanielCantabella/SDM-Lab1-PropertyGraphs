@@ -1,7 +1,9 @@
 from neo4j import GraphDatabase
-password=open('password.txt').readline()
-print(password)
-driver = GraphDatabase.driver("bolt://localhost:7687",auth=("dani", "password"))
+# password=open('password.txt').readline()
+# print(password)
+# driver = GraphDatabase.driver("bolt://localhost:7687",auth=("dani", "password"))
+
+driver = GraphDatabase.driver("bolt://localhost:7687",auth=("neo4j", "admin123"))
 
 with driver.session() as session:
     # session.run('''
@@ -22,6 +24,10 @@ with driver.session() as session:
     # session.run('''
     # CREATE CONSTRAINT categoryIdConstraint FOR (category:Category) REQUIRE category.name IS UNIQUE;
     # ''')
+
+    session.run('''
+        CREATE CONSTRAINT keywordConstraint FOR (keyword:Keyword) REQUIRE keyword.keyword IS UNIQUE;
+        ''')
 
     #LOAD AUTHORS
     session.run('''
@@ -90,39 +96,30 @@ with driver.session() as session:
     MATCH (paper:Paper {id: toInteger(rowCategory.paperID)})
     CREATE (paper)-[:IS_ABOUT]->(category);
     ''')
-
     #ADD ABSTRACTS
     session.run('''
     LOAD CSV WITH HEADERS FROM 'file:///abstracts-sample.csv' AS rowAbstract
     MATCH (p:Paper {id: toInteger(rowAbstract.corpusid)}) SET p.abstract=rowAbstract.abstract;
      ''')
 
+    # ADD CITED_BY RELATIONS
+    session.run('''
+        LOAD CSV WITH HEADERS FROM "file:///cited-by.csv" AS row
+        MATCH (p1:Paper {id: toInteger(row.paperID_cited)})
+        MATCH (p2:Paper {id: toInteger(row.paperID_citing)})
+        CREATE (p1)-[:CITED_BY]->(p2);
+        ''')
 
+    # LOAD KEYWORDS
+    session.run('''
+        LOAD CSV WITH HEADERS FROM "file:///keywords.csv" AS rowKw
+        CREATE (k:Keyword {keyword: rowKw.keyword});
+        ''')
 
-
-
-# class HelloWorldExample:
-#
-#     def __init__(self, uri, user, password):
-#         self.driver = GraphDatabase.driver(uri, auth=(user, password))
-#
-#     def close(self):
-#         self.driver.close()
-#
-#     def print_greeting(self, message):
-#         with self.driver.session() as session:
-#             greeting = session.execute_write(self._create_and_return_greeting, message)
-#             print(greeting)
-#
-#     @staticmethod
-#     def _create_and_return_greeting(tx, message):
-#         result = tx.run("CREATE (a:Greeting) "
-#                         "SET a.message = $message "
-#                         "RETURN a.message + ', from node ' + id(a)", message=message)
-#         return result.single()[0]
-#
-#
-# if __name__ == "__main__":
-#     greeter = HelloWorldExample("bolt://localhost:7687", "neo4j", "5Diamante$")
-#     greeter.print_greeting("hello, world")
-#     greeter.close()
+    # ADD RELATED_TO RELATIONS
+    session.run('''
+            LOAD CSV WITH HEADERS FROM "file:///related-to.csv" AS rowCategory
+            MATCH (p1:Paper {id: toInteger(row.paperID)})
+            MATCH (k:keyword {id: row.keyword})
+            CREATE (p1)-[:RELATED_TO]->(k);
+            ''')
