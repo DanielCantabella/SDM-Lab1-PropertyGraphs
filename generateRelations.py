@@ -50,6 +50,7 @@ for index, row in papers.iterrows():
     #Conference
     if random_type == 0:
         conference = conferences.sample(1)
+        print(conference.loc[conference.index[0], 'venueID'])
         row_data = {'venueID': conference.loc[conference.index[0], 'venueID'], 'paperID': row['corpusid']}
         belongs_to = pd.concat([belongs_to, pd.DataFrame([row_data])], ignore_index=True)
     #Journal
@@ -105,9 +106,11 @@ for index, row in papers.iterrows():
 written_by.to_csv(OUTPUT_PATH_WRITTEN_BY,encoding='utf-8',index=False)
 reviewed_by.to_csv(OUTPUT_PATH_REVIEWED_BY,encoding='utf-8',index=False)
 published_in.to_csv(OUTPUT_PATH_PUBLISHED_IN,encoding='utf-8',index=False)
+belongs_to.to_csv(OUTPUT_PATH_BELONGS_TO,encoding='utf-8',index=False)
 papers.to_csv(OUTPUT_PATH_PAPERS,encoding='utf-8',index=False)
 cited_by.to_csv(OUTPUT_PATH_CITED_BY,encoding='utf-8',index=False)
 related_to.to_csv(OUTPUT_RELATED_TO,encoding='utf-8',index=False)
+
 
 
 

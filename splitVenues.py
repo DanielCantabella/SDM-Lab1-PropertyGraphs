@@ -1,6 +1,8 @@
 import pandas as pd
 import random
 import datetime
+from datetime import timedelta
+import string
 
 '''
 SPLIT VENUES BETWEEN JOURNALS AND CONFERENCES.
@@ -40,12 +42,22 @@ for index, row in venues.iterrows():
         start_date = start_date + datetime.timedelta(days=random_number_of_days)
         end_date = start_date + datetime.timedelta(days=n - 1)
 
-
-        row_data = {'venueID': row['id'], 'conferenceName': row['name'], 'edition': random.randint(1,70),
-                    'startDate': start_date, 'endDate': end_date,  'issn' : row['issn'], 'url' : row['url']}
-        conferences = pd.concat([conferences, pd.DataFrame([row_data])], ignore_index=True)
-
-
+        numEditions=random.randint(1,10)
+        confernceIds=[]
+        for edition in range(1,numEditions):
+            randomID = ''.join(random.choice(string.ascii_lowercase + string.digits) for i in range(8))+ '-' + \
+                            ''.join(random.choice(string.ascii_lowercase + string.digits) for i in range(4))+ '-' + \
+                            ''.join(random.choice(string.ascii_lowercase + string.digits) for i in range(4))+ '-' + \
+                            ''.join(random.choice(string.ascii_lowercase + string.digits) for i in range(4))+ '-' + \
+                            ''.join(random.choice(string.ascii_lowercase + string.digits) for i in range(12))
+            print(randomID)
+            if randomID not in confernceIds:
+                confernceIds.append(randomID)
+                previousDelta=timedelta
+                row_data = {'venueID': randomID, 'conferenceName': row['name'], 'edition': edition,
+                            'startDate': start_date + timedelta(days=edition*30), 'endDate': end_date + timedelta(days=edition*30),  'issn' : row['issn'], 'url' : row['url']}
+                conferences = pd.concat([conferences, pd.DataFrame([row_data])], ignore_index=True)
+                print(row_data)
 journals.to_csv(OUTPUT_PATH_JOURNALS,encoding='utf-8',index=False)
 conferences.to_csv(OUTPUT_PATH_CONFERENCES,encoding='utf-8',index=False)
 
