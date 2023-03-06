@@ -9,7 +9,7 @@ JOURNALS_SOURCE = 'sample_csv/journals.csv'
 OUTPUT_PATH_WRITTEN_BY = 'sample_csv/written-by.csv'
 OUTPUT_PATH_REVIEWED_BY = 'sample_csv/reviewed-by.csv'
 OUTPUT_PATH_BELONGS_TO = 'sample_csv/belongs-to.csv'
-OUTPUT_PATH_PUBLISHED_IN = 'sample_csv/publisehd-in.csv'
+OUTPUT_PATH_PUBLISHED_IN = 'sample_csv/published-in.csv'
 OUTPUT_PATH_PAPERS = 'sample_csv/papers-processed.csv'
 
 papers = pd.read_csv(PAPERS_SOURCE)
@@ -73,7 +73,7 @@ for index, row in papers.iterrows():
         row_data = {'paperID': row['corpusid'], 'reviewerID': reviewer, 'grade': grade}
         reviewed_by = pd.concat([reviewed_by, pd.DataFrame([row_data])], ignore_index=True)
     #Extract the aditional values of papers as columns
-    new_values = json.loads(papers.loc[0, 'externalids'].replace("'", '"').replace("None", '""'))
+    new_values = json.loads(papers.loc[index, 'externalids'].replace("'", '"').replace("None", '""'))
     new_values.pop("CorpusId")
     for key, value in new_values.items():
         papers.at[index, key] = value

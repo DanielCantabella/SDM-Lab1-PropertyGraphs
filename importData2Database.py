@@ -30,9 +30,9 @@ with driver.session() as session:
     ''')
     #LOAD PAPERS
     session.run('''
-    LOAD CSV WITH HEADERS FROM "file:///papers-sample.csv" AS rowPaper
-    CREATE (p:Paper {id: toInteger(rowPaper.corpusid), title: rowPaper.title, year:toInteger(rowPaper.year)});
-    ''')
+    LOAD CSV WITH HEADERS FROM "file:///papers-processed.csv" AS rowPaper
+    CREATE (p:Paper {id: toInteger(rowPaper.corpusid), title: rowPaper.title, year:toInteger(rowPaper.year), url: rowPaper.url, openAcces: toBoolean(rowPaper.isopenaccess), publicationDate:date(rowPaper.publicationdate), updated: rowPaper.updated,DOI:rowPaper.DOI, PubMedCentral: rowPaper.PubMedCentral, PubMed:rowPaper.PubMed, DBLP: rowPaper.DBLP, ArXiv: rowPaper.ArXiv, ACL: rowPaper.ACL, MAG: rowPaper.MAG});
+     ''')
     #LOAD JOURNALS
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///journals.csv" AS rowJournal

@@ -27,8 +27,8 @@ CREATE (a:Author {id: toInteger(rowAuthor.authorid), name: rowAuthor.name, url: 
 ```
 #### Load Papers
 ```
-LOAD CSV WITH HEADERS FROM "file:///papers-sample.csv" AS rowPaper
-CREATE (p:Paper {id: toInteger(rowPaper.corpusid), title: rowPaper.title, year:toInteger(rowPaper.year)});
+LOAD CSV WITH HEADERS FROM "file:///papers-processed.csv" AS rowPaper
+CREATE (p:Paper {id: toInteger(rowPaper.corpusid), title: rowPaper.title, year:toInteger(rowPaper.year), url: rowPaper.url, openAcces: toBoolean(rowPaper.isopenaccess), publicationDate:date(rowPaper.publicationdate), updated: rowPaper.updated,DOI:rowPaper.DOI, PubMedCentral: rowPaper.PubMedCentral, PubMed:rowPaper.PubMed, DBLP: rowPaper.DBLP, ArXiv: rowPaper.ArXiv, ACL: rowPaper.ACL, MAG: rowPaper.MAG});
 ```
 #### Load Journals
 ```
@@ -70,12 +70,12 @@ MATCH (reviewer:Author {id: toInteger(rowReview.reviewerID)})
 MATCH (paper:Paper {id: toInteger(rowReview.paperID)})
 CREATE (paper)-[:REVIEWED_BY {with_grade: toInteger(rowReview.grade)}]->(reviewer);
 ```
-#### Paper - [BELONGS_TO] -> Journal
+#### Paper - [PUBLISHED_IN] -> Journal
 ```
-LOAD CSV WITH HEADERS FROM "file:///belongs-to.csv" AS rowBelongs
-MATCH (journal:Journal {id: rowBelongs.venueID})
-MATCH (paper:Paper {id: toInteger(rowBelongs.paperID)})
-CREATE (paper)-[:BELONGS_TO]->(journal);
+LOAD CSV WITH HEADERS FROM "file:///published-in.csv" AS rowPublished
+MATCH (journal:Journal {id: rowPublished.venueID})
+MATCH (paper:Paper {id: toInteger(rowPublished.paperID)})
+CREATE (paper)-[:PUBLISHED_IN{year: toInteger(rowPublished.year), volume: toInteger(rowPublished.volume),startPage: toInteger(rowPublished.startPage), endPage: toInteger(rowPublished.endPage)}]->(journal);
 ```
 #### Paper - [BELONGS_TO] -> Conference
 ```
