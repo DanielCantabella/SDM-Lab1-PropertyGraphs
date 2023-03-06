@@ -25,9 +25,9 @@ with driver.session() as session:
     # CREATE CONSTRAINT categoryIdConstraint FOR (category:Category) REQUIRE category.name IS UNIQUE;
     # ''')
 
-    session.run('''
-        CREATE CONSTRAINT keywordConstraint FOR (keyword:Keyword) REQUIRE keyword.keyword IS UNIQUE;
-        ''')
+    # session.run('''
+    #     CREATE CONSTRAINT keywordConstraint FOR (keyword:Keyword) REQUIRE keyword.keyword IS UNIQUE;
+    #     ''')
 
     #LOAD AUTHORS
     session.run('''
@@ -79,15 +79,17 @@ with driver.session() as session:
     # ADD BELONGS_TO RELATIONS
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///belongs-to.csv" AS rowBelongs
-    MATCH (journal:Journal {id: rowBelongs.venueID})
-    MATCH (paper:Paper {id: toInteger(rowBelongs.paperID)})
-    CREATE (paper)-[:BELONGS_TO]->(journal);
-    ''')
-    session.run('''
-    LOAD CSV WITH HEADERS FROM "file:///belongs-to.csv" AS rowBelongs
     MATCH (conference:Conference {id: rowBelongs.venueID})
     MATCH (paper:Paper {id: toInteger(rowBelongs.paperID)})
     CREATE (paper)-[:BELONGS_TO]->(conference);
+    ''')
+
+    # ADD PUBLISHED_IN RELATIONS
+    session.run('''
+    LOAD CSV WITH HEADERS FROM "file:///published-in.csv" AS row
+    MATCH (journal:Journal {id: row.venueID})
+    MATCH (paper:Paper {id: toInteger(row.paperID)})
+    CREATE (paper)-[:PUBLISHED_IN {year: row.year, volume: row.volume, startDate: row.startDate, endDate: row.endDate} ]->(journal);
     ''')
     #ADD IS_ABOUT RELATIONS
     session.run('''
@@ -96,30 +98,33 @@ with driver.session() as session:
     MATCH (paper:Paper {id: toInteger(rowCategory.paperID)})
     CREATE (paper)-[:IS_ABOUT]->(category);
     ''')
+
     #ADD ABSTRACTS
     session.run('''
     LOAD CSV WITH HEADERS FROM 'file:///abstracts-sample.csv' AS rowAbstract
     MATCH (p:Paper {id: toInteger(rowAbstract.corpusid)}) SET p.abstract=rowAbstract.abstract;
      ''')
 
+    # LOAD KEYWORDS
+    session.run('''
+            LOAD CSV WITH HEADERS FROM "file:///keywords.csv" AS rowKw
+            CREATE (k:Keyword {keyword: rowKw.keyword});
+            ''')
+
     # ADD CITED_BY RELATIONS
     session.run('''
-        LOAD CSV WITH HEADERS FROM "file:///cited-by.csv" AS row
-        MATCH (p1:Paper {id: toInteger(row.paperID_cited)})
-        MATCH (p2:Paper {id: toInteger(row.paperID_citing)})
+        LOAD CSV WITH HEADERS FROM "file:///cited-by.csv" AS rowRel
+        MATCH (p1:Paper {id: toInteger(rowRel.paperID_cited)})
+        MATCH (p2:Paper {id: toInteger(rowRel.paperID_citing)})
         CREATE (p1)-[:CITED_BY]->(p2);
         ''')
 
-    # LOAD KEYWORDS
-    session.run('''
-        LOAD CSV WITH HEADERS FROM "file:///keywords.csv" AS rowKw
-        CREATE (k:Keyword {keyword: rowKw.keyword});
-        ''')
+
 
     # ADD RELATED_TO RELATIONS
     session.run('''
             LOAD CSV WITH HEADERS FROM "file:///related-to.csv" AS rowCategory
-            MATCH (p1:Paper {id: toInteger(row.paperID)})
-            MATCH (k:keyword {id: row.keyword})
+            MATCH (p1:Paper {id: toInteger(rowCategory.paperID)})
+            MATCH (k:Keyword {keyword: rowCategory.keyword})
             CREATE (p1)-[:RELATED_TO]->(k);
             ''')
