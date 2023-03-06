@@ -56,12 +56,14 @@ for index, row in papers.iterrows():
     else:
         journal = journals.sample(1)
         year = random.randint(1940, 2023)
-        volume = random.randint(1, 20)
-        startPage = random.randint(1, 100)
-        endPage = startPage + random.randint(1, 100)
-        row_data = {'venueID':  journal.loc[journal.index[0], 'venueID'], 'paperID': row['corpusid'],  'year': year, 'volume': volume,
-                    'startPage': startPage, 'endPage':endPage}
-        published_in = pd.concat([published_in, pd.DataFrame([row_data])], ignore_index=True)
+        year_period = random.randint(1,7)
+        for ny in range(year_period):
+            volume = random.randint(1, 20)
+            startPage = random.randint(1, 100)
+            endPage = startPage + random.randint(1, 100)
+            row_data = {'venueID':  journal.loc[journal.index[0], 'venueID'], 'paperID': row['corpusid'],  'year': year+ny, 'volume': volume,
+                        'startPage': startPage, 'endPage':endPage}
+            published_in = pd.concat([published_in, pd.DataFrame([row_data])], ignore_index=True)
     #Assign authors
     n_authors = random.randint(1, 5)
     authors = random.sample(authors_ids, n_authors)
@@ -106,6 +108,9 @@ published_in.to_csv(OUTPUT_PATH_PUBLISHED_IN,encoding='utf-8',index=False)
 papers.to_csv(OUTPUT_PATH_PAPERS,encoding='utf-8',index=False)
 cited_by.to_csv(OUTPUT_PATH_CITED_BY,encoding='utf-8',index=False)
 related_to.to_csv(OUTPUT_RELATED_TO,encoding='utf-8',index=False)
+
+
+
 
 #Generate writen-by.csv using the true values
 # df = pd.read_csv(PAPERS_SOURCE)
