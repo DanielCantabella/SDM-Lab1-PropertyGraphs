@@ -53,12 +53,10 @@ for index, row in venues.iterrows():
             print(randomID)
             if randomID not in confernceIds:
                 confernceIds.append(randomID)
-                previousDelta=timedelta
                 row_data = {'venueID': randomID, 'conferenceName': row['name'], 'edition': edition,
                             'startDate': start_date + timedelta(days=edition*30), 'endDate': end_date + timedelta(days=edition*30),  'issn' : row['issn'], 'url' : row['url']}
                 conferences = pd.concat([conferences, pd.DataFrame([row_data])], ignore_index=True)
                 print(row_data)
-journals.to_csv(OUTPUT_PATH_JOURNALS,encoding='utf-8',index=False)
+# journals.to_csv(OUTPUT_PATH_JOURNALS,encoding='utf-8',index=False)
 conferences.to_csv(OUTPUT_PATH_CONFERENCES,encoding='utf-8',index=False)
-
 

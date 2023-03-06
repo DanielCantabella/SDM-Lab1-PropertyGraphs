@@ -50,13 +50,12 @@ for index, row in papers.iterrows():
     #Conference
     if random_type == 0:
         conference = conferences.sample(1)
-        print(conference.loc[conference.index[0], 'venueID'])
         row_data = {'venueID': conference.loc[conference.index[0], 'venueID'], 'paperID': row['corpusid']}
         belongs_to = pd.concat([belongs_to, pd.DataFrame([row_data])], ignore_index=True)
     #Journal
     else:
         journal = journals.sample(1)
-        year = random.randint(1940, 2023)
+        year = random.randint(1990, 2023)
         year_period = random.randint(1,7)
         for ny in range(year_period):
             volume = random.randint(1, 20)
@@ -110,7 +109,6 @@ belongs_to.to_csv(OUTPUT_PATH_BELONGS_TO,encoding='utf-8',index=False)
 papers.to_csv(OUTPUT_PATH_PAPERS,encoding='utf-8',index=False)
 cited_by.to_csv(OUTPUT_PATH_CITED_BY,encoding='utf-8',index=False)
 related_to.to_csv(OUTPUT_RELATED_TO,encoding='utf-8',index=False)
-
 
 
 
