@@ -55,7 +55,7 @@ for index, row in papers.iterrows():
     #Journal
     else:
         journal = journals.sample(1)
-        year = random.randint(1940, 2023)
+        year = random.randint(1990, 2023)
         year_period = random.randint(1,7)
         for ny in range(year_period):
             volume = random.randint(1, 20)
