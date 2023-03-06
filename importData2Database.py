@@ -88,7 +88,7 @@ with driver.session() as session:
     LOAD CSV WITH HEADERS FROM "file:///published-in.csv" AS row
     MATCH (journal:Journal {id: row.venueID})
     MATCH (paper:Paper {id: toInteger(row.paperID)})
-    CREATE (paper)-[:PUBLISHED_IN {year: row.year, volume: row.volume, startDate: row.startDate, endDate: row.endDate} ]->(journal);
+    CREATE (paper)-[:PUBLISHED_IN {year: toInteger(row.year), volume: row.volume, startDate: row.startDate, endDate: row.endDate} ]->(journal);
     ''')
 
     # ADD IS_ABOUT RELATIONS
