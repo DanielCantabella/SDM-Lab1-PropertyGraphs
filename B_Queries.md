@@ -12,9 +12,16 @@ RETURN c.id, papers[0..3] AS topPapers
 
 ### 2. Conference author community
 ```Cypher
-
-
+MATCH (c:Conference) <-[:BELONGS_TO]-(p:Paper)-[:WRITTEN_BY]-> (a:Author) WITH c.name AS ConferenceName, a.name AS authorName, COUNT(DISTINCT(p)) as numPapers WHERE numPapers>=4 RETURN ConferenceName, authorName, numPapers  ORDER BY ConferenceName;
 ```
+
+[//]: # (```Cypher)
+
+[//]: # (MATCH &#40;c:Conference&#41; <-[:BELONGS_TO]-&#40;p:Paper&#41;-[:WRITTEN_BY]-> &#40;a:Author&#41; WITH c.name AS ConferenceName, COLLECT&#40;DISTINCT&#40;a&#41;&#41; AS authorCollection, count&#40;distinct&#40;p&#41;&#41; as numPapers WHERE numPapers>=4 RETURN ConferenceName, authorCollection, numPapers  order by ConferenceName)
+
+[//]: # (```)
+
+
 ### 3. Impact factors of the journals in your graph 
 ```Cypher
 MATCH (j:Journal)<-[e:PUBLISHED_IN]-(p:Paper)
@@ -28,6 +35,11 @@ return j.id, year, numCit, numPub1, numPub2, CASE numPub1+numPub2 WHEN 0 THEN 0.
 ```
 ### 4. H-indexes of the authors in your graph
 ```Cypher
-
+MATCH (a:Author)<-[WRITTEN_BY]-(p:Paper) -[c:CITED_BY]-> (:Paper)
+WITH a.name as authorName, p.title AS title, COUNT(c) AS numCites 
+ORDER BY numCites DESC
+WITH authorName, COLLECT(numCites) AS numCitesList
+WITH authorName, [x IN range(1,size(numCitesList)) WHERE x<=numCitesList[x-1]| [numCitesList[x-1],x] ] AS hIndexList
+RETURN authorName,hIndexList[-1][1] AS h_index
 
 ```
