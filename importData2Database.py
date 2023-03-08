@@ -1,9 +1,9 @@
 from neo4j import GraphDatabase
 # password=open('password.txt').readline()
 # print(password)
-#driver = GraphDatabase.driver("bolt://localhost:7687",auth=("dani", "password"))
+driver = GraphDatabase.driver("bolt://localhost:7687",auth=("dani", "password"))
 
-driver = GraphDatabase.driver("bolt://localhost:7687",auth=("neo4j", "admin123"))
+# driver = GraphDatabase.driver("bolt://localhost:7687",auth=("neo4j", "admin123"))
 
 with driver.session() as session:
 
@@ -34,8 +34,8 @@ with driver.session() as session:
     DROP CONSTRAINT communityNameConstraint IF EXISTS;
     ''')
     session.run('''
-       DROP CONSTRAINT volumeConstraint IF EXISTS;
-       ''')
+    DROP CONSTRAINT volumeConstraint IF EXISTS;
+    ''')
 
     # ADD CONSTRAINTS
     session.run('''
@@ -74,7 +74,7 @@ with driver.session() as session:
     # LOAD PAPERS
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///papers-processed.csv" AS rowPaper
-    CREATE (p:Paper {id: toInteger(rowPaper.corpusid), title: rowPaper.title, year:toInteger(rowPaper.year), url: rowPaper.url, openAcces: toBoolean(rowPaper.isopenaccess), publicationDate:date(rowPaper.publicationdate), updated: rowPaper.updated,DOI:rowPaper.DOI, PubMedCentral: rowPaper.PubMedCentral, PubMed:rowPaper.PubMed, DBLP: rowPaper.DBLP, ArXiv: rowPaper.ArXiv, ACL: rowPaper.ACL, MAG: rowPaper.MAG});
+    CREATE (p:Paper {id: toInteger(rowPaper.corpusid), title: rowPaper.title, year: toInteger(rowPaper.year), url: rowPaper.url, openAcces: toBoolean(rowPaper.isopenaccess), publicationDate: date(rowPaper.publicationdate), updated: rowPaper.updated, DOI:rowPaper.DOI, PubMedCentral: rowPaper.PubMedCentral, PubMed:rowPaper.PubMed, DBLP: rowPaper.DBLP, ArXiv: rowPaper.ArXiv, ACL: rowPaper.ACL, MAG: rowPaper.MAG});
      ''')
 
     # LOAD JOURNALS
@@ -182,14 +182,22 @@ with driver.session() as session:
     #Q2
     #Conferences
     session.run('''
-    MATCH (p:Paper)-[:BELONGS_TO]->(conf:Conference)
-    WITH conf.name AS conference, COUNT(p) AS numPapers
-    MATCH (conf2:Conference{name: conference})<-[:BELONGS_TO]-(p:Paper)-[:RELATED_TO]->(k:Keyword)<-[:DEFINED_BY]-(com:Community)
-    WITH conf2.name AS conference2, COUNT(distinct(p)) AS numPapersWithKeywords, numPapers, com
-    WITH conference2, numPapers, numPapersWithKeywords, (toFloat(numPapersWithKeywords)/numPapers) AS percentage, com
+    MATCH (p:Paper)-[:BELONGS_TO]->(e:Edition)-[:IS_FROM]->(conf:Conference)
+    WITH conf.id AS conference, COUNT(p) AS numPapers
+    MATCH (conf2:Conference{id: conference})<-[:IS_FROM]-(e:Edition)<-[:BELONGS_TO]-(p:Paper)-[:RELATED_TO]->(k:Keyword)<-[:DEFINED_BY]-(com:Community)
+    WITH conf2, conf2.id AS conference2, COUNT(distinct(p)) AS numPapersWithKeywords, numPapers, com
+    WITH conf2, conference2, numPapers, numPapersWithKeywords, (toFloat(numPapersWithKeywords)/numPapers) AS percentage, com
     WHERE percentage>=0.9
-    MERGE (:Conference{name: conference2})-[:IN_COMMUNITY]->(com)
+    MERGE (conf2)-[:IN_COMMUNITY]->(com)
     ''')
-    #Journals
-
+    # Journals
+    session.run('''
+    MATCH (p:Paper)-[:PUBLISHED_IN]->(v:Volume)-[:VOLUME_FROM]->(jour:Journal)
+    WITH jour.id AS journal, COUNT(p) AS numPapers
+    MATCH (jour2:Journal{id: journal})<-[:VOLUME_FROM]-(v:Volume)<-[:PUBLISHED_IN]-(p:Paper)-[:RELATED_TO]->(k:Keyword)<-[:DEFINED_BY]-(com:Community)
+    WITH jour2, jour2.id AS journal2, COUNT(distinct(p)) AS numPapersWithKeywords, numPapers, com
+    WITH jour2, journal2, numPapers, numPapersWithKeywords, (toFloat(numPapersWithKeywords)/numPapers) AS percentage, com
+    WHERE percentage>=0.9
+    MERGE (jour2)-[:IN_COMMUNITY]->(com)
+    ''')
 
