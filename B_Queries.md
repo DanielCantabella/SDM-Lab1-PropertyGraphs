@@ -2,12 +2,13 @@
 
 ### 1. Top 3 most cited papers of each conference
 ```Cypher
-MATCH (c:Conference)<-[:BELONGS_TO]-(p:Paper)
-OPTIONAL MATCH (p:Paper)-[e:CITED_BY]->(:Paper)
-WITH c, p, count(e) as numCited
-ORDER BY c.id, numCited DESC
+MATCH (c:Conference)<-[:IS_FROM]-(e:Edition)
+MATCH (e)<-[:BELONGS_TO]-(p:Paper)
+MATCH (p:Paper)-[cb:CITED_BY]->(:Paper)
+WITH c, p, count(cb) as numCited
+ORDER BY c, numCited DESC
 WITH c, COLLECT({paperId: p.id, numCited: numCited}) AS papers
-RETURN c.id, papers[0..3] AS topPapers
+RETURN c.id, c.name, papers[0..3] AS topPapers
 ```
 
 ### 2. Conference author community
@@ -22,9 +23,10 @@ MATCH (c:Conference) <-[:BELONGS_TO]-(p:Paper)-[:WRITTEN_BY]-> (a:Author) WITH c
 
 ### 3. Impact factors of the journals in your graph 
 ```Cypher
-MATCH (j:Journal)<-[e:PUBLISHED_IN]-(p:Paper)
-OPTIONAL MATCH (p)-[e2:CITED_BY]->(p2:Paper {year: toInteger(e.year)-1})
-with j, e.year as year, count(e2) as numCit
+MATCH (j:Journal)<-[e1:VOLUME_FROM]-(v:Volume)
+MATCH (v:Volume)<-[e:PUBLISHED_IN]-(p:Paper)
+OPTIONAL MATCH (p)-[e2:CITED_BY]->(p2:Paper {year: toInteger(v.year)-1})
+with j, v.year as year, count(e2) as numCit
 OPTIONAL MATCH (p)-[e3:PUBLISHED_IN{year:toInteger(year)-1}]->(j)
 WITH j, year, numCit, count(e3) as numPub1
 OPTIONAL MATCH (p)-[e3:PUBLISHED_IN{year:toInteger(year)-2}]->(j)
