@@ -1,216 +1,48 @@
-venueID,conferenceName,edition,startDate,endDate,issn,url
-0rgcy89v-vdki-v9vp-ka1f-yeau2gcfjibs,J-ICOM - Jurnal Informatika dan Teknologi Komputer,1,1964-02-05,1964-02-06,2774-7115,https://ejurnalunsam.id/index.php/jicom
-4q4ctv74-n7ua-z618-570x-6clf5qkvv9ze,OECD Reviews of Tertiary Education,1,1978-09-19,1978-10-18,1997-8936,
-3yvbmfxa-woz8-6ds5-o84l-j82y3cai3mbq,OECD Reviews of Tertiary Education,2,1978-10-19,1978-11-17,1997-8936,
-wr10age6-wff1-a8ye-8zbu-q4c9v0wbk0ej,OECD Reviews of Tertiary Education,3,1978-11-18,1978-12-17,1997-8936,
-xpfd7y8t-jsyx-i8v7-hky1-di3bw22t1bk7,OECD Reviews of Tertiary Education,4,1978-12-18,1979-01-16,1997-8936,
-u769iv6g-8xov-fr6p-nuqz-c6fm6mbmrofu,OECD Reviews of Tertiary Education,5,1979-01-17,1979-02-15,1997-8936,
-fv98i8i4-5zbq-5vzo-6ia5-vhdx3x0uwn2v,OECD Reviews of Tertiary Education,6,1979-02-16,1979-03-17,1997-8936,
-mlyd0y6q-l9yx-eshq-6udy-dytg3up2r2wp,OECD Reviews of Tertiary Education,7,1979-03-18,1979-04-16,1997-8936,
-36rvdlhb-15i4-8c48-juxo-c36sauyoeqsk,OECD Reviews of Tertiary Education,8,1979-04-17,1979-05-16,1997-8936,
-0w1ca5km-cr7k-7mt5-3os7-fg289rm7ez02,OECD Reviews of Tertiary Education,9,1979-05-17,1979-06-15,1997-8936,
-117wj5im-npcp-nezb-a0u9-bcp1slthsun6,Jahrbuch der Hafenbautechnischen Gesellschaft,1,1945-06-24,1945-06-27,0340-4838,
-bxj3o0o6-1z9m-ye5c-si4g-ih3w9b27wsxn,Jahrbuch der Hafenbautechnischen Gesellschaft,2,1945-07-24,1945-07-27,0340-4838,
-ydg6gufn-yl0i-4iak-fvcg-jo31mzddjh3f,Jahrbuch der Hafenbautechnischen Gesellschaft,3,1945-08-23,1945-08-26,0340-4838,
-icw2npp1-vjfa-suzw-odd9-ehpspi9a8q09,Jahrbuch der Hafenbautechnischen Gesellschaft,4,1945-09-22,1945-09-25,0340-4838,
-xxi0cswu-aw6a-sfyl-u2g8-mzemnw14s98k,Jahrbuch der Hafenbautechnischen Gesellschaft,5,1945-10-22,1945-10-25,0340-4838,
-ybqbkmxl-gigr-hexd-qxiq-0fq79h8hvst2,Jahrbuch der Hafenbautechnischen Gesellschaft,6,1945-11-21,1945-11-24,0340-4838,
-pafhg2yw-liya-0npa-0ifl-8r0kytebhzrd,Jahrbuch der Hafenbautechnischen Gesellschaft,7,1945-12-21,1945-12-24,0340-4838,
-8mtt9vbj-tsm1-n5c1-ejkd-9oe2mz18xenf,Jahrbuch der Hafenbautechnischen Gesellschaft,8,1946-01-20,1946-01-23,0340-4838,
-2c8tbncj-7gd0-4yvl-z1gf-cnjitx60qs0l,Jahrbuch der Hafenbautechnischen Gesellschaft,9,1946-02-19,1946-02-22,0340-4838,
-faj7g3p9-4bxs-3xs8-vmkc-xdg5x0lgeoyi,Kafkas Üniversitesi harakani dergisi,1,1987-07-21,1987-08-07,2147-6950,http://www.dergipark.ulakbim.gov.tr/harakani
-6g57o75v-u0rv-4lpg-d7jx-cijkzl9p6l56,Kafkas Üniversitesi harakani dergisi,2,1987-08-20,1987-09-06,2147-6950,http://www.dergipark.ulakbim.gov.tr/harakani
-a4jrw62o-e14z-ud10-fu23-ahcwxup994vo,Kafkas Üniversitesi harakani dergisi,3,1987-09-19,1987-10-06,2147-6950,http://www.dergipark.ulakbim.gov.tr/harakani
-cli2m41a-wirw-8tew-ndh9-i7a560z5emlw,Kafkas Üniversitesi harakani dergisi,4,1987-10-19,1987-11-05,2147-6950,http://www.dergipark.ulakbim.gov.tr/harakani
-ov05hzew-6ygm-qfhx-lmfe-1212c0dgt6zy,Kafkas Üniversitesi harakani dergisi,5,1987-11-18,1987-12-05,2147-6950,http://www.dergipark.ulakbim.gov.tr/harakani
-vxwevlhb-2z6u-cnsu-sju4-xo8c4jnvp49o,Kafkas Üniversitesi harakani dergisi,6,1987-12-18,1988-01-04,2147-6950,http://www.dergipark.ulakbim.gov.tr/harakani
-tkm34v42-3r1s-fz3g-uy7i-odk062rpsl7p,Kafkas Üniversitesi harakani dergisi,7,1988-01-17,1988-02-03,2147-6950,http://www.dergipark.ulakbim.gov.tr/harakani
-0fy9ex3i-kwii-t0jk-3rom-smdtm2blkvku,Kafkas Üniversitesi harakani dergisi,8,1988-02-16,1988-03-04,2147-6950,http://www.dergipark.ulakbim.gov.tr/harakani
-cwnfl31l-g97d-pg0j-ptk2-ixzb5t11kjmo,Zonguldak karaelmas üniversitesi sosyal bilimler dergisi,1,1949-02-07,1949-02-08,1303-9245,
-t26jmk7k-o5hg-tlb5-zo9o-1erq9trpjnma,Zonguldak karaelmas üniversitesi sosyal bilimler dergisi,2,1949-03-09,1949-03-10,1303-9245,
-f06t5el3-u6e1-8tg2-bjqv-i23th54wxhow,Zonguldak karaelmas üniversitesi sosyal bilimler dergisi,3,1949-04-08,1949-04-09,1303-9245,
-r7fgawx2-2yjl-plvn-2j9p-1xykqxz81ao4,Behaviorists for Social Action journal,1,2003-01-28,2003-02-26,0739-5051,
-oojw2ua3-v3dp-bqir-l5lk-p7ilrz94dy0q,Behaviorists for Social Action journal,2,2003-02-27,2003-03-28,0739-5051,
-uieo2tfx-k0r3-84cd-pj31-og75cximobee,Behaviorists for Social Action journal,3,2003-03-29,2003-04-27,0739-5051,
-686485sm-uzm7-nmc7-mtr4-si8zuipjexox,Behaviorists for Social Action journal,4,2003-04-28,2003-05-27,0739-5051,
-dbxczvgk-mt0p-2tmv-s4q5-x6xk357eij1d,Sensing the Past,1,1995-06-06,1995-06-09,2365-0583,
-xz5nnvbn-okiq-p1i6-yyma-eokpd5vvnzz9,Sensing the Past,2,1995-07-06,1995-07-09,2365-0583,
-e8tyl1lu-ow8c-l1v3-hb5b-dzekgivmqpmp,Sensing the Past,3,1995-08-05,1995-08-08,2365-0583,
-2bce6n4v-9ik5-4ph1-g3ew-ej28o9ipopkf,Sensing the Past,4,1995-09-04,1995-09-07,2365-0583,
-rtgppaqx-xhp6-taer-f77z-pxv3n915cedg,Sensing the Past,5,1995-10-04,1995-10-07,2365-0583,
-g4zm77a9-nwji-ktqe-2bfr-6eq03vhi3i8t,Sensing the Past,6,1995-11-03,1995-11-06,2365-0583,
-89u5skmo-3uef-4p2z-pytu-88r99b7g2ii4,Sensing the Past,7,1995-12-03,1995-12-06,2365-0583,
-3hripfgs-viu1-sfpd-7zx1-cqos38n3ennk,Science Spectra,1,1978-07-16,1978-08-13,2155-2193,http://www.crcnetbase.com/series/crcscispectr
-6tiulsfz-wp02-kas6-ao21-ksttdp2oacxs,Science Spectra,2,1978-08-15,1978-09-12,2155-2193,http://www.crcnetbase.com/series/crcscispectr
-em3kb9jh-jl99-87ad-fp34-76wl05gbqnyv,International Conference on Parallel and Distributed Processing Techniques and Applications,1,1952-11-09,1952-12-05,,
-6b8llmsl-5bzi-u583-sjho-4uenxbnt50c4,International Conference on Parallel and Distributed Processing Techniques and Applications,2,1952-12-09,1953-01-04,,
-3onyh9yw-gmmc-o77m-lq0s-lgat9q1fauz0,International Conference on Parallel and Distributed Processing Techniques and Applications,3,1953-01-08,1953-02-03,,
-wt35yjlf-1fxn-da0l-gotx-rkt8k749ctss,International Conference on Parallel and Distributed Processing Techniques and Applications,4,1953-02-07,1953-03-05,,
-ybe8dwfq-e8nc-8637-cisq-v80rl9mn30pb,International Conference on Parallel and Distributed Processing Techniques and Applications,5,1953-03-09,1953-04-04,,
-kr05dvs7-cm4i-xwxu-9xch-luqm6vp4s89o,International Conference on Parallel and Distributed Processing Techniques and Applications,6,1953-04-08,1953-05-04,,
-5w1w55dg-y9i8-s5er-shhl-5wjxenwe1h1d,Jurnal Formil (Forum Ilmiah) Kesmas Respati,1,2022-03-31,2022-04-27,2502-5570,http://formilkesmas.respati.ac.id/index.php/formil
-2l6pdn7k-lca9-khpv-c8p4-ywludi1p7hre,Jurnal Formil (Forum Ilmiah) Kesmas Respati,2,2022-04-30,2022-05-27,2502-5570,http://formilkesmas.respati.ac.id/index.php/formil
-8eb9fwj2-703d-doek-bymn-7fsdz3834tfi,Jurnal Formil (Forum Ilmiah) Kesmas Respati,3,2022-05-30,2022-06-26,2502-5570,http://formilkesmas.respati.ac.id/index.php/formil
-05ph1w6m-yuwi-wgdy-f37r-8xu5e9vbl00y,Jurnal Formil (Forum Ilmiah) Kesmas Respati,4,2022-06-29,2022-07-26,2502-5570,http://formilkesmas.respati.ac.id/index.php/formil
-27stx64o-4vyf-rupm-en9v-1c4l2vda2ctf,Jurnal Formil (Forum Ilmiah) Kesmas Respati,5,2022-07-29,2022-08-25,2502-5570,http://formilkesmas.respati.ac.id/index.php/formil
-ulrigjex-v7my-5tn8-fsqi-yrdgho3doiye,Química e industria,1,1986-06-04,1986-06-16,0033-6521,
-u1hsda9m-lv9r-xwv0-3r7e-b1sdmq0kvvyi,Química e industria,2,1986-07-04,1986-07-16,0033-6521,
-vtm027q9-87wq-x7pd-xbl3-cjbeino3kgo8,Sustainable Technologies for Green Economy,1,1952-08-10,1952-09-03,2669-2457,
-6ca7ikhz-om5l-ce4x-pfy0-xvcdb6r84rc4,Sustainable Technologies for Green Economy,2,1952-09-09,1952-10-03,2669-2457,
-uybuxp2q-9xib-0bl2-a436-k0zx48xvxs7u,Rect@,1,1993-10-30,1993-11-21,1575-605X,http://www.revistarecta.com/
-8u7rymkb-lug4-rftu-gqk8-rwa4qe9wj0dc,Rect@,2,1993-11-29,1993-12-21,1575-605X,http://www.revistarecta.com/
-0f7rkinq-4fwb-a4u5-h2nu-pves10oqlgx6,Rect@,3,1993-12-29,1994-01-20,1575-605X,http://www.revistarecta.com/
-rrsoufi4-gtjd-zf5g-p4ye-emswze9my355,Rect@,4,1994-01-28,1994-02-19,1575-605X,http://www.revistarecta.com/
-o1x14ez4-soi2-6375-ta37-6s5hvyeqcdbh,Rect@,5,1994-02-27,1994-03-21,1575-605X,http://www.revistarecta.com/
-tpm8gj6d-n3f3-uhhx-2lee-ocvkarhmues5,Rect@,6,1994-03-29,1994-04-20,1575-605X,http://www.revistarecta.com/
-fgnvz31m-fshp-osei-c1y1-j1sxzvn5l3qy,Rect@,7,1994-04-28,1994-05-20,1575-605X,http://www.revistarecta.com/
-uvdzxrqz-6kph-yci8-pk4v-o4vq5ro2v4gr,Rect@,8,1994-05-28,1994-06-19,1575-605X,http://www.revistarecta.com/
-o7pdloo0-e4a8-82ui-q8dv-wpua0qrxn5cr,"Progress in nuclear energy.  Series 9, Analytical chemistry",1,2015-05-26,2015-06-14,0079-6530,
-jqhh1479-ukpo-4aan-13wb-j2eti99u0p0j,L Endocrinologo,1,1995-03-07,1995-04-03,1590-170X,https://link.springer.com/journal/40619
-prgau7ed-4qae-flzk-zrl8-xdu8saixa1os,L Endocrinologo,2,1995-04-06,1995-05-03,1590-170X,https://link.springer.com/journal/40619
-wnin7y9c-vc1h-5aoy-9ogr-2rlqurkqob3g,The chronic*ill,1,1945-09-20,1945-09-24,1811-9514,http://www.mcppnet.org/
-n4gbt7v1-ml9c-io5k-b6in-oivppe6sdcn4,The chronic*ill,2,1945-10-20,1945-10-24,1811-9514,http://www.mcppnet.org/
-hsbjqko2-04n8-gb4x-ygcq-66a0lopjh6j0,The chronic*ill,3,1945-11-19,1945-11-23,1811-9514,http://www.mcppnet.org/
-swehv3gn-suki-hs2n-17bf-2ij8z4e3b2do,The chronic*ill,4,1945-12-19,1945-12-23,1811-9514,http://www.mcppnet.org/
-hzd9qep6-kj4i-70ni-oup0-6tiblgnnjfed,The chronic*ill,5,1946-01-18,1946-01-22,1811-9514,http://www.mcppnet.org/
-2k6g0n5m-80dd-bexw-5ikl-yd8um9j2zwxa,The chronic*ill,6,1946-02-17,1946-02-21,1811-9514,http://www.mcppnet.org/
-698pyttj-zvdn-tttu-94ac-cdgy7xfi7ejv,Hematology Blood Transfusion & Disorders,1,1986-07-21,1986-07-24,2572-2999,http://www.heraldopenaccess.us/journals/Hematology-Blood-Transfusion-&-Disorders/archive.php
-wdsn4os2-a345-nejz-gjrw-f70r0hr6zlj4,Hematology Blood Transfusion & Disorders,2,1986-08-20,1986-08-23,2572-2999,http://www.heraldopenaccess.us/journals/Hematology-Blood-Transfusion-&-Disorders/archive.php
-16fct0y5-yu3u-zk7o-mbdd-umdz4w0xrz78,Hematology Blood Transfusion & Disorders,3,1986-09-19,1986-09-22,2572-2999,http://www.heraldopenaccess.us/journals/Hematology-Blood-Transfusion-&-Disorders/archive.php
-tapjki29-acjt-8ztf-ap96-x2h800r67fcx,Hematology Blood Transfusion & Disorders,4,1986-10-19,1986-10-22,2572-2999,http://www.heraldopenaccess.us/journals/Hematology-Blood-Transfusion-&-Disorders/archive.php
-m5d6xbre-0if1-vgi2-r2at-3t5ea7kgboxf,Hematology Blood Transfusion & Disorders,5,1986-11-18,1986-11-21,2572-2999,http://www.heraldopenaccess.us/journals/Hematology-Blood-Transfusion-&-Disorders/archive.php
-tzonzgh2-uh1m-2mk6-kjgy-b9ofqchisnot,Hematology Blood Transfusion & Disorders,6,1986-12-18,1986-12-21,2572-2999,http://www.heraldopenaccess.us/journals/Hematology-Blood-Transfusion-&-Disorders/archive.php
-8t8sak69-xonr-0c38-t9eb-vqybehs1flyl,Hematology Blood Transfusion & Disorders,7,1987-01-17,1987-01-20,2572-2999,http://www.heraldopenaccess.us/journals/Hematology-Blood-Transfusion-&-Disorders/archive.php
-bbd5hrrb-3b42-zya1-mf1s-j6uupuvtjzvi,Hematology Blood Transfusion & Disorders,8,1987-02-16,1987-02-19,2572-2999,http://www.heraldopenaccess.us/journals/Hematology-Blood-Transfusion-&-Disorders/archive.php
-a8gzb0k8-yd4h-obhy-aopq-zqv38o7z00y3,Dorsal,1,2005-06-10,2005-06-23,0719-7519,http://www.revistas.cenaltes.cl/index.php/dorsal
-2akylbr3-gqrb-cnho-guwm-p5qf5p0g5kpl,Dorsal,2,2005-07-10,2005-07-23,0719-7519,http://www.revistas.cenaltes.cl/index.php/dorsal
-cpm003fm-y9r5-dx85-ks3u-jia4s3rs33cc,Dorsal,3,2005-08-09,2005-08-22,0719-7519,http://www.revistas.cenaltes.cl/index.php/dorsal
-mrlx0sj8-aut7-xjdv-0t3r-5glriiexrvll,Beiträge zur älteren Deutschen Literaturgeschichte,1,1988-11-07,1988-11-14,0171-6751,
-ufnmmxsj-nf6g-ilyf-5k2f-1sd2c95msqq9,States of Fragility 2020,1,1975-01-07,1975-01-08,2708-8596,
-m4tek3n2-wjuy-rxl8-t0e3-sgsveltcs0pu,States of Fragility 2020,2,1975-02-06,1975-02-07,2708-8596,
-7hj7oleh-yn0k-hc1l-lvhy-3gze0s3sq5m4,States of Fragility 2020,3,1975-03-08,1975-03-09,2708-8596,
-wa8c89ht-bb8l-os9w-3cr5-1a62sn2e9a35,States of Fragility 2020,4,1975-04-07,1975-04-08,2708-8596,
-vdmem5ac-vux3-9roq-ny3f-mj6vyeyvrplt,States of Fragility 2020,5,1975-05-07,1975-05-08,2708-8596,
-y7l4dx74-3a1d-a51e-pbsh-n0cdfnue7d4t,States of Fragility 2020,6,1975-06-06,1975-06-07,2708-8596,
-37yh9px6-abl2-nl9k-ewar-majsb5qdn9b2,International Conference on Performance Evaluation and Modeling in Wired and Wireless Networks,1,2014-04-30,2014-05-06,,
-veg0a58r-ehmg-v8sm-9onn-sggo8m841gc6,International Conference on Performance Evaluation and Modeling in Wired and Wireless Networks,2,2014-05-30,2014-06-05,,
-m8ak27ay-p2eg-528l-iyww-bsvqg9h55h49,International Conference on Performance Evaluation and Modeling in Wired and Wireless Networks,3,2014-06-29,2014-07-05,,
-afvrw515-nluk-2gks-pkp2-n0thqnqq38kd,International Conference on Performance Evaluation and Modeling in Wired and Wireless Networks,4,2014-07-29,2014-08-04,,
-2kt6vr0j-i31k-t9xb-y5f8-qcsl2jdivhiq,International Conference on Performance Evaluation and Modeling in Wired and Wireless Networks,5,2014-08-28,2014-09-03,,
-hx8375uf-caxl-523b-gyp5-u16b15t7u30e,Den Ny Verden - Tidsskrift for internationale studier,1,1982-05-31,1982-06-04,0029-6775,
-9ut2l7jg-78sr-wu0e-49wb-5lt2yg2ewcm9,Den Ny Verden - Tidsskrift for internationale studier,2,1982-06-30,1982-07-04,0029-6775,
-yb86igjk-y342-5048-gds9-8ppnu2yq8s3a,Revista Ecuatoriana de Arbitraje,1,1976-01-14,1976-01-28,2600-5611,
-x2fctz6y-1cou-dyv8-0qos-kk9bitemibzr,Revista Ecuatoriana de Arbitraje,2,1976-02-13,1976-02-27,2600-5611,
-irpgjy1p-fjq7-qfa0-r0ed-jfgp5spiqfjl,Revista Ecuatoriana de Arbitraje,3,1976-03-14,1976-03-28,2600-5611,
-clwfhg7i-xk8k-wb9y-v0in-ho2j1xg23gnm,Revista Ecuatoriana de Arbitraje,4,1976-04-13,1976-04-27,2600-5611,
-jcy91p1y-py3z-1pjm-nxag-web1xlo309n9,Revista Ecuatoriana de Arbitraje,5,1976-05-13,1976-05-27,2600-5611,
-696g34rg-awqq-ojbt-xtg7-box18vuf7920,Revista Ecuatoriana de Arbitraje,6,1976-06-12,1976-06-26,2600-5611,
-8cng6pjh-fety-1bsq-xgmz-mlx19426v64z,Schulkulturen in Migrationsgesellschaften,1,2016-03-25,2016-04-17,2512-143X,
-2xz1s7ux-s7n3-ibin-4o8x-qi1gug29syt1,Schulkulturen in Migrationsgesellschaften,2,2016-04-24,2016-05-17,2512-143X,
-cs5niqmv-u4wv-ihfn-cgmd-gs4deapxi2iz,Schulkulturen in Migrationsgesellschaften,3,2016-05-24,2016-06-16,2512-143X,
-ecea92vs-gutv-v95k-s4fb-8q9t4dlaqg9y,Schulkulturen in Migrationsgesellschaften,4,2016-06-23,2016-07-16,2512-143X,
-h9yn8oi7-s3gl-1cz8-4ys2-2a7sibeo61pq,Schulkulturen in Migrationsgesellschaften,5,2016-07-23,2016-08-15,2512-143X,
-dkp3qz3r-3ycn-7wrz-lnsm-e8b2vdldaip8,Cardio News,1,2013-03-20,2013-04-02,1437-1073,http://app.cardionews.de/ePaper/
-3urrzlud-lgj2-l7a1-0vsj-9aadxlv0n63e,Cardio News,2,2013-04-19,2013-05-02,1437-1073,http://app.cardionews.de/ePaper/
-1te1k7xk-cy6z-eeo2-2atn-uxv92lmyqp3i,Cardio News,3,2013-05-19,2013-06-01,1437-1073,http://app.cardionews.de/ePaper/
-tm9lr7tg-wvlz-gkpw-d68s-eshrgyuoddth,Acta Universitatis Carolinae: Philologica,1,1942-10-29,1942-11-09,0567-8269,https://www.ceeol.com/search/journal-detail?id=336
-go564n5r-2qal-fkev-5vw8-ac0oq0bmaqni,Acta Universitatis Carolinae: Philologica,2,1942-11-28,1942-12-09,0567-8269,https://www.ceeol.com/search/journal-detail?id=336
-hkbyqwpn-v59g-azaw-9xjp-tmw8lpdza4r9,Acta Universitatis Carolinae: Philologica,3,1942-12-28,1943-01-08,0567-8269,https://www.ceeol.com/search/journal-detail?id=336
-5h5zome2-hgfr-uvqc-5fkj-fdvz2uf0xwrj,Acta Universitatis Carolinae: Philologica,4,1943-01-27,1943-02-07,0567-8269,https://www.ceeol.com/search/journal-detail?id=336
-an48sqqz-p0ec-xbot-5fiv-kgbj9aesbznz,Acta Universitatis Carolinae: Philologica,5,1943-02-26,1943-03-09,0567-8269,https://www.ceeol.com/search/journal-detail?id=336
-olhr6cks-h5bp-7jce-ezss-m3vjjxul6poi,Acta Universitatis Carolinae: Philologica,6,1943-03-28,1943-04-08,0567-8269,https://www.ceeol.com/search/journal-detail?id=336
-3iwevbq5-byql-nezw-nxix-jutl9ptzx4sj,Acta Universitatis Carolinae: Philologica,7,1943-04-27,1943-05-08,0567-8269,https://www.ceeol.com/search/journal-detail?id=336
-2vzkcesr-9l8r-83an-4id2-uuyhzm0gwej6,Acta Universitatis Carolinae: Philologica,8,1943-05-27,1943-06-07,0567-8269,https://www.ceeol.com/search/journal-detail?id=336
-pg7d5snv-swuv-w3jy-3q25-o54hythccdzt,Acta Universitatis Carolinae: Philologica,9,1943-06-26,1943-07-07,0567-8269,https://www.ceeol.com/search/journal-detail?id=336
-o38k5amk-w92k-3qm3-y21j-nsqow5jjvx72,Journal for Christian Scholarship = Tydskrif vir Christelike Wetenskap,1,1993-11-01,1993-11-12,1013-1116,
-pyt9q7r4-no7a-t8cs-e8ck-cmfltycy4f81,Journal for Christian Scholarship = Tydskrif vir Christelike Wetenskap,2,1993-12-01,1993-12-12,1013-1116,
-ml231o57-x0qq-fuc3-9mcv-5fkdigucfa2r,Journal for Christian Scholarship = Tydskrif vir Christelike Wetenskap,3,1993-12-31,1994-01-11,1013-1116,
-1zhchvkj-etm8-r35x-jgyx-y2hjlhm20qct,Journal for Christian Scholarship = Tydskrif vir Christelike Wetenskap,4,1994-01-30,1994-02-10,1013-1116,
-y84wrq7z-o7dp-nk33-nr3s-67nip8uwgmxb,Journal for Christian Scholarship = Tydskrif vir Christelike Wetenskap,5,1994-03-01,1994-03-12,1013-1116,
-8ari6bic-d9g4-30v5-td2x-m9brn2uri6hl,Journal for Christian Scholarship = Tydskrif vir Christelike Wetenskap,6,1994-03-31,1994-04-11,1013-1116,
-x8e2a32a-kzgx-ks2r-9hvy-b0483vj1tf3n,Journal for Christian Scholarship = Tydskrif vir Christelike Wetenskap,7,1994-04-30,1994-05-11,1013-1116,
-nikrza61-vfdn-9vp1-ewk4-zymx5sw4jhjf,Consequences. The nature and implications of environmental change,1,1989-02-11,1989-03-05,0310-8228,http://www.gcrio.org/CONSEQUENCES/index.htm
-gipbycto-h7gk-eex6-1qri-uuhuatx9hlm4,Consequences. The nature and implications of environmental change,2,1989-03-13,1989-04-04,0310-8228,http://www.gcrio.org/CONSEQUENCES/index.htm
-51hjlaw6-ig7d-jmrf-4o5b-7qat3yglw94a,Consequences. The nature and implications of environmental change,3,1989-04-12,1989-05-04,0310-8228,http://www.gcrio.org/CONSEQUENCES/index.htm
-dmo1kkyd-t5ib-drc4-8s4v-uavkk8sk3jts,Consequences. The nature and implications of environmental change,4,1989-05-12,1989-06-03,0310-8228,http://www.gcrio.org/CONSEQUENCES/index.htm
-op0ce3t4-jonu-93im-4mn2-zofwgkbw9luw,Sociolinguistics in African Contexts,1,2021-04-23,2021-05-16,2213-3208,
-rate04d0-lygl-zmwl-9osz-cm6f3ujempn9,Cahiers de Géographie du Québec,1,1961-11-24,1961-12-08,0007-9766,http://www.cgq.ulaval.ca/
-dt3jxbzu-01ek-14hr-6uh3-5575u1l6rxni,Cahiers de Géographie du Québec,2,1961-12-24,1962-01-07,0007-9766,http://www.cgq.ulaval.ca/
-zn8u34e5-enlb-t3kz-mmli-iexl925jhwo9,Drake law review,1,1978-10-17,1978-10-29,0012-5938,
-hydy880v-fb4x-541g-akrb-avo569z5aqct,International Conference on Digital Signal Processing,1,2019-03-16,2019-03-18,1546-1874,http://www.dspconferences.org/
-yt6hc6zs-t4x4-t1d6-54qx-gt6f57bnpnsk,International Conference on Digital Signal Processing,2,2019-04-15,2019-04-17,1546-1874,http://www.dspconferences.org/
-pcx20r67-te4i-l6co-wv6c-76gb6sgdb7mh,International Conference on Digital Signal Processing,3,2019-05-15,2019-05-17,1546-1874,http://www.dspconferences.org/
-wroerucx-tlij-ylxc-7ca1-hzwdw5iasd80,International Conference on Digital Signal Processing,4,2019-06-14,2019-06-16,1546-1874,http://www.dspconferences.org/
-z4nv5mxa-glzf-iado-pkzl-qdhdr9rfipbc,International Conference on Digital Signal Processing,5,2019-07-14,2019-07-16,1546-1874,http://www.dspconferences.org/
-9h5v97tb-bif4-7qc7-36ni-yw7qsi7wipry,Energy Statistics Yearbook (Ser. J),1,1944-04-05,1944-04-26,0256-6400,
-tq2h6996-97jz-z46n-k3tb-4xr3su6j3ahh,Energy Statistics Yearbook (Ser. J),2,1944-05-05,1944-05-26,0256-6400,
-m4isbdxg-j7k1-qlua-khlx-wh5p55fqkwb4,Energy Statistics Yearbook (Ser. J),3,1944-06-04,1944-06-25,0256-6400,
-gvjaqx5k-8u64-lotn-rpgg-i6q5gsetf25v,Energy Statistics Yearbook (Ser. J),4,1944-07-04,1944-07-25,0256-6400,
-qnag19xk-3qu4-bgd7-hqf2-4tanbo1f4nyp,Energy Statistics Yearbook (Ser. J),5,1944-08-03,1944-08-24,0256-6400,
-qr1bgvef-y2kl-i9rm-6fxg-kljlx176ywdm,Energy Statistics Yearbook (Ser. J),6,1944-09-02,1944-09-23,0256-6400,
-oa74b18c-zxjq-ywsl-pu2i-plkbpnjbf44b,Energy Statistics Yearbook (Ser. J),7,1944-10-02,1944-10-23,0256-6400,
-eoqnc8ic-ikj0-0n13-hhdm-myib75jsnvxx,Energy Statistics Yearbook (Ser. J),8,1944-11-01,1944-11-22,0256-6400,
-10dk5abb-f5he-vzzu-pjti-oszfjvg6rqfv,Handbook of the Geometry of Banach Spaces,1,1956-05-28,1956-06-07,1874-5849,http://www.sciencedirect.com/science/handbooks/18745849
-xzjxdzgk-bv5b-e4v8-dpnh-rnqvz147x5k5,International Conference on Biometrics,1,1992-01-07,1992-01-07,,http://www.wikicfp.com/cfp/program?id=1292
-hwwp8gxs-vy46-uav3-74bj-ap1p7ne17sha,International Conference on Biometrics,2,1992-02-06,1992-02-06,,http://www.wikicfp.com/cfp/program?id=1292
-jndruz0t-9a4r-y0yn-ddgx-c4pqr8p2axzb,International Conference on Biometrics,3,1992-03-07,1992-03-07,,http://www.wikicfp.com/cfp/program?id=1292
-x4n86xr3-msv7-7tp2-mp4n-kft1paaev5jj,International Conference on Biometrics,4,1992-04-06,1992-04-06,,http://www.wikicfp.com/cfp/program?id=1292
-7vwfg5yy-ze4c-0vle-p2cc-565d3wvb3p6j,International Conference on Biometrics,5,1992-05-06,1992-05-06,,http://www.wikicfp.com/cfp/program?id=1292
-0fhnjrvc-pjev-c8m2-7ci5-q5t4s14raosj,International Conference on Biometrics,6,1992-06-05,1992-06-05,,http://www.wikicfp.com/cfp/program?id=1292
-h89opn0d-ho5z-171q-hne9-b8zyeqk69wij,International Conference on Biometrics,7,1992-07-05,1992-07-05,,http://www.wikicfp.com/cfp/program?id=1292
-w8kts2oz-r6pt-k5xf-5kc0-hcsdjnucm8e0,International Conference on Biometrics,8,1992-08-04,1992-08-04,,http://www.wikicfp.com/cfp/program?id=1292
-oegg4o0h-juyu-i7xq-xo34-yedoumhcojum,International Conference on Biometrics,9,1992-09-03,1992-09-03,,http://www.wikicfp.com/cfp/program?id=1292
-itan7ill-ubza-yzso-oge5-uiwn6d14bxpe,Journal of Psychiatric Administration and Management,1,1951-03-13,1951-04-03,2163-3878,
-bf8pq8n6-wiaj-i32h-ewaa-tb8qpaxvso61,Journal of Psychiatric Administration and Management,2,1951-04-12,1951-05-03,2163-3878,
-67nqkjhr-3j23-no3r-dkpk-c9po6tj3sx81,Journal of Psychiatric Administration and Management,3,1951-05-12,1951-06-02,2163-3878,
-absy3nsx-rlra-2nhg-g79j-klblexoor2n4,Journal of Psychiatric Administration and Management,4,1951-06-11,1951-07-02,2163-3878,
-h9la5u8d-s8ok-x63v-kjtn-qrz3e853gem7,Journal of Psychiatric Administration and Management,5,1951-07-11,1951-08-01,2163-3878,
-889t6ig4-7r5f-patp-6leb-0twbfa7q1r4v,Journal of Psychiatric Administration and Management,6,1951-08-10,1951-08-31,2163-3878,
-9euqos0e-2bjn-zc4x-az1z-tujaard43tuw,Journal of Psychiatric Administration and Management,7,1951-09-09,1951-09-30,2163-3878,
-57e53r6u-punt-c1lu-8f6c-4sbsuwq6h57n,Journal of Psychiatric Administration and Management,8,1951-10-09,1951-10-30,2163-3878,
-8tkmioqn-06pf-nvun-6rzh-1ov2oqbn6kva,Journal of Psychiatric Administration and Management,9,1951-11-08,1951-11-29,2163-3878,
-yojmrn2v-k9w3-33cr-o0hq-9n5s00c9sdfq,Deutsche Zeitschrift für Philosophie. Sonderband,1,1984-08-20,1984-09-11,1617-3325,
-wja6w90e-iuaa-7iao-6x4g-vaqlhtmynyvk,Deutsche Zeitschrift für Philosophie. Sonderband,2,1984-09-19,1984-10-11,1617-3325,
-mc3u4x4z-bn5g-qskr-vuzy-5re4lc2w23ie,Stavanger Museums årbok,1,1953-10-30,1953-11-21,0333-0656,
-x0h4uuli-9ws8-hfci-ovx9-5enunf6eidba,Stavanger Museums årbok,2,1953-11-29,1953-12-21,0333-0656,
-19mzthdz-4vff-2unv-oo4d-kxumsuacf2e9,Perspectives in Healthcare Risk Management,1,1940-02-18,1940-02-23,0899-1073,http://onlinelibrary.wiley.com/journal/10.1002/(ISSN)2040-0861/issues
-qg2dymfg-p606-459h-g8o7-hysby1x9ol7y,Perspectives in Healthcare Risk Management,2,1940-03-19,1940-03-24,0899-1073,http://onlinelibrary.wiley.com/journal/10.1002/(ISSN)2040-0861/issues
-f284dpps-fet3-uh6c-zvd8-zl8zslelp01d,Perspectives in Healthcare Risk Management,3,1940-04-18,1940-04-23,0899-1073,http://onlinelibrary.wiley.com/journal/10.1002/(ISSN)2040-0861/issues
-ow8u0882-eltb-kycf-vzv2-q5aqerx2agof,Perspectives in Healthcare Risk Management,4,1940-05-18,1940-05-23,0899-1073,http://onlinelibrary.wiley.com/journal/10.1002/(ISSN)2040-0861/issues
-j8qti5dz-y143-izc6-idje-ilyjthftqmcu,Perspectives in Healthcare Risk Management,5,1940-06-17,1940-06-22,0899-1073,http://onlinelibrary.wiley.com/journal/10.1002/(ISSN)2040-0861/issues
-qvglgfzl-wq05-3zd4-wzcc-knl1eltt3g3v,LACUS forum,1,2018-08-21,2018-08-30,0195-377X,http://www.lacus.org/volumes/
-z3qgaapc-9jfm-q4sy-mmo1-b32xwzi37yzt,LACUS forum,2,2018-09-20,2018-09-29,0195-377X,http://www.lacus.org/volumes/
-iv2uyasc-ljzy-6keb-h1bz-fjzybna77efe,Nuberos científica,1,1993-04-10,1993-04-14,2173-822X,http://nc.enfermeriacantabria.com/index.php/nc/index
-j7fw3w6d-k6ey-jvvy-hqgq-bs93mg3t6z7r,Nuberos científica,2,1993-05-10,1993-05-14,2173-822X,http://nc.enfermeriacantabria.com/index.php/nc/index
-2uvaxupb-rfww-3e87-ofi3-dr78jpnvwvd9,Nuberos científica,3,1993-06-09,1993-06-13,2173-822X,http://nc.enfermeriacantabria.com/index.php/nc/index
-u0ectp6o-dq93-ehgs-33gd-95evaq5mdgqi,Nuberos científica,4,1993-07-09,1993-07-13,2173-822X,http://nc.enfermeriacantabria.com/index.php/nc/index
-tty8ga0g-rrin-1wmx-ah47-sb9iekwtq0m5,Nuberos científica,5,1993-08-08,1993-08-12,2173-822X,http://nc.enfermeriacantabria.com/index.php/nc/index
-uhrnffgx-47z6-qquz-2pqa-bp9842u7iaht,Nuberos científica,6,1993-09-07,1993-09-11,2173-822X,http://nc.enfermeriacantabria.com/index.php/nc/index
-9t0gy4z7-4rx1-i53s-tkn0-66ba4vfxh6uy,Springer International Handbooks of Education,1,1952-04-19,1952-05-13,2197-1951,https://www.springer.com/series/6189
-bmdawsq3-km3l-ibap-enlm-rnaaxg4wep89,Springer International Handbooks of Education,2,1952-05-19,1952-06-12,2197-1951,https://www.springer.com/series/6189
-6sq24eu0-r7d0-qdtf-ihpa-r42d2b2r6ieu,Springer International Handbooks of Education,3,1952-06-18,1952-07-12,2197-1951,https://www.springer.com/series/6189
-3up2dj3o-2quw-924z-siz0-3wfrjjd77gqa,Springer International Handbooks of Education,4,1952-07-18,1952-08-11,2197-1951,https://www.springer.com/series/6189
-u7r55cna-u8i9-vkko-03bv-bwzp3ua31tar,Springer International Handbooks of Education,5,1952-08-17,1952-09-10,2197-1951,https://www.springer.com/series/6189
-5s6x5age-rgq0-ppgw-anag-a71aizp5cg05,Springer International Handbooks of Education,6,1952-09-16,1952-10-10,2197-1951,https://www.springer.com/series/6189
-539lddst-70yq-j5wg-wqgr-poksq3cnmswm,Springer International Handbooks of Education,7,1952-10-16,1952-11-09,2197-1951,https://www.springer.com/series/6189
-8c0fk6n7-yn1e-kex7-4v65-w2yhmz7fkisu,Springer International Handbooks of Education,8,1952-11-15,1952-12-09,2197-1951,https://www.springer.com/series/6189
-a6irdiud-g7k7-769s-dnz5-twaofmtxahjc,Springer International Handbooks of Education,9,1952-12-15,1953-01-08,2197-1951,https://www.springer.com/series/6189
-ob812opx-9qe9-yvf7-wrbe-x1r1qxpkcrda,Ascagen. Revista de la Asociación Cántabra de Genealogía,1,1961-05-01,1961-05-28,1989-5267,http://ascagen.es/
-laj4kqle-oroj-5ffu-o0h8-7p1zpwil14u7,Ascagen. Revista de la Asociación Cántabra de Genealogía,2,1961-05-31,1961-06-27,1989-5267,http://ascagen.es/
-zxmqc86y-ghub-kljv-qezl-txbim736c2ze,Ascagen. Revista de la Asociación Cántabra de Genealogía,3,1961-06-30,1961-07-27,1989-5267,http://ascagen.es/
-q8tweeqq-k9ho-akuz-htw3-d1qymo89qyy4,Ascagen. Revista de la Asociación Cántabra de Genealogía,4,1961-07-30,1961-08-26,1989-5267,http://ascagen.es/
-tpp089ps-ive1-5sct-1szg-5ccyuhwprg0k,International Mediterranean Conference on Communications and Networking,1,2010-01-21,2010-02-13,,https://ieeexplore.ieee.org/xpl/conhome/1844324/all-proceedings
-x5007g54-9gj4-215d-5vvo-8wo92ssi946p,International Mediterranean Conference on Communications and Networking,2,2010-02-20,2010-03-15,,https://ieeexplore.ieee.org/xpl/conhome/1844324/all-proceedings
-ptivmokx-a27f-m03k-3oqq-0kdy026vbnmh,International Mediterranean Conference on Communications and Networking,3,2010-03-22,2010-04-14,,https://ieeexplore.ieee.org/xpl/conhome/1844324/all-proceedings
-hg2rhjr5-vw7t-437s-0b92-kmb9ja1b8pze,International Mediterranean Conference on Communications and Networking,4,2010-04-21,2010-05-14,,https://ieeexplore.ieee.org/xpl/conhome/1844324/all-proceedings
-kfuon7zb-8x52-m1d7-tsav-c64g79hmjqj9,International Mediterranean Conference on Communications and Networking,5,2010-05-21,2010-06-13,,https://ieeexplore.ieee.org/xpl/conhome/1844324/all-proceedings
-h3s2tezs-m17u-8yfo-8ut9-h2cam9v6hakd,International Mediterranean Conference on Communications and Networking,6,2010-06-20,2010-07-13,,https://ieeexplore.ieee.org/xpl/conhome/1844324/all-proceedings
-j7h8xgvp-r4qh-ne5a-v5gu-w8cchwmre6s0,International Mediterranean Conference on Communications and Networking,7,2010-07-20,2010-08-12,,https://ieeexplore.ieee.org/xpl/conhome/1844324/all-proceedings
-bcavok3e-agoc-c38l-0qv1-evzvzfgxlwz4,Prace naukowe. Pedagogika,1,1949-08-08,1949-09-02,0860-0880,http://czashum.hist.pl/czasopismo/341/
-n4yyufen-8p4v-wjox-bcd5-7gaeq7ogh0f1,Prace naukowe. Pedagogika,2,1949-09-07,1949-10-02,0860-0880,http://czashum.hist.pl/czasopismo/341/
-liy1sylv-yx8r-l8um-694w-89ojb19ocemw,Breast Cancer Reports,1,1953-03-26,1953-03-31,2057-1631,http://www.hoajonline.com/breastcancer
-034uimne-nj4c-s8x3-5tov-gf5nf1ohx2dp,Breast Cancer Reports,2,1953-04-25,1953-04-30,2057-1631,http://www.hoajonline.com/breastcancer
-a5o6casu-q1co-17zi-cuap-az4miu5odemj,Breast Cancer Reports,3,1953-05-25,1953-05-30,2057-1631,http://www.hoajonline.com/breastcancer
-ufmus5v3-b2aq-htg5-jqr0-7i712e8gct51,Breast Cancer Reports,4,1953-06-24,1953-06-29,2057-1631,http://www.hoajonline.com/breastcancer
-dkrtt0mu-7ten-g4cs-20o6-t42u5t8wbnfn,Breast Cancer Reports,5,1953-07-24,1953-07-29,2057-1631,http://www.hoajonline.com/breastcancer
-sp96ulpc-1s25-q43y-3qmq-oua9ssldo4nw,Breast Cancer Reports,6,1953-08-23,1953-08-28,2057-1631,http://www.hoajonline.com/breastcancer
+conferenceID,conferenceName,issn,url
+a102dbc1-4d9a-43f8-a08a-5a1d92e82456,J-ICOM - Jurnal Informatika dan Teknologi Komputer,2774-7115,https://ejurnalunsam.id/index.php/jicom
+aca4c072-2af3-4aa0-9082-5da7c43b7ef8,OECD Reviews of Tertiary Education,1997-8936,
+cc681e77-2c3e-4013-aabc-f630f6e6f08c,Jahrbuch der Hafenbautechnischen Gesellschaft,0340-4838,
+fc4745c3-3aad-475f-b49b-8371f1094f30,Kafkas Üniversitesi harakani dergisi,2147-6950,http://www.dergipark.ulakbim.gov.tr/harakani
+eaf5570e-c957-4c61-b2cd-519a3d8e7867,Zonguldak karaelmas üniversitesi sosyal bilimler dergisi,1303-9245,
+28f9347e-5fc9-4d48-9aee-d37d04a38ef5,Behaviorists for Social Action journal,0739-5051,
+22ef783b-3e8e-413c-ab3f-baee9eb5849e,Sensing the Past,2365-0583,
+3185ac11-0ec1-47a2-b36c-bb6dfd149369,Science Spectra,2155-2193,http://www.crcnetbase.com/series/crcscispectr
+b12cf97a-d619-4bb5-b839-c6e5039a3a95,International Conference on Parallel and Distributed Processing Techniques and Applications,,
+a6a1a41a-3ab7-4aa2-b22e-9820e8a38a23,Jurnal Formil (Forum Ilmiah) Kesmas Respati,2502-5570,http://formilkesmas.respati.ac.id/index.php/formil
+6d155327-244f-4c4a-b190-d8fa5e134f5f,Química e industria,0033-6521,
+d8f51555-a885-4969-a127-62445f83f78d,Sustainable Technologies for Green Economy,2669-2457,
+7926a817-84d9-4b9c-91c7-5a65cd58485d,Rect@,1575-605X,http://www.revistarecta.com/
+711aedcd-81df-46df-b3c0-38080582f352,"Progress in nuclear energy.  Series 9, Analytical chemistry",0079-6530,
+29aa1303-a2fe-4fe8-b734-37b5c39ea0e5,L Endocrinologo,1590-170X,https://link.springer.com/journal/40619
+a92294fa-a251-4e23-b0cf-7277635a0a2b,The chronic*ill,1811-9514,http://www.mcppnet.org/
+14c7a48b-98e9-460d-a6e6-108382ea62ee,Hematology Blood Transfusion & Disorders,2572-2999,http://www.heraldopenaccess.us/journals/Hematology-Blood-Transfusion-&-Disorders/archive.php
+3cde6ffd-3dc9-419e-af6e-8614c53dbfa3,Bollettino metallografico. Metallurgical bulletin,0006-6826,
+2436ce5d-4b40-47fb-89b4-1ce4e3af486a,Dorsal,0719-7519,http://www.revistas.cenaltes.cl/index.php/dorsal
+735883d7-6789-44eb-9beb-2ad94c6234eb,Beiträge zur älteren Deutschen Literaturgeschichte,0171-6751,
+3b9c0820-b6ae-4211-bdb2-95924d7737c0,States of Fragility 2020,2708-8596,
+2f33a1bb-652a-4f64-b509-59e2634ca0e3,International Conference on Performance Evaluation and Modeling in Wired and Wireless Networks,,
+0d4aa6cd-0c3a-4c4a-ad52-448b81b3374c,Den Ny Verden - Tidsskrift for internationale studier,0029-6775,
+a1f49942-86d6-44ea-a4bc-5b518a02c5aa,Revista Ecuatoriana de Arbitraje,2600-5611,
+d19b1d9c-b907-4cd2-a45d-cd5a1106c43f,Schulkulturen in Migrationsgesellschaften,2512-143X,
+02e90e4c-127d-41fb-ab04-65b69469cb6e,Cardio News,1437-1073,http://app.cardionews.de/ePaper/
+39bce278-45d1-4512-bf38-89a65cbe5d39,Acta Universitatis Carolinae: Philologica,0567-8269,https://www.ceeol.com/search/journal-detail?id=336
+eb735408-e2df-44c3-bd4e-637e71f839dc,Journal for Christian Scholarship = Tydskrif vir Christelike Wetenskap,1013-1116,
+2d07e232-3c68-414b-8847-11d5bac47356,Consequences. The nature and implications of environmental change,0310-8228,http://www.gcrio.org/CONSEQUENCES/index.htm
+8611de2d-0d41-4581-9024-2e160c44016f,Sociolinguistics in African Contexts,2213-3208,
+e83e55ad-f530-4685-9041-f4c4020f7a9b,Cahiers de Géographie du Québec,0007-9766,http://www.cgq.ulaval.ca/
+30cde353-ae23-4637-bf6a-cd57efb50ab6,Drake law review,0012-5938,
+7fb4b106-3313-4a90-b54a-848bcd62f1a6,International Conference on Digital Signal Processing,1546-1874,http://www.dspconferences.org/
+6e0f5c60-8dcd-4655-af4a-d5e81cbecfc2,Energy Statistics Yearbook (Ser. J),0256-6400,
+f9104fb0-ce64-4719-a820-0b391342a3be,Handbook of the Geometry of Banach Spaces,1874-5849,http://www.sciencedirect.com/science/handbooks/18745849
+c884b267-162e-4c75-916e-f7b80bf543f9,International Conference on Biometrics,,http://www.wikicfp.com/cfp/program?id=1292
+a3d20f85-7848-496e-b783-7a136047c8a4,Journal of Psychiatric Administration and Management,2163-3878,
+fc00e72c-1feb-459d-9d6a-4729dbdb698a,Deutsche Zeitschrift für Philosophie. Sonderband,1617-3325,
+c8011475-39da-41d6-ad0d-18400d872ec0,Stavanger Museums årbok,0333-0656,
+ded7c8e8-0c09-4d32-8178-9cea68ed3521,Perspectives in Healthcare Risk Management,0899-1073,http://onlinelibrary.wiley.com/journal/10.1002/(ISSN)2040-0861/issues
+4d9b5f1b-f58a-43bc-99ab-825cf78db5ed,LACUS forum,0195-377X,http://www.lacus.org/volumes/
+bd02feaa-7fc9-4203-832d-eb5547aa91b6,Nuberos científica,2173-822X,http://nc.enfermeriacantabria.com/index.php/nc/index
+ea4de8f8-084e-4a0d-bf9b-3c1ea83a391a,Springer International Handbooks of Education,2197-1951,https://www.springer.com/series/6189
+edac2ede-ec9e-4bf1-899d-9f4bff1967af,Ascagen. Revista de la Asociación Cántabra de Genealogía,1989-5267,http://ascagen.es/
+94351e08-c32e-455c-ba6b-4df6cb877d20,International Mediterranean Conference on Communications and Networking,,https://ieeexplore.ieee.org/xpl/conhome/1844324/all-proceedings
+c8362e9c-3244-4d4b-abff-5101089c7011,Prace naukowe. Pedagogika,0860-0880,http://czashum.hist.pl/czasopismo/341/
+221622b8-d0e6-4b85-9dbc-60d605af3434,Breast Cancer Reports,2057-1631,http://www.hoajonline.com/breastcancer

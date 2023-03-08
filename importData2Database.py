@@ -1,33 +1,62 @@
 from neo4j import GraphDatabase
 # password=open('password.txt').readline()
 # print(password)
-#driver = GraphDatabase.driver("bolt://localhost:7687",auth=("dani", "password"))
+driver = GraphDatabase.driver("bolt://localhost:7687",auth=("dani", "password"))
 
-driver = GraphDatabase.driver("bolt://localhost:7687",auth=("neo4j", "admin123"))
+# driver = GraphDatabase.driver("bolt://localhost:7687",auth=("neo4j", "admin123"))
 
 with driver.session() as session:
-    # session.run('''
-    # CREATE CONSTRAINT authorIdConstraint FOR (author:Author) REQUIRE author.id IS UNIQUE;
-    # ''')
-    #
-    # session.run('''
-    # CREATE CONSTRAINT paperIdConstraint FOR (paper:Paper) REQUIRE paper.id IS UNIQUE;
-    # ''')
-    #
-    # session.run('''
-    # CREATE CONSTRAINT journalIdConstraint FOR (journal:Journal) REQUIRE journal.id IS UNIQUE;
-    # ''')
-    #
-    # session.run('''
-    # CREATE CONSTRAINT conferenceIdConstraint FOR (conference:Conference) REQUIRE conference.id IS UNIQUE;
-    # ''')
-    # session.run('''
-    # CREATE CONSTRAINT categoryIdConstraint FOR (category:Category) REQUIRE category.name IS UNIQUE;
-    # ''')
 
-    # session.run('''
-    #     CREATE CONSTRAINT keywordConstraint FOR (keyword:Keyword) REQUIRE keyword.keyword IS UNIQUE;
-    #     ''')
+    ## REMOVE ALL NODES:
+    session.run('''
+    MATCH (n) DETACH DELETE n;
+    ''')
+    ## REMOVE CONSTRAINTS (IF EXIST):
+    session.run('''
+    DROP CONSTRAINT authorIdConstraint IF EXISTS;
+    ''')
+    session.run('''
+    DROP CONSTRAINT paperIdConstraint IF EXISTS;
+    ''')
+    session.run('''
+    DROP CONSTRAINT journalIdConstraint IF EXISTS;
+    ''')
+    session.run('''
+    DROP CONSTRAINT conferenceIdConstraint IF EXISTS;
+    ''')
+    session.run('''
+    DROP CONSTRAINT categoryIdConstraint IF EXISTS;
+    ''')
+    session.run('''
+    DROP CONSTRAINT keywordConstraint IF EXISTS;
+    ''')
+    session.run('''
+    DROP CONSTRAINT communityNameConstraint IF EXISTS;
+    ''')
+
+    # ADD CONSTRAINTS
+    session.run('''
+    CREATE CONSTRAINT authorIdConstraint FOR (author:Author) REQUIRE author.id IS UNIQUE;
+    ''')
+
+    session.run('''
+    CREATE CONSTRAINT paperIdConstraint FOR (paper:Paper) REQUIRE paper.id IS UNIQUE;
+    ''')
+
+    session.run('''
+    CREATE CONSTRAINT journalIdConstraint FOR (journal:Journal) REQUIRE journal.id IS UNIQUE;
+    ''')
+
+    session.run('''
+    CREATE CONSTRAINT conferenceIdConstraint FOR (conference:Conference) REQUIRE conference.id IS UNIQUE;
+    ''')
+    session.run('''
+    CREATE CONSTRAINT categoryIdConstraint FOR (category:Category) REQUIRE category.name IS UNIQUE;
+    ''')
+
+    session.run('''
+    CREATE CONSTRAINT keywordConstraint FOR (keyword:Keyword) REQUIRE keyword.keyword IS UNIQUE;
+    ''')
 
     # LOAD AUTHORS
     session.run('''
@@ -50,14 +79,15 @@ with driver.session() as session:
     # LOAD CONFERENCES
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///conferences.csv" AS rowConference
-    CREATE (c:Conference {id: rowConference.venueID, name: rowConference.conferenceName, edition: toINteger(rowConference.edition),issn: rowConference.issn,url:rowConference.url, startDate: date(rowConference.startDate), endDate: date(rowConference.endDate)});
+    CREATE (c:Conference {id: rowConference.conferenceID, name: rowConference.conferenceName, issn: rowConference.issn, url: rowConference.url});
     ''')
 
-    # LOAD CATEGORIES
+    # LOAD EDITIONS
     session.run('''
-    LOAD CSV WITH HEADERS FROM "file:///uniqueCategories.csv" AS rowCategory
-    CREATE (c:Category {name: rowCategory.categoryName});
+    LOAD CSV WITH HEADERS FROM "file:///is-from.csv" AS rowEdition
+    CREATE (e:Edition {id: rowEdition.editionID, edition: toINteger(rowEdition.edition), startDate: date(rowEdition.startDate), endDate: date(rowEdition.endDate)});
     ''')
+
 
     # ADD WRITTEN_BY RELATIONS
     session.run('''
@@ -78,9 +108,17 @@ with driver.session() as session:
     # ADD BELONGS_TO RELATIONS
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///belongs-to.csv" AS rowBelongs
-    MATCH (conference:Conference {id: rowBelongs.venueID})
-    MATCH (paper:Paper {id: toInteger(rowBelongs.paperID)})
-    CREATE (paper)-[:BELONGS_TO]->(conference);
+    MATCH (paper:Paper {id: toInteger(rowBelongs.conferenceID)})
+    MATCH (edition: Edition {id:rowBelongs.venueID})
+    CREATE (paper)-[:IS_FROM]->(edition);
+    ''')
+
+    # ADD IS_FROM RELATIONS
+    session.run('''
+    LOAD CSV WITH HEADERS FROM "file:///is-from.csv" AS rowIsFrom
+    MATCH (conference:Conference {id: rowIsFrom.conferenceID})
+    MATCH (edition: Edition {id:rowIsFrom.editionID})
+    CREATE (edition)-[:IS_FROM]->(conference);
     ''')
 
     # ADD PUBLISHED_IN RELATIONS
@@ -126,3 +164,26 @@ with driver.session() as session:
     MATCH (k:Keyword {keyword: rowCategory.keyword})
     CREATE (p1)-[:RELATED_TO]->(k);
     ''')
+
+### RECOMMENDER
+    #Q1
+    session.run('''
+    CREATE CONSTRAINT communityNameConstraint FOR (community:Community) REQUIRE community.name IS UNIQUE;
+    ''')
+    session.run('''
+    CREATE (community:Community{name: 'database'}) WITH community MATCH (keyword: Keyword) WHERE keyword.keyword IN ['data management', 'indexing', 'data modeling', 'big data', 'data processing', 'data storage', 'data querying'] CREATE (community)-[:DEFINED_BY]->(keyword);
+    ''')
+    #Q2
+    #Conferences
+    session.run('''
+    MATCH (p:Paper)-[:BELONGS_TO]->(conf:Conference)
+    WITH conf.name AS conference, COUNT(p) AS numPapers
+    MATCH (conf2:Conference{name: conference})<-[:BELONGS_TO]-(p:Paper)-[:RELATED_TO]->(k:Keyword)<-[:DEFINED_BY]-(com:Community)
+    WITH conf2.name AS conference2, COUNT(distinct(p)) AS numPapersWithKeywords, numPapers, com
+    WITH conference2, numPapers, numPapersWithKeywords, (toFloat(numPapersWithKeywords)/numPapers) AS percentage, com
+    WHERE percentage>=0.9
+    MERGE (:Conference{name: conference2})-[:IN_COMMUNITY]->(com)
+    ''')
+    #Journals
+
+

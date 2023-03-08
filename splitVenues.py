@@ -13,6 +13,7 @@ SPLIT VENUES BETWEEN JOURNALS AND CONFERENCES.
 VENUES_SOURCE = 'sample_csv/publication-venues-sample.csv'
 OUTPUT_PATH_JOURNALS = 'sample_csv/journals.csv'
 OUTPUT_PATH_CONFERENCES = 'sample_csv/conferences.csv'
+OUTPUT_PATH_BELONGS_TO = 'sample_csv/is-from.csv'
 
 venues = pd.read_csv(VENUES_SOURCE)
 
@@ -20,7 +21,8 @@ random_seed = 123
 random.seed(random_seed)
 
 #Generate files
-conferences = pd.DataFrame(columns=['venueID', 'conferenceName', 'edition', 'startDate','endDate', 'issn', 'url'])
+is_from = pd.DataFrame(columns=['editionID', 'conferenceID', 'edition', 'startDate', 'endDate'])
+conferences = pd.DataFrame(columns=['conferenceID', 'conferenceName', 'issn', 'url'])
 journals = pd.DataFrame(columns=['venueID', 'journalName', 'issn', 'url'])
 
 for index, row in venues.iterrows():
@@ -28,8 +30,11 @@ for index, row in venues.iterrows():
     if row['type']=='journal':
         row_data = {'venueID': row['id'], 'journalName': row['name'], 'issn' : row['issn'], 'url' : row['url']}
         journals = pd.concat([journals, pd.DataFrame([row_data])], ignore_index=True)
-    #Conferences (we assume null values are conferences)
+    #Conferences (we assume null values are is_from)
     else:
+        conferences_data = {'conferenceID': row['id'], 'conferenceName': row['name'], 'issn': row['issn'],'url': row['url']}
+        conferences = pd.concat([conferences, pd.DataFrame([conferences_data])], ignore_index=True)
+
         #Generate duration of the conference
         n = random.randint(1,30)  # Random duration days
 
@@ -50,13 +55,21 @@ for index, row in venues.iterrows():
                             ''.join(random.choice(string.ascii_lowercase + string.digits) for i in range(4))+ '-' + \
                             ''.join(random.choice(string.ascii_lowercase + string.digits) for i in range(4))+ '-' + \
                             ''.join(random.choice(string.ascii_lowercase + string.digits) for i in range(12))
-            print(randomID)
+            # print(randomID)
             if randomID not in confernceIds:
                 confernceIds.append(randomID)
-                row_data = {'venueID': randomID, 'conferenceName': row['name'], 'edition': edition,
-                            'startDate': start_date + timedelta(days=edition*30), 'endDate': end_date + timedelta(days=edition*30),  'issn' : row['issn'], 'url' : row['url']}
-                conferences = pd.concat([conferences, pd.DataFrame([row_data])], ignore_index=True)
-                print(row_data)
+                belongs_to_data = {'editionID': randomID, 'conferenceID': row['id'],  'edition': edition,
+                            'startDate': start_date + timedelta(days=edition*30), 'endDate': end_date + timedelta(days=edition*30)}
+
+                is_from = pd.concat([is_from, pd.DataFrame([belongs_to_data])], ignore_index=True)
+
+
+
+
+
+
+
 # journals.to_csv(OUTPUT_PATH_JOURNALS,encoding='utf-8',index=False)
-conferences.to_csv(OUTPUT_PATH_CONFERENCES,encoding='utf-8',index=False)
+conferences.to_csv(OUTPUT_PATH_CONFERENCES, encoding='utf-8', index=False)
+is_from.to_csv(OUTPUT_PATH_BELONGS_TO, encoding='utf-8', index=False)
 

@@ -4,7 +4,8 @@ import json
 
 PAPERS_SOURCE = 'sample_csv/papers-sample.csv'
 AUTHORS_SOURCE = 'sample_csv/authors-sample.csv'
-CONFERENCES_SOURCE = 'sample_csv/conferences.csv'
+# CONFERENCES_SOURCE = 'sample_csv/publication-venues-sample.csv'
+CONFERENCES_SOURCE = 'sample_csv/is-from.csv'
 JOURNALS_SOURCE = 'sample_csv/journals.csv'
 KEYWORDS_SOURCE = 'sample_csv/keywords.csv'
 OUTPUT_PATH_WRITTEN_BY = 'sample_csv/written-by.csv'
@@ -50,7 +51,7 @@ for index, row in papers.iterrows():
     #Conference
     if random_type == 0:
         conference = conferences.sample(1)
-        row_data = {'venueID': conference.loc[conference.index[0], 'venueID'], 'paperID': row['corpusid']}
+        row_data = {'venueID': conference.loc[conference.index[0], 'editionID'], 'paperID': row['corpusid']}
         belongs_to = pd.concat([belongs_to, pd.DataFrame([row_data])], ignore_index=True)
     #Journal
     else:
