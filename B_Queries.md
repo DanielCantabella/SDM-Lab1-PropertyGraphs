@@ -16,9 +16,7 @@ MATCH (c:Conference) <-[:BELONGS_TO]-(p:Paper)-[:WRITTEN_BY]-> (a:Author) WITH c
 ```
 
 [//]: # (```Cypher)
-
 [//]: # (MATCH &#40;c:Conference&#41; <-[:BELONGS_TO]-&#40;p:Paper&#41;-[:WRITTEN_BY]-> &#40;a:Author&#41; WITH c.name AS ConferenceName, COLLECT&#40;DISTINCT&#40;a&#41;&#41; AS authorCollection, count&#40;distinct&#40;p&#41;&#41; as numPapers WHERE numPapers>=4 RETURN ConferenceName, authorCollection, numPapers  order by ConferenceName)
-
 [//]: # (```)
 
 

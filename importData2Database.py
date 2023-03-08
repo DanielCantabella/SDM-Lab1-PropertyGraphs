@@ -1,9 +1,9 @@
 from neo4j import GraphDatabase
 # password=open('password.txt').readline()
 # print(password)
-driver = GraphDatabase.driver("bolt://localhost:7687",auth=("dani", "password"))
+#driver = GraphDatabase.driver("bolt://localhost:7687",auth=("dani", "password"))
 
-# driver = GraphDatabase.driver("bolt://localhost:7687",auth=("neo4j", "admin123"))
+driver = GraphDatabase.driver("bolt://localhost:7687",auth=("neo4j", "admin123"))
 
 with driver.session() as session:
 
@@ -33,6 +33,9 @@ with driver.session() as session:
     session.run('''
     DROP CONSTRAINT communityNameConstraint IF EXISTS;
     ''')
+    session.run('''
+       DROP CONSTRAINT volumeConstraint IF EXISTS;
+       ''')
 
     # ADD CONSTRAINTS
     session.run('''
@@ -58,6 +61,10 @@ with driver.session() as session:
     CREATE CONSTRAINT keywordConstraint FOR (keyword:Keyword) REQUIRE keyword.keyword IS UNIQUE;
     ''')
 
+    session.run('''
+        CREATE CONSTRAINT volumeConstraint FOR (volume:Volume) REQUIRE volume.id IS UNIQUE;
+        ''')
+
     # LOAD AUTHORS
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///authors-sample.csv" AS rowAuthor
@@ -76,6 +83,13 @@ with driver.session() as session:
     CREATE (j:Journal {id: rowJournal.venueID, name: rowJournal.journalName, issn: rowJournal.issn, url: rowJournal.url});
     ''')
 
+    # LOAD VOLUME
+    session.run('''
+        LOAD CSV WITH HEADERS FROM "file:///volume-from.csv" AS row
+        MATCH (j:Journal {id:row.journalID})
+        CREATE (j)<-[:VOLUME_FROM]-(v: Volume {id: row.volumeID, year: toInteger(row.year), volume: toInteger(row.volume)});
+        ''')
+
     # LOAD CONFERENCES
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///conferences.csv" AS rowConference
@@ -85,9 +99,9 @@ with driver.session() as session:
     # LOAD EDITIONS
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///is-from.csv" AS rowEdition
-    CREATE (e:Edition {id: rowEdition.editionID, edition: toINteger(rowEdition.edition), startDate: date(rowEdition.startDate), endDate: date(rowEdition.endDate)});
+    MATCH (conference:Conference {id: rowEdition.conferenceID})
+    CREATE (e:Edition {id: rowEdition.editionID, edition: toInteger(rowEdition.edition), startDate: date(rowEdition.startDate), endDate: date(rowEdition.endDate)})-[:IS_FROM]->(conference);
     ''')
-
 
     # ADD WRITTEN_BY RELATIONS
     session.run('''
@@ -108,25 +122,17 @@ with driver.session() as session:
     # ADD BELONGS_TO RELATIONS
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///belongs-to.csv" AS rowBelongs
-    MATCH (paper:Paper {id: toInteger(rowBelongs.conferenceID)})
+    MATCH (paper:Paper {id: toInteger(rowBelongs.paperID)})
     MATCH (edition: Edition {id:rowBelongs.venueID})
-    CREATE (paper)-[:IS_FROM]->(edition);
-    ''')
-
-    # ADD IS_FROM RELATIONS
-    session.run('''
-    LOAD CSV WITH HEADERS FROM "file:///is-from.csv" AS rowIsFrom
-    MATCH (conference:Conference {id: rowIsFrom.conferenceID})
-    MATCH (edition: Edition {id:rowIsFrom.editionID})
-    CREATE (edition)-[:IS_FROM]->(conference);
+    CREATE (paper)-[:BELONGS_TO]->(edition);
     ''')
 
     # ADD PUBLISHED_IN RELATIONS
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///published-in.csv" AS row
-    MATCH (journal:Journal {id: row.venueID})
+    MATCH (volume:Volume {id: row.venueID})
     MATCH (paper:Paper {id: toInteger(row.paperID)})
-    CREATE (paper)-[:PUBLISHED_IN {year: toInteger(row.year), volume: row.volume, startDate: row.startDate, endDate: row.endDate} ]->(journal);
+    CREATE (paper)-[:PUBLISHED_IN { startPage: row.startPage, endPage: row.endPage} ]->(volume);
     ''')
 
     # ADD IS_ABOUT RELATIONS
