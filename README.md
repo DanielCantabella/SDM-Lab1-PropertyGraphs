@@ -28,24 +28,30 @@ CREATE (a:Author {id: toInteger(rowAuthor.authorid), name: rowAuthor.name, url: 
 #### Load Papers
 ```Cypher
 LOAD CSV WITH HEADERS FROM "file:///papers-processed.csv" AS rowPaper
-CREATE (p:Paper {id: toInteger(rowPaper.corpusid), title: rowPaper.title, year:toInteger(rowPaper.year), url: rowPaper.url, openAcces: toBoolean(rowPaper.isopenaccess), publicationDate:date(rowPaper.publicationdate), updated: rowPaper.updated,DOI:rowPaper.DOI, PubMedCentral: rowPaper.PubMedCentral, PubMed:rowPaper.PubMed, DBLP: rowPaper.DBLP, ArXiv: rowPaper.ArXiv, ACL: rowPaper.ACL, MAG: rowPaper.MAG});
+CREATE (p:Paper {id: toInteger(rowPaper.corpusid), title: rowPaper.title, year: toInteger(rowPaper.year), url: rowPaper.url, openAcces: toBoolean(rowPaper.isopenaccess), publicationDate: date(rowPaper.publicationdate), updated: rowPaper.updated, DOI:rowPaper.DOI, PubMedCentral: rowPaper.PubMedCentral, PubMed:rowPaper.PubMed, DBLP: rowPaper.DBLP, ArXiv: rowPaper.ArXiv, ACL: rowPaper.ACL, MAG: rowPaper.MAG});     
 ```
 #### Load Journals
 ```Cypher
 LOAD CSV WITH HEADERS FROM "file:///journals.csv" AS rowJournal
 CREATE (j:Journal {id: rowJournal.venueID, name: rowJournal.journalName, issn: rowJournal.issn, url: rowJournal.url});
 ```
+### Load Volume
+```Cypher
+LOAD CSV WITH HEADERS FROM "file:///volume-from.csv" AS row
+MATCH (j:Journal {id:row.journalID})
+CREATE (j)<-[:VOLUME_FROM]-(v: Volume {id: row.volumeID, year: toInteger(row.year), volume: toInteger(row.volume)});
+```
 #### Load Conferences
 ```Cypher
 LOAD CSV WITH HEADERS FROM "file:///conferences.csv" AS rowConference
-CREATE (c:Conference {id: rowConference.venueID, name: rowConference.conferenceName, edition: toINteger(rowConference.edition),issn: rowConference.issn,url:rowConference.url, startDate: date(rowConference.startDate), endDate: date(rowConference.endDate)});
+CREATE (c:Conference {id: rowConference.conferenceID, name: rowConference.conferenceName, issn: rowConference.issn, url: rowConference.url});
 ```
-#### Load Categories
+### Load Editions
 ```Cypher
-LOAD CSV WITH HEADERS FROM "file:///uniqueCategories.csv" AS rowCategory
-CREATE (c:Category {name: rowCategory.categoryName});
+LOAD CSV WITH HEADERS FROM "file:///is-from.csv" AS rowEdition
+MATCH (conference:Conference {id: rowEdition.conferenceID})
+CREATE (e:Edition {id: rowEdition.editionID, edition: toInteger(rowEdition.edition), startDate: date(rowEdition.startDate), endDate: date(rowEdition.endDate)})-[:IS_FROM]->(conference);
 ```
-
 ### Relationships
 #### Paper - [WRITTEN_BY {corresponding_author: }] -> Author
 ```Cypher
@@ -55,14 +61,6 @@ MATCH (paper:Paper {id: toInteger(rowRelation.paperID)})
 CREATE (paper)-[:WRITTEN_BY{corresponding_author: toBoolean(rowRelation.is_corresponding)}]->(author);
 ```
 
-#### citingPaper - [REFERENCES] -> citedPaper
-```Cypher
-LOAD CSV WITH HEADERS FROM "file:///citations-sample.csv" AS rowCitation
-MATCH (citingPaper:Paper {id: toInteger(rowCitation.citingcorpusid)})
-MATCH (citedPaper:Paper {id: toInteger(rowCitation.citedcorpusid)})
-CREATE (citingPaper)-[:REFERENCES]->(citedPaper);
-```
-
 #### Paper - [REVIEWED_BY {with_grade: }] -> Reviewer
 ```Cypher
 LOAD CSV WITH HEADERS FROM "file:///reviewed-by.csv" AS rowReview
@@ -70,26 +68,37 @@ MATCH (reviewer:Author {id: toInteger(rowReview.reviewerID)})
 MATCH (paper:Paper {id: toInteger(rowReview.paperID)})
 CREATE (paper)-[:REVIEWED_BY {with_grade: toInteger(rowReview.grade)}]->(reviewer);
 ```
-#### Paper - [PUBLISHED_IN] -> Journal
-```Cypher
-LOAD CSV WITH HEADERS FROM "file:///published-in.csv" AS rowPublished
-MATCH (journal:Journal {id: rowPublished.venueID})
-MATCH (paper:Paper {id: toInteger(rowPublished.paperID)})
-CREATE (paper)-[:PUBLISHED_IN{year: toInteger(rowPublished.year), volume: toInteger(rowPublished.volume),startPage: toInteger(rowPublished.startPage), endPage: toInteger(rowPublished.endPage)}]->(journal);
-```
-#### Paper - [BELONGS_TO] -> Conference
+
+#### Paper - [BELONGS_TO] -> Edition
 ```Cypher
 LOAD CSV WITH HEADERS FROM "file:///belongs-to.csv" AS rowBelongs
-MATCH (conference:Conference {id: rowBelongs.venueID})
 MATCH (paper:Paper {id: toInteger(rowBelongs.paperID)})
-CREATE (paper)-[:BELONGS_TO]->(conference);
+MATCH (edition: Edition {id:rowBelongs.venueID})
+CREATE (paper)-[:BELONGS_TO]->(edition);
 ```
-#### Paper - [IS_ABOUT] -> Category
+
+#### Paper - [PUBLISHED_IN] -> Volume
 ```Cypher
-LOAD CSV WITH HEADERS FROM "file:///categoriesRelations.csv" AS rowCategory
-MATCH (category:Category {name: rowCategory.categoryName})
-MATCH (paper:Paper {id: toInteger(rowCategory.paperID)})
-CREATE (paper)-[:IS_ABOUT]->(category);
+LOAD CSV WITH HEADERS FROM "file:///published-in.csv" AS row
+MATCH (volume:Volume {id: row.venueID})
+MATCH (paper:Paper {id: toInteger(row.paperID)})
+CREATE (paper)-[:PUBLISHED_IN { startPage: row.startPage, endPage: row.endPage} ]->(volume);
+```
+
+#### Paper - [CITED_BY] -> Paper
+```Cypher
+LOAD CSV WITH HEADERS FROM "file:///cited-by.csv" AS rowRel
+MATCH (p1:Paper {id: toInteger(rowRel.paperID_cited)})
+MATCH (p2:Paper {id: toInteger(rowRel.paperID_citing)})
+CREATE (p1)-[:CITED_BY]->(p2);
+```
+
+#### Paper - [RELATED_TO] -> Keyword
+```Cypher
+LOAD CSV WITH HEADERS FROM "file:///related-to.csv" AS rowCategory
+MATCH (p1:Paper {id: toInteger(rowCategory.paperID)})
+MATCH (k:Keyword {keyword: rowCategory.keyword})
+CREATE (p1)-[:RELATED_TO]->(k);
 ```
 
 ### Adding external attributes

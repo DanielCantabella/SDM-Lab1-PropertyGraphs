@@ -77,6 +77,12 @@ with driver.session() as session:
     CREATE (p:Paper {id: toInteger(rowPaper.corpusid), title: rowPaper.title, year: toInteger(rowPaper.year), url: rowPaper.url, openAcces: toBoolean(rowPaper.isopenaccess), publicationDate: date(rowPaper.publicationdate), updated: rowPaper.updated, DOI:rowPaper.DOI, PubMedCentral: rowPaper.PubMedCentral, PubMed:rowPaper.PubMed, DBLP: rowPaper.DBLP, ArXiv: rowPaper.ArXiv, ACL: rowPaper.ACL, MAG: rowPaper.MAG});
      ''')
 
+    # LOAD KEYWORDS
+    session.run('''
+    LOAD CSV WITH HEADERS FROM "file:///keywords.csv" AS rowKw
+    CREATE (k:Keyword {keyword: rowKw.keyword});
+    ''')
+
     # LOAD JOURNALS
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///journals.csv" AS rowJournal
@@ -85,10 +91,10 @@ with driver.session() as session:
 
     # LOAD VOLUME
     session.run('''
-        LOAD CSV WITH HEADERS FROM "file:///volume-from.csv" AS row
-        MATCH (j:Journal {id:row.journalID})
-        CREATE (j)<-[:VOLUME_FROM]-(v: Volume {id: row.volumeID, year: toInteger(row.year), volume: toInteger(row.volume)});
-        ''')
+    LOAD CSV WITH HEADERS FROM "file:///volume-from.csv" AS row
+    MATCH (j:Journal {id:row.journalID})
+    CREATE (j)<-[:VOLUME_FROM]-(v: Volume {id: row.volumeID, year: toInteger(row.year), volume: toInteger(row.volume)});
+    ''')
 
     # LOAD CONFERENCES
     session.run('''
@@ -135,25 +141,11 @@ with driver.session() as session:
     CREATE (paper)-[:PUBLISHED_IN { startPage: row.startPage, endPage: row.endPage} ]->(volume);
     ''')
 
-    # ADD IS_ABOUT RELATIONS
-    session.run('''
-    LOAD CSV WITH HEADERS FROM "file:///categoriesRelations.csv" AS rowCategory
-    MATCH (category:Category {name: rowCategory.categoryName})
-    MATCH (paper:Paper {id: toInteger(rowCategory.paperID)})
-    CREATE (paper)-[:IS_ABOUT]->(category);
-    ''')
-
     # ADD ABSTRACTS (IDs DO NOT COINCIDE!)
     session.run('''
     LOAD CSV WITH HEADERS FROM 'file:///abstracts-sample.csv' AS rowAbstract
     MATCH (p:Paper {id: toInteger(rowAbstract.corpusid)}) SET p.abstract=rowAbstract.abstract;
      ''')
-
-    # LOAD KEYWORDS
-    session.run('''
-    LOAD CSV WITH HEADERS FROM "file:///keywords.csv" AS rowKw
-    CREATE (k:Keyword {keyword: rowKw.keyword});
-    ''')
 
     # ADD CITED_BY RELATIONS
     session.run('''
@@ -200,4 +192,11 @@ with driver.session() as session:
     WHERE percentage>=0.9
     MERGE (jour2)-[:IN_COMMUNITY]->(com);
     ''')
+
+    #Q3
+
+
+    #Q4
+
+
 
