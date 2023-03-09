@@ -188,7 +188,7 @@ with driver.session() as session:
     WITH conf2, conf2.id AS conference2, COUNT(distinct(p)) AS numPapersWithKeywords, numPapers, com
     WITH conf2, conference2, numPapers, numPapersWithKeywords, (toFloat(numPapersWithKeywords)/numPapers) AS percentage, com
     WHERE percentage>=0.9
-    MERGE (conf2)-[:IN_COMMUNITY]->(com)
+    MERGE (conf2)-[:IN_COMMUNITY]->(com);
     ''')
     # Journals
     session.run('''
@@ -198,6 +198,6 @@ with driver.session() as session:
     WITH jour2, jour2.id AS journal2, COUNT(distinct(p)) AS numPapersWithKeywords, numPapers, com
     WITH jour2, journal2, numPapers, numPapersWithKeywords, (toFloat(numPapersWithKeywords)/numPapers) AS percentage, com
     WHERE percentage>=0.9
-    MERGE (jour2)-[:IN_COMMUNITY]->(com)
+    MERGE (jour2)-[:IN_COMMUNITY]->(com);
     ''')
 

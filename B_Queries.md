@@ -12,13 +12,18 @@ RETURN c.id, c.name, papers[0..3] AS topPapers
 ```
 
 ### 2. Conference author community
+Previous to edition, volume, etc. nodes
 ```Cypher
 MATCH (c:Conference) <-[:BELONGS_TO]-(p:Paper)-[:WRITTEN_BY]-> (a:Author) WITH c.name AS ConferenceName, a.name AS authorName, COUNT(DISTINCT(p)) as numPapers WHERE numPapers>=4 RETURN ConferenceName, authorName, numPapers  ORDER BY ConferenceName;
 ```
-
-[//]: # (```Cypher)
-[//]: # (MATCH &#40;c:Conference&#41; <-[:BELONGS_TO]-&#40;p:Paper&#41;-[:WRITTEN_BY]-> &#40;a:Author&#41; WITH c.name AS ConferenceName, COLLECT&#40;DISTINCT&#40;a&#41;&#41; AS authorCollection, count&#40;distinct&#40;p&#41;&#41; as numPapers WHERE numPapers>=4 RETURN ConferenceName, authorCollection, numPapers  order by ConferenceName)
-[//]: # (```)
+After (and maybe final schema) edition, volumne, nodes added:
+```Cypher
+MATCH (author:Author)<-[:WRITTEN_BY]-(paper:Paper)-[:BELONGS_TO]->(edition:Edition)-[:IS_FROM]->(conf:Conference)
+WITH conf.name AS conference, author.name AS authName, COUNT(DISTINCT(paper)) as numPapers
+WHERE numPapers>1
+WITH conference, COLLECT(authName) AS community, numPapers
+RETURN conference, community, numPapers
+```
 
 
 ### 3. Impact factors of the journals in your graph 
@@ -35,11 +40,36 @@ return j.id, year, numCit, numPub1, numPub2, CASE numPub1+numPub2 WHEN 0 THEN 0.
 ```
 ### 4. H-indexes of the authors in your graph
 ```Cypher
-MATCH (a:Author)<-[WRITTEN_BY]-(p:Paper) -[c:CITED_BY]-> (:Paper)
+MATCH (a:Author)<-[WRITTEN_BY]-(p:Paper)-[c:CITED_BY]-> (:Paper)
 WITH a.name as authorName, p.title AS title, COUNT(c) AS numCites 
 ORDER BY numCites DESC
 WITH authorName, COLLECT(numCites) AS numCitesList
 WITH authorName, [x IN range(1,size(numCitesList)) WHERE x<=numCitesList[x-1]| [numCitesList[x-1],x] ] AS hIndexList
 RETURN authorName,hIndexList[-1][1] AS h_index
 
+```
+
+### RECOMMENDER
+Q1
+```Cypher
+CREATE CONSTRAINT communityNameConstraint FOR (community:Community) REQUIRE community.name IS UNIQUE;
+CREATE (community:Community{name: 'database'}) WITH community MATCH (keyword: Keyword) WHERE keyword.keyword IN ['data management', 'indexing', 'data modeling', 'big data', 'data processing', 'data storage', 'data querying'] CREATE (community)-[:DEFINED_BY]->(keyword);
+```
+Q2
+```
+MATCH (p:Paper)-[:BELONGS_TO]->(e:Edition)-[:IS_FROM]->(conf:Conference)
+WITH conf.id AS conference, COUNT(p) AS numPapers
+MATCH (conf2:Conference{id: conference})<-[:IS_FROM]-(e:Edition)<-[:BELONGS_TO]-(p:Paper)-[:RELATED_TO]->(k:Keyword)<-[:DEFINED_BY]-(com:Community)
+WITH conf2, conf2.id AS conference2, COUNT(distinct(p)) AS numPapersWithKeywords, numPapers, com
+WITH conf2, conference2, numPapers, numPapersWithKeywords, (toFloat(numPapersWithKeywords)/numPapers) AS percentage, com
+WHERE percentage>=0.9
+MERGE (conf2)-[:IN_COMMUNITY]->(com);
+    
+MATCH (p:Paper)-[:PUBLISHED_IN]->(v:Volume)-[:VOLUME_FROM]->(jour:Journal)
+WITH jour.id AS journal, COUNT(p) AS numPapers
+MATCH (jour2:Journal{id: journal})<-[:VOLUME_FROM]-(v:Volume)<-[:PUBLISHED_IN]-(p:Paper)-[:RELATED_TO]->(k:Keyword)<-[:DEFINED_BY]-(com:Community)
+WITH jour2, jour2.id AS journal2, COUNT(distinct(p)) AS numPapersWithKeywords, numPapers, com
+WITH jour2, journal2, numPapers, numPapersWithKeywords, (toFloat(numPapersWithKeywords)/numPapers) AS percentage, com
+WHERE percentage>=0.9
+MERGE (jour2)-[:IN_COMMUNITY]->(com);
 ```
