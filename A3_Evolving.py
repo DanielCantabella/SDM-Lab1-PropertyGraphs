@@ -1,8 +1,6 @@
 from neo4j import GraphDatabase
-# password=open('password.txt').readline()
-# print(password)
-driver = GraphDatabase.driver("bolt://localhost:7687",auth=("dani", "password"))
 
+driver = GraphDatabase.driver("bolt://localhost:7687",auth=("dani", "password"))
 # driver = GraphDatabase.driver("bolt://localhost:7687", auth=("neo4j", "admin123"))
 
 with driver.session() as session:
