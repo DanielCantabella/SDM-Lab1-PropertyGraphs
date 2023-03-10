@@ -7,6 +7,10 @@ AUTHORS_SOURCE = 'sample_csv/authors-sample.csv'
 CONFERENCES_SOURCE = 'sample_csv/is-from.csv'
 JOURNALS_SOURCE = 'sample_csv/volume-from.csv'
 KEYWORDS_SOURCE = 'sample_csv/keywords.csv'
+ABSTRACTS_SOURCE = 'sample_csv/abstracts-sample.csv'
+COMPANIES_SOURCE = 'sample_csv/companies.csv'
+UNIVERSITIES_SOURCE = 'sample_csv/universities.csv'
+REVIEWS_SOURCE = 'sample_csv/reviews.csv'
 OUTPUT_PATH_WRITTEN_BY = 'sample_csv/written-by.csv'
 OUTPUT_PATH_REVIEWED_BY = 'sample_csv/reviewed-by.csv'
 OUTPUT_PATH_BELONGS_TO = 'sample_csv/belongs-to.csv'
@@ -14,6 +18,8 @@ OUTPUT_PATH_PUBLISHED_IN = 'sample_csv/published-in.csv'
 OUTPUT_PATH_PAPERS = 'sample_csv/papers-processed.csv'
 OUTPUT_PATH_CITED_BY = 'sample_csv/cited-by.csv'
 OUTPUT_RELATED_TO = 'sample_csv/related-to.csv'
+OUTPUT_ABSTRACTS = 'sample_csv/withAbstracts.csv'
+OUTPUT_PATH_AFFILIATED_TO = 'sample_csv/affiliated-to.csv'
 
 
 papers = pd.read_csv(PAPERS_SOURCE)
@@ -21,6 +27,11 @@ authors = pd.read_csv(AUTHORS_SOURCE)
 conferences = pd.read_csv(CONFERENCES_SOURCE)
 journals = pd.read_csv(JOURNALS_SOURCE)
 keywords = pd.read_csv(KEYWORDS_SOURCE)
+abstracts = pd.read_csv(ABSTRACTS_SOURCE)
+companies = pd.read_csv(COMPANIES_SOURCE)
+universities = pd.read_csv(UNIVERSITIES_SOURCE)
+reviews = pd.read_csv(REVIEWS_SOURCE)
+
 
 random_seed = 123
 random.seed(random_seed)
@@ -31,13 +42,18 @@ belongs_to = pd.DataFrame(columns=['venueID', 'paperID'])
 published_in = pd.DataFrame(columns=['venueID', 'paperID', 'startPage', 'endPage'])
 written_by = pd.DataFrame(columns=['paperID', 'authorID', 'is_corresponding'])
 written_by['is_corresponding'] = written_by['is_corresponding'].astype(bool)
-reviewed_by = pd.DataFrame(columns=['paperID', 'reviewerID', 'grade'])
+reviewed_by = pd.DataFrame(columns=['paperID', 'reviewerID', 'grade', 'review'])
 cited_by = pd.DataFrame(columns=['paperID_cited', 'paperID_citing'])
 related_to = pd.DataFrame(columns=['paperID', 'keyword'])
+withAbstract = pd.DataFrame(columns=['paperID', 'abstract'])
+affiliated_to = pd.DataFrame(columns=['affiliation', 'authorID', 'type'])
+
 
 authors_ids = list(authors['authorid'].unique())
 papers_ids = list(papers['corpusid'].unique())
 keywords = list(keywords['keyword'].unique())
+
+
 
 #Get the aditional fields for papers
 colnames = set(json.loads(papers.loc[0, 'externalids'].replace("'",'"').replace("None",'""')).keys())
@@ -77,7 +93,8 @@ for index, row in papers.iterrows():
     reviewers = random.sample(filtered_list, n_reviewers)
     for reviewer in reviewers:
         grade = random.randint(1, 5)
-        row_data = {'paperID': row['corpusid'], 'reviewerID': reviewer, 'grade': grade}
+        review = reviews.sample(1)
+        row_data = {'paperID': row['corpusid'], 'reviewerID': reviewer, 'grade': grade, 'review': review.loc[review.index[0], 'review']}
         reviewed_by = pd.concat([reviewed_by, pd.DataFrame([row_data])], ignore_index=True)
     #Extract the aditional values of papers as columns
     new_values = json.loads(papers.loc[index, 'externalids'].replace("'", '"').replace("None", '""'))
@@ -98,6 +115,22 @@ for index, row in papers.iterrows():
     for kw in keywords_paper:
         row_data = {'paperID': row['corpusid'], 'keyword': kw}
         related_to = pd.concat([related_to, pd.DataFrame([row_data])], ignore_index=True)
+    #Assign abstracts
+    row_data = {'paperID': row['corpusid'], 'abstract': abstracts.loc[index, 'abstract']}
+    withAbstract = pd.concat([withAbstract, pd.DataFrame([row_data])], ignore_index=True)
+    #Assign organization
+    random_organization = random.randint(0, 1)
+    if random_organization == 0: #Company
+        company = companies.sample(1)
+        row_data = {'affiliation': company.loc[company.index[0], 'companyid'], 'authorID': authors_ids[index], 'type': "company"}
+        affiliated_to = pd.concat([affiliated_to, pd.DataFrame([row_data])], ignore_index=True)
+
+    else: #University
+        university = universities.sample(1)
+        row_data = {'affiliation': university.loc[university.index[0], 'universityid'], 'authorID': authors_ids[index], 'type': "university"}
+        affiliated_to = pd.concat([affiliated_to, pd.DataFrame([row_data])], ignore_index=True)
+
+
 
 written_by.to_csv(OUTPUT_PATH_WRITTEN_BY,encoding='utf-8',index=False)
 reviewed_by.to_csv(OUTPUT_PATH_REVIEWED_BY,encoding='utf-8',index=False)
@@ -106,6 +139,8 @@ belongs_to.to_csv(OUTPUT_PATH_BELONGS_TO,encoding='utf-8',index=False)
 papers.to_csv(OUTPUT_PATH_PAPERS,encoding='utf-8',index=False)
 cited_by.to_csv(OUTPUT_PATH_CITED_BY,encoding='utf-8',index=False)
 related_to.to_csv(OUTPUT_RELATED_TO,encoding='utf-8',index=False)
+withAbstract.to_csv(OUTPUT_ABSTRACTS,encoding='utf-8',index=False)
+affiliated_to.to_csv(OUTPUT_PATH_AFFILIATED_TO,encoding='utf-8',index=False)
 
 
 

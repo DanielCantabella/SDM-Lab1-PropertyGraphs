@@ -36,6 +36,9 @@ with driver.session() as session:
     session.run('''
     DROP CONSTRAINT volumeConstraint IF EXISTS;
     ''')
+    session.run('''
+    DROP CONSTRAINT companyIdConstraint IF EXISTS;
+    ''')
 
     # ADD CONSTRAINTS
     session.run('''
@@ -70,38 +73,32 @@ with driver.session() as session:
     LOAD CSV WITH HEADERS FROM "file:///authors-sample.csv" AS rowAuthor
     CREATE (a:Author {id: toInteger(rowAuthor.authorid), name: rowAuthor.name, url: rowAuthor.ur});
     ''')
-
     # LOAD PAPERS
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///papers-processed.csv" AS rowPaper
     CREATE (p:Paper {id: toInteger(rowPaper.corpusid), title: rowPaper.title, year: toInteger(rowPaper.year), url: rowPaper.url, openAcces: toBoolean(rowPaper.isopenaccess), publicationDate: date(rowPaper.publicationdate), updated: rowPaper.updated, DOI:rowPaper.DOI, PubMedCentral: rowPaper.PubMedCentral, PubMed:rowPaper.PubMed, DBLP: rowPaper.DBLP, ArXiv: rowPaper.ArXiv, ACL: rowPaper.ACL, MAG: rowPaper.MAG});
      ''')
-
     # LOAD KEYWORDS
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///keywords.csv" AS rowKw
     CREATE (k:Keyword {keyword: rowKw.keyword});
     ''')
-
     # LOAD JOURNALS
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///journals.csv" AS rowJournal
     CREATE (j:Journal {id: rowJournal.venueID, name: rowJournal.journalName, issn: rowJournal.issn, url: rowJournal.url});
     ''')
-
     # LOAD VOLUME
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///volume-from.csv" AS row
     MATCH (j:Journal {id:row.journalID})
     CREATE (j)<-[:VOLUME_FROM]-(v: Volume {id: row.volumeID, year: toInteger(row.year), volume: toInteger(row.volume)});
     ''')
-
     # LOAD CONFERENCES
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///conferences.csv" AS rowConference
     CREATE (c:Conference {id: rowConference.conferenceID, name: rowConference.conferenceName, issn: rowConference.issn, url: rowConference.url});
     ''')
-
     # LOAD EDITIONS
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///is-from.csv" AS rowEdition
@@ -116,7 +113,6 @@ with driver.session() as session:
     MATCH (paper:Paper {id: toInteger(rowRelation.paperID)})
     CREATE (paper)-[:WRITTEN_BY{corresponding_author: toBoolean(rowRelation.is_corresponding)}]->(author);
     ''')
-
     # ADD REVIEWED_BY RELATIONS
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///reviewed-by.csv" AS rowReview
@@ -124,7 +120,6 @@ with driver.session() as session:
     MATCH (paper:Paper {id: toInteger(rowReview.paperID)})
     CREATE (paper)-[:REVIEWED_BY {with_grade: toInteger(rowReview.grade)}]->(reviewer);
     ''')
-
     # ADD BELONGS_TO RELATIONS
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///belongs-to.csv" AS rowBelongs
@@ -132,7 +127,6 @@ with driver.session() as session:
     MATCH (edition: Edition {id:rowBelongs.venueID})
     CREATE (paper)-[:BELONGS_TO]->(edition);
     ''')
-
     # ADD PUBLISHED_IN RELATIONS
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///published-in.csv" AS row
@@ -140,13 +134,11 @@ with driver.session() as session:
     MATCH (paper:Paper {id: toInteger(row.paperID)})
     CREATE (paper)-[:PUBLISHED_IN { startPage: row.startPage, endPage: row.endPage} ]->(volume);
     ''')
-
     # ADD ABSTRACTS (IDs DO NOT COINCIDE!)
     session.run('''
-    LOAD CSV WITH HEADERS FROM 'file:///abstracts-sample.csv' AS rowAbstract
-    MATCH (p:Paper {id: toInteger(rowAbstract.corpusid)}) SET p.abstract=rowAbstract.abstract;
+    LOAD CSV WITH HEADERS FROM 'file:///withAbstracts.csv' AS rowAbstract
+    MATCH (p:Paper {id: toInteger(rowAbstract.paperID)}) SET p.abstract=rowAbstract.abstract;
      ''')
-
     # ADD CITED_BY RELATIONS
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///cited-by.csv" AS rowRel
@@ -154,7 +146,6 @@ with driver.session() as session:
     MATCH (p2:Paper {id: toInteger(rowRel.paperID_citing)})
     CREATE (p1)-[:CITED_BY]->(p2);
     ''')
-
     # ADD RELATED_TO RELATIONS
     session.run('''
     LOAD CSV WITH HEADERS FROM "file:///related-to.csv" AS rowCategory
@@ -162,6 +153,33 @@ with driver.session() as session:
     MATCH (k:Keyword {keyword: rowCategory.keyword})
     CREATE (p1)-[:RELATED_TO]->(k);
     ''')
+
+### EVOLVING THE GRAPH
+    session.run('''
+    LOAD CSV WITH HEADERS FROM "file:///reviewed-by.csv" AS rowReview
+    MATCH (p:Paper{id: toInteger(rowReview.paperID)})-[r: REVIEWED_BY]->(a:Author{id:toInteger(rowReview.reviewerID)})
+    SET r.description = rowReview.review;
+    ''')
+    session.run('''
+    CREATE CONSTRAINT companyIdConstraint FOR (organization:Organization) REQUIRE organization.id IS UNIQUE;
+    ''')
+    session.run('''
+    LOAD CSV WITH HEADERS FROM "file:///companies.csv" AS rowCompany
+    CREATE (c:Organization {id: rowCompany.companyid, name:rowCompany.company, type:'company'});
+    ''')
+    session.run('''
+    LOAD CSV WITH HEADERS FROM "file:///universities.csv" AS rowUniversity
+    CREATE (u:Organization {id: rowUniversity.universityid, name:rowUniversity.university, type:'university'});
+    ''')
+    session.run('''
+    LOAD CSV WITH HEADERS FROM "file:///affiliated-to.csv" AS rowAffiliated
+    MATCH(a:Author{id:toInteger(rowAffiliated.authorID)})
+    MATCH(o:Organization{id:rowAffiliated.affiliation})
+    CREATE (a)-[:IS_AFFILIATED_TO]->(o);
+    ''')
+
+
+
 
 ### RECOMMENDER
     #Q1

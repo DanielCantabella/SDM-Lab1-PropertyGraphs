@@ -3,31 +3,30 @@ paperID,keyword
 186558631,genetics
 186558631,data modeling
 186558631,immunology
-171643354,chemical engineering
-171643354,biochemistry
-171643354,gender studies
-171643354,logistics
+171643354,law
+171643354,data storage
+178214411,musicology
+178214411,neurology
+178214411,blockchain
 178214411,machine learning
 177916338,supply chain management
 177916338,biomedical engineering
 177916338,transportation
 177916338,deep learning
 177916338,information retrieval
-182121367,leadership
-182121367,biotechnology
-182121367,indexing
-182121367,gender studies
-185051455,marketing
-185051455,physiology
-213445925,gender studies
-213445925,deep learning
-213445925,economics
-213445925,political science
+182121367,transportation
+185051455,ecology
+185051455,environmental science
+213445925,microbiology
+213445925,logistics
+213445925,literature
+213445925,chemistry
+213445925,business intelligence
+172527090,finance
+172527090,climate change
+172527090,cell biology
 172527090,aerospace engineering
 172527090,electrical engineering
-172527090,data science
-172527090,human resource management
-172527090,business intelligence
 180265381,ecology
 180265381,biochemistry
 180265381,management
@@ -42,139 +41,137 @@ paperID,keyword
 222530497,library science
 228269409,biomedical engineering
 228269409,archaeology
-175934085,renewable energy
-175934085,biomedical engineering
-175934085,health informatics
-175934085,psychiatry
-182728769,education
-182728769,nanotechnology
-183976475,psychology
-183976475,data management
-163332018,biomedical engineering
-163332018,natural language processing
-173445737,philosophy
-173445737,deep learning
-173445737,film studies
+175934085,drug discovery
+182728769,neurology
+183976475,developmental biology
+163332018,data visualization
+163332018,operations management
+173445737,gender studies
+173445737,sustainability
 173725498,economics
-181402158,biomedical engineering
-181402158,quantum computing
-181402158,gender studies
-204618292,paleontology
-204618292,microbiology
-204618292,blockchain
-204618292,biotechnology
-174756415,physiology
-174756415,political science
-174756415,data storage
-174756415,medical devices
-184773283,education
-184773283,data modeling
-224620908,electrical engineering
+173725498,robotics
+181402158,data mining
+204618292,data querying
+204618292,organizational behavior
+204618292,data science
+204618292,deep learning
+174756415,pharmacology
+184773283,geology
+224620908,molecular biology
+224620908,education
+224620908,developmental biology
+224620908,virtual reality
+224620908,artificial intelligence
+69054383,internet of things
+69054383,chemistry
 69054383,computer vision
-69054383,virology
-69054383,data modeling
-69054383,electrical engineering
-69054383,musicology
 216674688,electrical engineering
 216674688,blockchain
-220786705,materials science
-220786705,entrepreneurship
-220786705,internet of things
-220786705,information retrieval
-218394640,marketing
-218394640,civil engineering
+220786705,biomedical engineering
+220786705,literature
+220786705,virtual reality
+220786705,operations management
+218394640,organizational behavior
+218394640,instructional design
+218394640,cloud computing
+218394640,transportation
+218394640,geology
+103420712,social media analytics
+103420712,materials science
 103420712,cloud computing
 103420712,civil engineering
-103420712,evolutionary biology
-103420712,aerospace engineering
 156892454,electrical engineering
 156892454,transportation
 156892454,data science
 178654921,biophysics
 178654921,musicology
-201850701,aerospace engineering
-201850701,physiology
+201850701,computer vision
 201850701,data visualization
+201850701,operations management
+201850701,aerospace engineering
+118679332,chemical engineering
+118679332,developmental biology
+118679332,data science
+118679332,electrical engineering
 118679332,neurology
-118679332,linguistics
-118679332,text mining
-152222401,cultural studies
-152222401,supply chain management
-68477016,computer vision
-68477016,cell biology
+152222401,data storage
+152222401,environmental science
+152222401,human resource management
+152222401,sustainability
+152222401,physics
+68477016,transportation
 192908649,big data
 192908649,data visualization
 192908649,virology
 192908649,organizational behavior
-159318811,economics
-159318811,cell biology
-159318811,leadership
-151087503,information retrieval
-151087503,deep learning
+159318811,medical devices
+159318811,political science
+159318811,cloud computing
+159318811,indexing
+159318811,marketing
 151087503,computational biology
-151087503,finance
 173613127,pharmacology
 173613127,chemical engineering
 173613127,bioinformatics
 173613127,climate change
-224407029,operations management
-224407029,political science
-224407029,artificial intelligence
-224407029,library science
-224407029,neurology
-172111010,information science
-172111010,management
-232544331,management
-232544331,cultural studies
-232544331,cancer research
-232544331,neuroscience
-228456837,big data
-228456837,linguistics
-76242106,sustainability
-76242106,text mining
-76242106,leadership
-76242106,management
-76242106,psychiatry
-172058121,materials science
-172058121,law
-172058121,gender studies
-172058121,fine arts
-172058121,logistics
-218510896,data science
-218510896,information science
-218510896,medical imaging
-218510896,computational biology
-218510896,information retrieval
-218752693,evolutionary biology
-218752693,aerospace engineering
-218752693,fine arts
-218752693,sustainability
-218752693,artificial intelligence
-234094375,biochemistry
-234094375,biotechnology
-201039868,paleontology
-201039868,immunology
-201039868,supply chain management
-201039868,developmental biology
-201039868,medical imaging
-116969730,language learning
+224407029,biophysics
+224407029,literature
+224407029,medical devices
+224407029,language learning
+172111010,virology
+172111010,renewable energy
+232544331,human-computer interaction
+232544331,genetics
+228456837,biophysics
+228456837,text mining
+228456837,microbiology
+228456837,human resource management
+76242106,political science
+172058121,molecular biology
+172058121,data science
+172058121,information science
+172058121,medical imaging
+218510896,evolutionary biology
+218510896,aerospace engineering
+218510896,fine arts
+218510896,sustainability
+218510896,artificial intelligence
+218752693,information retrieval
+218752693,logistics
+218752693,gender studies
+218752693,cancer research
+234094375,immunology
+234094375,supply chain management
+201039868,language learning
+116969730,library science
+116969730,indexing
+116969730,genetics
+116969730,materials science
+116969730,sociology
+212514582,political science
+212514582,theology
+212514582,machine learning
 212514582,developmental biology
-241187165,ecology
-241187165,cloud computing
-241187165,finance
-218372563,psychology
-218372563,literature
-218372563,chemical engineering
-218372563,organizational behavior
-137584809,physiology
-137584809,fine arts
-114583152,health informatics
-114583152,entrepreneurship
-114583152,renewable energy
+212514582,law
+241187165,organizational behavior
+241187165,biophysics
+241187165,theology
+241187165,cell biology
+241187165,operations management
+218372563,human-computer interaction
+218372563,drug discovery
+218372563,language learning
+218372563,health informatics
+218372563,medical imaging
+137584809,archaeology
+137584809,human resource management
+137584809,neurology
+114583152,philosophy
+114583152,data storage
+114583152,pharmacology
+114583152,musicology
+201228884,biotechnology
 201228884,fine arts
-201228884,curriculum development
-201228884,biochemistry
-201228884,data science
 211999293,deep learning
 236084343,computational biology
 236084343,data modeling
@@ -185,119 +182,126 @@ paperID,keyword
 223223731,microbiology
 223223731,chemical engineering
 223223731,bioinformatics
-222445728,physics
-222445728,musicology
-222445728,marketing
-216771883,neuroscience
-222201264,cancer research
-222201264,robotics
-222201264,sociology
-222201264,big data
-222201264,quantum computing
-218116915,economics
-218116915,sustainability
-218116915,evolutionary biology
-204598423,accounting
-204598423,business intelligence
-204598423,climate change
-203322470,evolutionary biology
-203322470,psychology
-201974822,data science
-201974822,cultural studies
-201974822,information retrieval
-201974822,biophysics
-201974822,big data
-196164276,film studies
-196164276,data storage
+222445728,neuroscience
+216771883,data mining
+216771883,microbiology
+216771883,internet of things
+216771883,logistics
+222201264,literature
+222201264,supply chain management
+222201264,curriculum development
+222201264,philosophy
+222201264,education
+218116915,civil engineering
+218116915,computational biology
+218116915,instructional design
+218116915,text mining
+204598423,renewable energy
+204598423,operations management
+204598423,internet of things
+203322470,cultural studies
+203322470,sustainability
+203322470,geology
+203322470,genetics
+201974822,fine arts
+201974822,augmented reality
+201974822,neurology
+201974822,genetics
+196164276,psychiatry
+196164276,logistics
+196164276,education
+196164276,aerospace engineering
 196164276,augmented reality
-196164276,human resource management
-196164276,mathematics
-196112437,fine arts
-196112437,augmented reality
-196112437,neurology
-196112437,genetics
-194780130,robotics
-194780130,theology
+196112437,data visualization
+196112437,aerospace engineering
+196112437,microbiology
+196112437,organizational behavior
+196112437,paleontology
+194780130,marketing
 194780130,law
-194780130,aerospace engineering
-199282780,cultural studies
-199282780,cloud computing
-199349426,fine arts
-199217217,marketing
-199217217,chemistry
-199217217,data querying
-199217217,instructional design
-198755652,aerospace engineering
-198755652,library science
-197965946,chemistry
-197965946,logistics
-197965946,biomedical engineering
-195010030,text mining
-195010030,genetics
-195010030,civil engineering
-195010030,economics
-195010030,mechanical engineering
-234007880,data science
-232934559,psychiatry
-231108047,information retrieval
-224350738,psychiatry
-212007178,musicology
-212007178,physiology
-207850137,finance
-117468083,education
-117468083,virtual reality
-117468083,molecular biology
-117468083,data mining
-117108087,operations management
-117108087,virology
-117108087,text mining
-117108087,social media analytics
-117108087,chemistry
-113894244,archaeology
-113894244,entrepreneurship
-113894244,augmented reality
-113202733,psychiatry
-113202733,aerospace engineering
-112593522,cloud computing
-112593522,theology
-112593522,materials science
-112593522,immunology
-112800869,statistics
-112800869,ecology
-112286665,virtual reality
-112286665,human-computer interaction
-112286665,paleontology
-112286665,curriculum development
-111231513,linguistics
-111231513,gender studies
-111231513,biotechnology
-111231513,data querying
-111088085,blockchain
-111088085,medical imaging
-111088085,biophysics
-111088085,sociology
-110887031,biophysics
-110887031,pharmacology
-110887031,law
-110887031,information retrieval
-110887031,operations management
-118878312,literature
-118878312,molecular biology
-118878312,developmental biology
-118878312,theology
-119002715,data querying
-115514548,electrical engineering
-115514548,machine learning
-107886285,gender studies
-107886285,data storage
-107886285,renewable energy
-107737299,chemistry
-107737299,supply chain management
-106761490,language learning
-106761490,computer vision
-106761490,deep learning
-106761490,immunology
-106761490,literature
-90222727,cloud computing
-90222727,business intelligence
-90222727,biochemistry
+194780130,electrical engineering
+194780130,civil engineering
+194780130,chemistry
+199282780,text mining
+199282780,genetics
+199282780,civil engineering
+199282780,economics
+199282780,mechanical engineering
+199349426,data processing
+199217217,indexing
+199217217,psychology
+199217217,history
+198755652,drug discovery
+198755652,machine learning
+197965946,musicology
+197965946,physiology
+195010030,molecular biology
+234007880,operations management
+234007880,virology
+234007880,text mining
+234007880,social media analytics
+234007880,chemistry
+232934559,archaeology
+232934559,entrepreneurship
+232934559,augmented reality
+231108047,biotechnology
+231108047,cultural studies
+224350738,cloud computing
+224350738,physics
+224350738,finance
+224350738,natural language processing
+212007178,philosophy
+212007178,neurology
+207850137,social media analytics
+207850137,psychology
+207850137,data visualization
+117468083,chemical engineering
+117468083,film studies
+117468083,entrepreneurship
+117108087,quantum computing
+117108087,immunology
+113894244,anthropology
+113894244,law
+113202733,economics
+113202733,business intelligence
+112593522,linguistics
+112593522,curriculum development
+112593522,developmental biology
+112593522,musicology
+112593522,operations management
+112800869,data visualization
+112800869,renewable energy
+112800869,biophysics
+112286665,genetics
+112286665,data visualization
+112286665,data processing
+112286665,chemical engineering
+112286665,philosophy
+111231513,text mining
+111088085,human resource management
+111088085,deep learning
+111088085,musicology
+111088085,bioinformatics
+111088085,finance
+110887031,political science
+110887031,artificial intelligence
+110887031,robotics
+110887031,musicology
+110887031,renewable energy
+118878312,virtual reality
+119002715,cybersecurity
+119002715,cell biology
+119002715,law
+119002715,finance
+115514548,ecology
+115514548,computer vision
+107886285,data querying
+107886285,psychology
+107886285,aerospace engineering
+107886285,leadership
+107886285,data processing
+107737299,internet of things
+107737299,accounting
+107737299,paleontology
+106761490,statistics
+90222727,cybersecurity
