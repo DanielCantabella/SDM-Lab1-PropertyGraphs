@@ -1,7 +1,7 @@
 from neo4j import GraphDatabase
 
-# driver = GraphDatabase.driver("bolt://localhost:7687",auth=("dani", "password"))
-driver = GraphDatabase.driver("bolt://localhost:7687",auth=("neo4j", "admin123"))
+driver = GraphDatabase.driver("bolt://localhost:7687",auth=("dani", "password"))
+# driver = GraphDatabase.driver("bolt://localhost:7687",auth=("neo4j", "admin123"))
 
 with driver.session() as session:
 ### RECOMMENDER
@@ -26,25 +26,15 @@ with driver.session() as session:
     CREATE (community)-[:DEFINED_BY]->(keyword);
     ''')
     #Q2
-    #Conferences
     session.run('''
-    MATCH (p:Paper)-[:BELONGS_TO]->(e:Edition)-[:IS_FROM]->(conf:Conference)
-    WITH conf.id AS conference, COUNT(p) AS numPapers
-    MATCH (conf2:Conference{id: conference})<-[:IS_FROM]-(e:Edition)<-[:BELONGS_TO]-(p:Paper)-[:RELATED_TO]->(k:Keyword)<-[:DEFINED_BY]-(com:Community)
-    WITH conf2, conf2.id AS conference2, COUNT(distinct(p)) AS numPapersWithKeywords, numPapers, com
-    WITH conf2, conference2, numPapers, numPapersWithKeywords, (toFloat(numPapersWithKeywords)/numPapers) AS percentage, com
+    MATCH (p:Paper) -[:BELONGS_TO|PUBLISHED_IN]->(e)-[:VOLUME_FROM|IS_FROM]->(ven)
+    WITH ven.id AS venue, COUNT(p) AS numPapers, ven
+    MATCH (com:Community)-[:DEFINED_BY]->(k:Keyword)<-[:RELATED_TO]-(p:Paper)-[:PUBLISHED_IN|BELONGS_TO]->(e)-[:VOLUME_FROM|IS_FROM]->(ven2)
+    WHERE ven2.id=venue
+    WITH ven2, ven2.id AS venue2, COUNT(distinct(p)) AS numPapersWithKeywords, numPapers, com
+    WITH ven2, venue2, numPapersWithKeywords, numPapers, com, (toFloat(numPapersWithKeywords)/numPapers) AS percentage
     WHERE percentage>=0.9
-    MERGE (conf2)-[:IN_COMMUNITY]->(com);
-    ''')
-    # Journals
-    session.run('''
-    MATCH (p:Paper)-[:PUBLISHED_IN]->(v:Volume)-[:VOLUME_FROM]->(jour:Journal)
-    WITH jour.id AS journal, COUNT(p) AS numPapers
-    MATCH (jour2:Journal{id: journal})<-[:VOLUME_FROM]-(v:Volume)<-[:PUBLISHED_IN]-(p:Paper)-[:RELATED_TO]->(k:Keyword)<-[:DEFINED_BY]-(com:Community)
-    WITH jour2, jour2.id AS journal2, COUNT(distinct(p)) AS numPapersWithKeywords, numPapers, com
-    WITH jour2, journal2, numPapers, numPapersWithKeywords, (toFloat(numPapersWithKeywords)/numPapers) AS percentage, com
-    WHERE percentage>=0.9
-    MERGE (jour2)-[:IN_COMMUNITY]->(com);
+    MERGE (ven2)-[:IN_COMMUNITY]->(com);
     ''')
 
     #Q3
