@@ -9,7 +9,7 @@ By using Neo4j as our graph database, we can easily model and visualize the rela
 Additionally, we will be getting familiar with Cypher, the query language used in Neo4j, to efficiently query and 
 process the data within the graph. The ultimate goal is to build a robust and flexible graph database that can be used 
 to analyze various aspects of the scientific paper ecosystem. In order to set up properly the database, please follow the instructions in
-[Setting up Neo4j](#setting-up-neo4j).
+[Setting up Neo4j Server and program execution](#setting-up-neo4j-server-and-program-execution)
 
 ## A.1. Modeling
 This part of the project consists on modeling the graph data in order to get an overview of our database schema.

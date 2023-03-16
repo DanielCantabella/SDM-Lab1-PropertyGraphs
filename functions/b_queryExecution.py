@@ -23,7 +23,7 @@ def queryExecution():
         res = session.run('''
             MATCH (author:Author)<-[:WRITTEN_BY]-(paper:Paper)-[:BELONGS_TO]->(edition:Edition)-[:IS_FROM]->(conf:Conference)
             WITH conf.name AS conference, author.name AS authName, COUNT(DISTINCT(paper)) as numPapers
-            WHERE numPapers>1
+            WHERE numPapers>3
             WITH conference, COLLECT(authName) AS community, numPapers
             RETURN conference, community, numPapers
                     ''')
