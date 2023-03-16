@@ -8,12 +8,16 @@ import string
 SPLIT VENUES BETWEEN JOURNALS AND CONFERENCES.
  * Journal: pages and volume are generated randomly.
  * Conference: edition and date are generated randomly.
+
+CREATES files for IS_FROM and VOLUME_FROM
+ * IS_FROM: Edition -[:IS_FROM]-> Coference
+ * VOLUME_FROM: Volume -[:VOLUME_FROM]-> Journal
 '''
 
 VENUES_SOURCE = 'sample_csv/publication-venues-sample.csv'
 OUTPUT_PATH_JOURNALS = 'sample_csv/journals.csv'
 OUTPUT_PATH_CONFERENCES = 'sample_csv/conferences.csv'
-OUTPUT_PATH_BELONGS_TO = 'sample_csv/is-from.csv'
+OUTPUT_PATH_IF_FROM = 'sample_csv/is-from.csv'
 OUTPUT_PATH_VOLUME_FROM = 'sample_csv/volume-from.csv'
 
 def splitVenues():
@@ -85,5 +89,5 @@ def splitVenues():
     volume_from.to_csv(OUTPUT_PATH_VOLUME_FROM,encoding='utf-8',index=False)
     journals.to_csv(OUTPUT_PATH_JOURNALS,encoding='utf-8',index=False)
     conferences.to_csv(OUTPUT_PATH_CONFERENCES, encoding='utf-8', index=False)
-    is_from.to_csv(OUTPUT_PATH_BELONGS_TO, encoding='utf-8', index=False)
+    is_from.to_csv(OUTPUT_PATH_IF_FROM, encoding='utf-8', index=False)
 

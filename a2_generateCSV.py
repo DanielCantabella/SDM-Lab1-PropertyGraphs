@@ -11,11 +11,11 @@ OUTPUT_FOLDER = 'sample_csv'
 
 def generateCSV():
     directory = os.getcwd()
-    data_source = directory + '\\' + DATA_FOLDER
+    data_source = directory + '/' + DATA_FOLDER
 
     #Create the output folder
     directory = os.getcwd()
-    pathlib.Path(directory+'\\'+OUTPUT_FOLDER).mkdir(parents=True, exist_ok=True)
+    pathlib.Path(directory+'/'+OUTPUT_FOLDER).mkdir(parents=True, exist_ok=True)
 
     for filename in os.listdir(data_source):
 
