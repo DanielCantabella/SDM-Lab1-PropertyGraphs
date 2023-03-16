@@ -16,6 +16,7 @@ if __name__ == '__main__':
         print("3. Task B - Query execution")
         print("4. Task C - Recommender")
         print("5. Task D - Algorithm execution")
+        print("6. Execute all in order")
         print("0. Exit")
         choice = input("Enter your choice: ")
         if choice == "1":
@@ -28,10 +29,16 @@ if __name__ == '__main__':
             partC()
         elif choice == "5":
             partD()
+        elif choice == "6":
+            partA2()
+            partA3()
+            partB()
+            partC()
+            partD()
         elif choice == "0":
             print("Exiting the program.")
             break
         else:
-            print("Invalid choice. Please enter a number between 0 and 5.")
+            print("Invalid choice. Please enter a number between 0 and 6.")
         printLine("=", 70)
         input("Press enter to return to the menu...")

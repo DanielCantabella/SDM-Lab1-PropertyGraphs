@@ -64,9 +64,12 @@ def generateRelations():
         random_type = random.randint(0, 1)
         #Conference
         if random_type == 0:
-            conference = conferences.sample(1)
-            row_data = {'venueID': conference.loc[conference.index[0], 'editionID'], 'paperID': row['corpusid']}
-            belongs_to = pd.concat([belongs_to, pd.DataFrame([row_data])], ignore_index=True)
+            n_conf = random.randint(5, 15)
+            conf_sample = conferences.sample(n_conf)
+            for _ , conference in conf_sample.iterrows():
+                row_data = {'venueID':  conference['editionID'], 'paperID': row['corpusid']}
+                belongs_to = pd.concat([belongs_to, pd.DataFrame([row_data])], ignore_index=True)
+
         #Journal
         else:
             n_journals = random.randint(5, 15)
