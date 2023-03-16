@@ -12,7 +12,7 @@ to analyze various aspects of the scientific paper ecosystem.
 This part of the project consists on modeling the graph data in order to get an overview of our database schema.
 We designed our graph database based on some assumptions we made and designed the different nodes and relationships shown in the following image:
 
-GRAPH IMAGE HERE
+![graph1](./images/graph1.png)
 
 ### NODES & ATTRIBUTES
 Here we describe each node in the graph database:
@@ -152,7 +152,7 @@ Here we show the list of the programs we implemented to download and generate th
 * getSampleData.py: this file uses the Semantic Scholar sample API to get the desired datasets as jsonl.gz files.
 * generateCsv.py: this file reads the jsonl.gz files from the Semantic Scholar API and exports them into CSV files.
 * splitVenues.py: this file reads the venues file and generates two new files: one with the list of journals and other with the conferences.
-* [generateRelations.py](generateRelations.py): this file generates the artificial relationships between the different nodes, and exports them into CSV files.
+* [generateRelations.py](a2_generateRelations.py): this file generates the artificial relationships between the different nodes, and exports them into CSV files.
 * importData2Database.py: this file contains the connection to the neo4j database. It executes the constraints and the creation of the nodes and edges by loading the data from previously generated CSV files.
 
 **_NOTE_**: Since the relationship between nodes were randomly generated, we didn't expect it to make any sense. 
@@ -161,12 +161,12 @@ The objective of this part was to generate the data to be able to work later wit
 ## A.3 Evolving the graph
 In this section we evolved our graph. The different updates are highlighted in the following image:
 
-IMAGE GRAPH UPDATED HERE
+![graph2](./images/graph2.png)
 
-To evolve the graph and allow for the storage of additional information, such as reviews from reviewers and the approval or cancellation status of each paper, we split the work into two parts. Both parts are contained in [A3_Evolving.py](A3_Evolving.py).
+To evolve the graph and allow for the storage of additional information, such as reviews from reviewers and the approval or cancellation status of each paper, we split the work into two parts. Both parts are contained in [A3_Evolving.py](a3_evolving.py).
 
 In the first part, we updated the data model to include a new attribute "**description**" in `REVIEWED_BY` edges.
-Since there was no data giving the description of any review, it was artificially generated in [reviews.csv](sample_csv/reviews.csv) and randomly assigned to each review relationship in [reviewed-by.csv](sample_csv%2Freviewed-by.csv) by using [generateRelations.py](generateRelations.py).
+Since there was no data giving the description of any review, it was artificially generated in [reviews.csv](sample_csv/reviews.csv) and randomly assigned to each review relationship in [reviewed-by.csv](sample_csv%2Freviewed-by.csv) by using [generateRelations.py](a2_generateRelations.py).
 Once the data was prepared, we added the description of each review with Cypher:
 ```{Cypher}
 LOAD CSV WITH HEADERS FROM "file:///reviewed-by.csv" AS rowReview
@@ -192,7 +192,7 @@ Note that `type` attribute could only be either **university** or **company**.
 The addition of these nodes implied the addition of a new edge `AFFILIATED_TO` going from Author to Organization nodes.
 Again, as we did not have data from universities nor companies, we created artificial data in CSV containing names and ids of the organizations. 
 Those files can be seen in [universities.csv](sample_csv%2Funiversities.csv) and [companies.csv](sample_csv%2Fcompanies.csv). 
-The relations between authors and organizations was randomly assigned in [affiliated-to.csv](sample_csv%2Faffiliated-to.csv) by using [generateRelations.py](generateRelations.py).
+The relations between authors and organizations was randomly assigned in [affiliated-to.csv](sample_csv%2Faffiliated-to.csv) by using [generateRelations.py](a2_generateRelations.py).
 Once the data was prepared, we extended the model with Cypher:
 ```
 CREATE CONSTRAINT companyIdConstraint FOR (organization:Organization) REQUIRE organization.id IS UNIQUE;
@@ -234,15 +234,13 @@ RETURN conference, community, numPapers
 ```
 3. Find the impact factors of the journals in your graph.
 ```
-MATCH (j:Journal)<-[e1:VOLUME_FROM]-(v:Volume)
-MATCH (v:Volume)<-[e:PUBLISHED_IN]-(p:Paper)
-OPTIONAL MATCH (p)-[e2:CITED_BY]->(p2:Paper {year: toInteger(v.year)-1})
-with j, v.year as year, count(e2) as numCit
-OPTIONAL MATCH (p)-[e3:PUBLISHED_IN{year:toInteger(year)-1}]->(j)
+MATCH (j:Journal)<-[e1:VOLUME_FROM]-(v:Volume)<-[e2:PUBLISHED_IN]-(p:Paper)
+with j, toInteger(v.year) as year, count(e2) as numCit
+OPTIONAL MATCH (j)<-[:VOLUME_FROM]-(v2:Volume{year:year-1})<-[e3:PUBLISHED_IN]-(:Paper)
 WITH j, year, numCit, count(e3) as numPub1
-OPTIONAL MATCH (p)-[e3:PUBLISHED_IN{year:toInteger(year)-2}]->(j)
-WITH j, year, numCit, numPub1, count(e3) as numPub2
-RETURN j.id, year, numCit, numPub1, numPub2, CASE numPub1+numPub2 WHEN 0 THEN 0.0 ELSE toFloat(numCit)/(numPub1+numPub2) END AS IF order by j.id, year
+OPTIONAL MATCH (j)<-[:VOLUME_FROM]-(v3:Volume{year:year-2})<-[e4:PUBLISHED_IN]-(:Paper)
+WITH j, year, numCit, numPub1, count(e4) as numPub2
+return j.id, year, numCit, numPub1, numPub2, CASE numPub1+numPub2 WHEN 0 THEN 0.0 ELSE toFloat(numCit)/(numPub1+numPub2) END AS IF order by j.id, year
 ```
 4. Find the h-indexes of the authors in your graph
 ``` 
@@ -256,7 +254,7 @@ RETURN authorName,hIndexList[-1][1] AS h_index
 ```
 
 # C Recommender
-In this task we created a simple reviewer recommender for editors and chairs in [C_Recommender.py](C_Recommender.py).
+In this task we created a simple reviewer recommender for editors and chairs in [C_Recommender.py](c_recommender.py).
 Here we identified potential reviewers for the database community. To do that, we followed different stages:
 1. We defined the database community: We created a new node `Community` with name `database` and linked it 
 to the keywords of the database community (i.e., data management, indexing, data modeling, big data, data processing, data storage and data querying) through the edge `DEFINED_BY`. 
@@ -310,5 +308,41 @@ SET a.database_com_guru = true;
 # D Graph algorithms
 In this section we put in practice the use of different graph algorithms to query graph data. Here we used two of the most well-known graph algorithms: [Node similarity](#node-similarity) and [Louvain algorithm](#louvain).
 ## Node similarity
+This algorithm would be applied to the nodes of type Author, focusing on the relation WRITTEN_BY with the Paper nodes, and would compare the similarity between these nodes, and the result would be ordered by the similarity in descendent order. The idea of this algorithm application is to get the Authors that tend to write papers together. This would be useful for example to search authors to collaborate with, so I have an author in which I trust, so by using the similarity calculated by this algorithm, I can choose other authors that have high similarity with the author I trust, because if they have a high similarity, it means that they have  a lot of papers together. 
+
+### Execution
+Create the graph projection where the algorithm would be applied:
+```
+CALL gds.graph.project(
+    'similarity_graph',
+    ['Author', 'Paper'],
+    {
+        WRITTEN_BY: {
+            orientation: "REVERSE"
+        }
+    }
+);
+```
+Algorithm execution over the graph projection:
+```
+CALL gds.nodeSimilarity.stream('similarity_graph')
+YIELD node1, node2, similarity
+RETURN gds.util.asNode(node1).id AS Author1, gds.util.asNode(node2).id AS Author2, similarity
+ORDER BY similarity DESCENDING, Author1, Author2
+```
+
 
 ## Louvain 
+
+### Execution
+Create the graph projection where the algorithm would be applied:
+```
+CALL gds.graph.project('LouvainGraph', 'Paper', 'CITED_BY')
+```
+Algorithm execution over the graph projection:
+```
+CALL gds.louvain.stream('LouvainGraph')
+YIELD nodeId, communityId, intermediateCommunityIds
+RETURN COLLECT(gds.util.asNode(nodeId).title) AS title, communityId
+ORDER BY communityId ASC
+```
