@@ -23,7 +23,7 @@ Here we describe each node in the graph database:
    * _Attributes_:
      * id &rarr; (e.g., id: 2168630911)
      * name &rarr; (e.g., name: Larisa Renteria)
-     * url &rarr; REMOVE FROM IMAGE AND HERE
+
      
 * **Paper** &rarr; scientific paper
   * A paper can only belong either to one journal or to one conference.
@@ -39,11 +39,6 @@ Here we describe each node in the graph database:
     * publicationDate &rarr; publication date of the paper (e.g., publicationDate: "2011-08-01")
     * updated &rarr; (e.g., updated: 2022-02-08T16:57:52.072Z)
     * DOI &rarr; DOI code of the paper (e.g., DOI: 10.1136/ebmh.12.1.e1)
-    * PubMedCentral &rarr; (e.g., ) --> REMOVE FROM HERA AND IMAGE
-    * PubMed &rarr; (e.g., ) --> REMOVE FROM HERA AND IMAGE
-    * DBLP &rarr; (e.g., ) --> REMOVE FROM HERA AND IMAGE
-    * Arxiv &rarr; (e.g., ) --> REMOVE FROM HERA AND IMAGE
-    * ACL &rarr; (e.g., ) --> REMOVE FROM HERA AND IMAGE
     * MAG &rarr; Microsoft Academic Graph database code (e.g., MAG: 2463363854)
 
 * **Keyword** &rarr; a paper can contain multiple keywords and a keyword can be contained in many papers
@@ -166,7 +161,9 @@ Due to the graph model design, it was only necessary to store the status of a pa
 Later on, we wanted to extend the model to store the affiliation of the author. Hence, an author could be affiliated to an organization which could be a university or a company.
 In order to deal with this update, we extended our model in order to include new `Organization` nodes. Those Organization node were designed to have the following attributes: id (e.g., id: OY1ibQYV9f), name (e.g., name: Bruker Corporation ) and type (e.g., type: company).
 Note that `type` attribute could only be either **university** or **company**.
-The addition of these nodes implied the addition of a new edge `AFFILIATED_TO` going from Author to Organization nodes.
+The addition of these nodes implied the addition of a new edge `AFFILIATED_TO` going from Author to Organization nodes. 
+We did not split companies and universities since both would have the same attributes and having an attribute `type` does not difficult the queries over it.
+Just filtering by `type` attribute instead of by nodes allows us to have the model more compacted and interpretable. This way we avoid having two different types of nodes.
 Again, as we did not have data from universities nor companies, we created artificial data in CSV containing names and ids of the organizations. 
 Those files can be seen in [universities.csv](sample_csv%2Funiversities.csv) and [companies.csv](sample_csv%2Fcompanies.csv). 
 The relations between authors and organizations was randomly assigned in [affiliated-to.csv](sample_csv%2Faffiliated-to.csv) by using [generateRelations.py](functions/a2_generateRelations.py).
@@ -317,7 +314,8 @@ ORDER BY similarity DESCENDING, Author1, Author2
 In the output it can be seen a list of two authors id and the calculated similarity between them, ordered in a descendant way by this similarity value, this would be helpful as it was said before to have a list of authors that work together a lot. But this is not 100% truthful because this similarity value would depend on the number of papers of the authors, so for instance it would not be the same a similarity of 0.5 between two authors that have 2 papers each and between two authors with 20 papers, so it is a relative value.
 
 ## Louvain 
-In this case, we utilized the Louvain algorithm. This algorithm was useful for identifying communities of strongly connected papers, 
+In this case, we utilized the Louvain algorithm. The algorithm takes into account shared edges between nodes and looks for the highest modularity gain (i.e., a measure that assesses the best partitions of nodes between communities).
+This algorithm was useful for identifying communities of strongly connected papers, 
 so when we projected only part of our graph (i.e., Paper nodes and `CITED_BY` edges), we were able to find different communities of papers based on the citations between them. 
 In our case, the use of this algorithm could be applied in various contexts. For example, it could be interesting to find communities of papers 
 that related to each other to identify joint research groups (i.e., papers that worked in similar areas). It could be also useful to find papers 
