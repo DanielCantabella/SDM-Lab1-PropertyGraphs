@@ -6,7 +6,8 @@ This includes information such as papers, authors, conferences, journals, and ke
 By using Neo4j as our graph database, we can easily model and visualize the relationships between these entities. 
 Additionally, we will be getting familiar with Cypher, the query language used in Neo4j, to efficiently query and 
 process the data within the graph. The ultimate goal is to build a robust and flexible graph database that can be used 
-to analyze various aspects of the scientific paper ecosystem.
+to analyze various aspects of the scientific paper ecosystem. In order to set up properly the database, please follow the instructions in
+[SETTING UP Neo4j](#setting-up-neo4j).
 
 ## A.1 Modeling
 This part of the project consists on modeling the graph data in order to get an overview of our database schema.
@@ -17,106 +18,75 @@ We designed our graph database based on some assumptions we made and designed th
 ### NODES & ATTRIBUTES
 Here we describe each node in the graph database:
 * **Author** &rarr; an author can be itself a paper author or a paper reviewer. An author cannot be a reviewer of their own papers.
-   * Properties:
-     * id &rarr;
-     * name &rarr;
-     * url &rarr;
+   * _Attributes_:
+     * id &rarr; (e.g., id: 2168630911)
+     * name &rarr; (e.g., name: Larisa Renteria)
+     * url &rarr; REMOVE FROM IMAGE AND HERE
      
-  _**Justification**:_ 
-  * By representing authors as nodes, it becomes easier to represent relationships between authors and papers.
-  * By using author nodes, the database can be scaled more easily, and queries can be executed more quickly.
-<br/>
-<br/>
 * **Paper** &rarr; scientific paper
   * A paper can only belong either to one journal or to one conference.
   * A paper can have multiple authors but only one corresponding author.
   * A paper can have multiple reviewers
-  * Properties:
-    * id &rarr;
-    * title &rarr;
-    * url &rarr;
-    * abstract &rarr;
-    * openAccess &rarr;
-    * publicationDate &rarr;
-    * updated &rarr;
-    * DOI &rarr;
-    * PbMedCentral &rarr;
-    * PubMed &rarr;
-    * DBLP &rarr;
-    * Arxiv &rarr;
-    * ACL &rarr;
-    * MAG &rarr;
+  * _Attributes_:
+    * id &rarr; (e.g., id: 171188162)
+    * title &rarr; (e.g., title: Metafisica delle forme simboliche. Note su Cassirer inedito)
+    * year &rarr; (e.g., year: 1995) 
+    * url &rarr; (e.g., url: https://www.semanticscholar.org/paper/821cb451d598cd93746194acb16c3e04272cdbbc)
+    * abstract &rarr; (e.g., abstract: Objective: To screen the antifungal activity of seed extracts of...)
+    * openAccess &rarr; (e.g., openAcces: false)
+    * publicationDate &rarr; (e.g., publicationDate: "2011-08-01")
+    * updated &rarr; (e.g., updated: 2022-02-08T16:57:52.072Z)
+    * DOI &rarr; (e.g., DOI: 10.1136/ebmh.12.1.e1)
+    * PubMedCentral &rarr; (e.g., ) --> REMOVE FROM HERA AND IMAGE
+    * PubMed &rarr; (e.g., ) --> REMOVE FROM HERA AND IMAGE
+    * DBLP &rarr; (e.g., ) --> REMOVE FROM HERA AND IMAGE
+    * Arxiv &rarr; (e.g., ) --> REMOVE FROM HERA AND IMAGE
+    * ACL &rarr; (e.g., ) --> REMOVE FROM HERA AND IMAGE
+    * MAG &rarr; (e.g., MAG: 2463363854)
     
-  _**Justification**:_  
-  * By representing papers as nodes, it becomes easier to represent relationships between papers and other entities in the database (e.g., authors, journals, keywords, etc.)
-  * Storing papers as nodes allows for the storage of additional metadata, such as keywords, publication date, and citation count, which can be used to enrich the relationships between papers and other entities in the database.
-<br/>
-<br/>
+
 * **Keyword** &rarr; a paper can contain multiple keywords and a keyword can be contained in many papers
-  * Properties:
+  * _Attributes_:
     * keyword &rarr; name of the keyword (e.g., computational biology)
-    
-  _**Justification**:_ 
-  * As many papers can be related to the same Keyword, representing them as nodes allows for normalizing the data to avoid repetitions.
-  * Representing keywords as nodes provides greater flexibility in the types of queries that can be executed. For example, it becomes possible to query the database for all papers that contain a specific keyword, or to identify papers that share multiple keywords.
-<br/>
-<br/>
 
 * **Volume** &rarr; a journal volume that can publish many papers
-  * Properties:
-    * id &rarr;
-    * volume &rarr;
-    * year &rarr;
-    
-  _**Justification**:_ 
-  * 
-<br/>
-<br/>
+  * _Attributes_:
+    * id &rarr; (e.g., id: fz3guy7i-odk0-62rp-sl7p-0fy9ex3ikwii)
+    * volume &rarr; (e.g., volume: 2)
+    * year &rarr; (e.g., year: 2021)
+
 
 * **Journal** &rarr; one journal could contain many journal volumes
-  * Properties:
-    * id &rarr;
-    * name &rarr;
-    * issn &rarr;
-    * url &rarr;
-    
-  _**Justification**:_ 
-  * 
-<br/>
-<br/>
+  * _Attributes_:
+    * id &rarr; (e.g., id: 3b2c751d-4ed2-4da6-be71-4c19769543bf)
+    * name &rarr; (e.g., name: Florida Media Quarterly)
+    * issn &rarr; (e.g., issn: 1085-1976)
+    * url &rarr; (e.g., url: http://www.floridamedia.org/)
+
 
 * **Edition** &rarr; a conference edition that can held many papers
-  * Properties:
-    * id &rarr;
-    * startDate &rarr;
-    * endDate &rarr;
-    
-  _**Justification**:_ 
-  * 
-<br/>
-<br/>
+  * _Attributes_:
+    * id &rarr; (e.g., id: tiblgnnj-fed2-k6g0-n5m8-0ddbexw5ikly)
+    * startDate &rarr; (e.g., startDate: "2011-05-06")
+    * endDate &rarr; (e.g., endDate: "2011-05-14")
+
 
 * **Conference** &rarr; one conference could contain many conference editions
-  * Properties:
-    * id &rarr;
-    * name &rarr;
-    * issn &rarr;
-    * url &rarr;
-    
-  _**Justification**:_ 
-  * 
-<br/>
-<br/>
+  * _Attributes_:
+    * id &rarr; (e.g., id: 04d55eb2-9d8a-4366-baad-c0838563c870)
+    * name &rarr; (e.g., name: The Irish Review)
+    * issn &rarr; (e.g., issn: 0790-7850)
+    * url &rarr; (e.g., url: https://theirishreview.com/)
 
 ### EDGES
 * **WRITTEN_BY** &rarr; from **Paper** to **Author** nodes. 
-  * _Properties_:
+  * _Attributes_:
     * It contains a boolean indicating if it is **corresponding_author** or not.
 
 * **REVIEWED_BY** &rarr; from **Paper** to **Author** nodes. 
   * This author is not actually an author of the paper but its reviewer.
   * An author cannot be the reviewer of its own paper.
-  * _Properties_:
+  * _Attributes_:
     * It contains the **grade** of the review from 1 to 5. Here we assume reviewers mark papers with a grade instead of an approved/cancelled status.
 
 * **RELATED_TO** &rarr; from **Paper** to **Keyword** nodes. 
@@ -127,18 +97,23 @@ Here we describe each node in the graph database:
   
 * **PUBLISHED_IN** &rarr; from **Paper** to **Volume** nodes.
   * Many papers can be published in a journal volume. 
-  * _Properties_:
-    * It contains the **starting** and **ending** **page** where the paper appears
+  * _Attributes_:
+    * It contains the **starting** and **ending** **page** where the paper appears.
+    
 * **VOLUME_FROM** &rarr; from **Volume** to **Journal**
   * A journal can be related with many volumes. A volume can be related to **only** one journal.
+  
 * **BELONGS_TO** &rarr; from **Paper** to **Edition**.
   * Many papers can belong to the same conference edition. 
+  
 * **IS_FROM** &rarr; from **Edition** to **Conference**.
   * A conference can have many editions. An edition can be related to **only** one conference.
 
 
 ### GENERAL JUSTIFICATIONS AND ASSUMPTIONS
-* The structure of the graph database was made like this in order to avoid storing the same data more than once and to have an easy understanding,
+* The structure of the graph database was made like this in order to avoid storing the same data more than once and to have an easy understanding.
+* As many papers can be related to the same Keyword, representing them as nodes allows for normalizing the data to avoid repetitions. Representing keywords as nodes provides greater flexibility in the types of queries that can be executed. For example, it becomes possible to query the database for all papers that contain a specific keyword, or to identify papers that share multiple keywords.
+
 * Linking a paper to a conference edition or journal volume was done because it was assumed that one journal has many volumes and a conference has many editions, so one paper can only belong to one of these volumes or editions.
 * The reviews structure was made by only linking the reviewers to the paper because of the mentioned statement before, that one paper belongs to only one edition or volume so it would only have one review associated, so there was no need to have a new node for review and the information per review can be stored on the edge `REVIEWED_BY`.
 * There was no need to have two different links for paper an author to differentiate the corresponding one, by adding a boolean to the edge was enough
@@ -149,11 +124,11 @@ The data consisted of a sample of 100 different examples for each of the contain
 Each of these files contained relationships to other instances, but none of those relationships matched the IDs of the instances in the other files. For this reason, and because our sample was very small (i.e. 100 samples each file), we 
 decided to artificially generate both the relationships and the necessary data not contained in the samples.
 Here we show the list of the programs we implemented to download and generate the necessary data for the project:
-* getSampleData.py: this file uses the Semantic Scholar sample API to get the desired datasets as jsonl.gz files.
-* generateCsv.py: this file reads the jsonl.gz files from the Semantic Scholar API and exports them into CSV files.
-* splitVenues.py: this file reads the venues file and generates two new files: one with the list of journals and other with the conferences.
-* [generateRelations.py](a2_generateRelations.py): this file generates the artificial relationships between the different nodes, and exports them into CSV files.
-* importData2Database.py: this file contains the connection to the neo4j database. It executes the constraints and the creation of the nodes and edges by loading the data from previously generated CSV files.
+* [a2_getSampleData.py](a2_getSampleData.py): this file uses the Semantic Scholar sample API to get the desired datasets as jsonl.gz files.
+* [a2_generateCSV.py](a2_generateCSV.py): this file reads the jsonl.gz files from the Semantic Scholar API and exports them into CSV files.
+* [a2_splitVenues.py](a2_splitVenues.py): this file reads the venues file and generates two new files: one with the list of journals and other with the conferences.
+* [a2_generateRelations.py](a2_generateRelations.py): this file generates the artificial relationships between the different nodes, and exports them into CSV files.
+* [a2_importData2Database.py](a2_importData2Database.py): this file contains the connection to the neo4j database. It executes the constraints and the creation of the nodes and edges by loading the data from previously generated CSV files.
 
 **_NOTE_**: Since the relationship between nodes were randomly generated, we didn't expect it to make any sense. 
 The objective of this part was to generate the data to be able to work later with our database.
@@ -308,7 +283,7 @@ SET a.database_com_guru = true;
 # D Graph algorithms
 In this section we put in practice the use of different graph algorithms to query graph data. Here we used two of the most well-known graph algorithms: [Node similarity](#node-similarity) and [Louvain algorithm](#louvain).
 ## Node similarity
-This algorithm would be applied to the nodes of type Author, focusing on the relation WRITTEN_BY with the Paper nodes, and would compare the similarity between these nodes, and the result would be ordered by the similarity in descendent order. The idea of this algorithm application is to get the Authors that tend to write papers together. This would be useful for example to search authors to collaborate with, so I have an author in which I trust, so by using the similarity calculated by this algorithm, I can choose other authors that have high similarity with the author I trust, because if they have a high similarity, it means that they have  a lot of papers together. 
+This algorithm would be applied to the nodes of type Author, focusing on the relation `WRITTEN_BY` with the Paper nodes, and would compare the similarity between these nodes, and the result would be ordered by the similarity in descendent order. The idea of this algorithm application is to get the Authors that tend to write papers together. This would be useful for example to search authors to collaborate with, so I have an author in which I trust, so by using the similarity calculated by this algorithm, I can choose other authors that have high similarity with the author I trust, because if they have a high similarity, it means that they have  a lot of papers together. 
 
 ### Execution
 Create the graph projection where the algorithm would be applied:
@@ -346,3 +321,17 @@ YIELD nodeId, communityId, intermediateCommunityIds
 RETURN COLLECT(gds.util.asNode(nodeId).title) AS title, communityId
 ORDER BY communityId ASC
 ```
+
+# SETTING UP Neo4j
+In order to set up properly the Neo4j database, follow the steps:
+1. Create a new project in Neo4j and add a local DBMS.
+2. Set your credentials to **user**: `neo4j`and **password**: `admin123`
+3. Open the **import** folder of your DBMS.
+4. Add the CSV files contained in [sample_csv](sample_csv) to the folder.
+
+   **_NOTE_**: those files will be automatically created when you run the [main.py](main.py) for the first time in a `sample_csv` folder in your working directory,
+but some of them were artificially created so you would need to manually add them (i.e., [keywords.csv](sample_csv%2Fkeywords.csv),
+[universities.csv](sample_csv%2Funiversities.csv) and [companies.csv](sample_csv%2Fcompanies.csv)).
+5. Install the Graph Data Science Library plugin in your local DBMS.
+6. Start the DBMS.
+5. Run the [main.py](main.py)

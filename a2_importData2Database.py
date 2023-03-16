@@ -1,9 +1,8 @@
 from neo4j import GraphDatabase
 
 DATABASE_URL = 'bolt://localhost:7687'
-# USER = 'dani'
-# PASSWORD = 'password'
-USER = 'neo4j'
+USER = 'dani'
+# USER = 'neo4j'
 PASSWORD = 'admin123'
 
 def importData2Database():
