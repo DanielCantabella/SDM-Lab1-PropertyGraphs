@@ -60,5 +60,4 @@ with driver.session() as session:
     WHERE num_papers >1
     SET a.database_com_guru = true
     ''')
-
     session.close()
