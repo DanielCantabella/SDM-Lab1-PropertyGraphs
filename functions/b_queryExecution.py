@@ -1,14 +1,9 @@
 from neo4j import GraphDatabase
-from util import *
-
-DATABASE_URL = 'bolt://localhost:7687'
-USER = 'dani'
-# USER = 'neo4j'
-PASSWORD = 'admin123'
-
-driver = GraphDatabase.driver("bolt://localhost:7687",auth=(USER,PASSWORD))
+from functions.util import *
+from functions.config import *
 
 def queryExecution():
+    driver = GraphDatabase.driver("bolt://localhost:7687", auth=(USER, PASSWORD))
     with driver.session() as session:
 
         print("Query 1")

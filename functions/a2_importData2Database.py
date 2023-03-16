@@ -1,9 +1,6 @@
 from neo4j import GraphDatabase
+from functions.config import *
 
-DATABASE_URL = 'bolt://localhost:7687'
-USER = 'dani'
-# USER = 'neo4j'
-PASSWORD = 'admin123'
 
 def importData2Database():
     driver = GraphDatabase.driver("bolt://localhost:7687",auth=(USER,PASSWORD))

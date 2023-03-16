@@ -1,15 +1,17 @@
-### Daniel Cantabella (daniel.cantabella.cantabella@estudiantat.upc.edu)
-### Gabriel Zarate (gabriel.zarate@estudiantat.upc.edu)
-# A Modeling, Loading, Evolving
+# Property Graph Lab - Semantic Data Management
+### Authors:
+- Daniel Cantabella (daniel.cantabella.cantabella@estudiantat.upc.edu)
+- Gabriel Zarate (gabriel.zarate@estudiantat.upc.edu)
+# A. Modeling, Loading, Evolving
 The graph in this project is focused on collecting data related to the scientific paper ecosystem. 
 This includes information such as papers, authors, conferences, journals, and keywords. 
 By using Neo4j as our graph database, we can easily model and visualize the relationships between these entities. 
 Additionally, we will be getting familiar with Cypher, the query language used in Neo4j, to efficiently query and 
 process the data within the graph. The ultimate goal is to build a robust and flexible graph database that can be used 
 to analyze various aspects of the scientific paper ecosystem. In order to set up properly the database, please follow the instructions in
-[SETTING UP Neo4j](#setting-up-neo4j).
+[Setting up Neo4j](#setting-up-neo4j).
 
-## A.1 Modeling
+## A.1. Modeling
 This part of the project consists on modeling the graph data in order to get an overview of our database schema.
 We designed our graph database based on some assumptions we made and designed the different nodes and relationships shown in the following image:
 
@@ -118,30 +120,30 @@ Here we describe each node in the graph database:
 * The reviews structure was made by only linking the reviewers to the paper because of the mentioned statement before, that one paper belongs to only one edition or volume so it would only have one review associated, so there was no need to have a new node for review and the information per review can be stored on the edge `REVIEWED_BY`.
 * There was no need to have two different links for paper an author to differentiate the corresponding one, by adding a boolean to the edge was enough
 
-## A.2 Instantiating/Loading
+## A.2. Instantiating/Loading
 Part of the data we loaded into our graph came from [Semantic Scholar](https://www.semanticscholar.org/).
 The data consisted of a sample of 100 different examples for each of the contained CSV files. Each CSV file contained information either from scientific papers, from authors or from venues (i.e., conferences and journals).
 Each of these files contained relationships to other instances, but none of those relationships matched the IDs of the instances in the other files. For this reason, and because our sample was very small (i.e. 100 samples each file), we 
 decided to artificially generate both the relationships and the necessary data not contained in the samples.
 Here we show the list of the programs we implemented to download and generate the necessary data for the project:
-* [a2_getSampleData.py](a2_getSampleData.py): this file uses the Semantic Scholar sample API to get the desired datasets as jsonl.gz files.
-* [a2_generateCSV.py](a2_generateCSV.py): this file reads the jsonl.gz files from the Semantic Scholar API and exports them into CSV files.
-* [a2_splitVenues.py](a2_splitVenues.py): this file reads the venues file and generates two new files: one with the list of journals and other with the conferences.
-* [a2_generateRelations.py](a2_generateRelations.py): this file generates the artificial relationships between the different nodes, and exports them into CSV files.
-* [a2_importData2Database.py](a2_importData2Database.py): this file contains the connection to the neo4j database. It executes the constraints and the creation of the nodes and edges by loading the data from previously generated CSV files.
+* [a2_getSampleData.py](functions/a2_getSampleData.py): this file uses the Semantic Scholar sample API to get the desired datasets as jsonl.gz files.
+* [a2_generateCSV.py](functions/a2_generateCSV.py): this file reads the jsonl.gz files from the Semantic Scholar API and exports them into CSV files.
+* [a2_splitVenues.py](functions/a2_splitVenues.py): this file reads the venues file and generates two new files: one with the list of journals and other with the conferences.
+* [a2_generateRelations.py](functions/a2_generateRelations.py): this file generates the artificial relationships between the different nodes, and exports them into CSV files.
+* [a2_importData2Database.py](functions/a2_importData2Database.py): this file contains the connection to the neo4j database. It executes the constraints and the creation of the nodes and edges by loading the data from previously generated CSV files.
 
 **_NOTE_**: Since the relationship between nodes were randomly generated, we didn't expect it to make any sense. 
 The objective of this part was to generate the data to be able to work later with our database.
 
-## A.3 Evolving the graph
+## A.3. Evolving the graph
 In this section we evolved our graph. The different updates are highlighted in the following image:
 
 ![graph2](./images/graph2.png)
 
-To evolve the graph and allow for the storage of additional information, such as reviews from reviewers and the approval or cancellation status of each paper, we split the work into two parts. Both parts are contained in [A3_Evolving.py](a3_evolving.py).
+To evolve the graph and allow for the storage of additional information, such as reviews from reviewers and the approval or cancellation status of each paper, we split the work into two parts. Both parts are contained in [A3_Evolving.py](functions/a3_evolving.py).
 
 In the first part, we updated the data model to include a new attribute "**description**" in `REVIEWED_BY` edges.
-Since there was no data giving the description of any review, it was artificially generated in [reviews.csv](sample_csv/reviews.csv) and randomly assigned to each review relationship in [reviewed-by.csv](sample_csv%2Freviewed-by.csv) by using [generateRelations.py](a2_generateRelations.py).
+Since there was no data giving the description of any review, it was artificially generated in [reviews.csv](sample_csv/reviews.csv) and randomly assigned to each review relationship in [reviewed-by.csv](sample_csv%2Freviewed-by.csv) by using [generateRelations.py](functions/a2_generateRelations.py).
 Once the data was prepared, we added the description of each review with Cypher:
 ```{Cypher}
 LOAD CSV WITH HEADERS FROM "file:///reviewed-by.csv" AS rowReview
@@ -167,7 +169,7 @@ Note that `type` attribute could only be either **university** or **company**.
 The addition of these nodes implied the addition of a new edge `AFFILIATED_TO` going from Author to Organization nodes.
 Again, as we did not have data from universities nor companies, we created artificial data in CSV containing names and ids of the organizations. 
 Those files can be seen in [universities.csv](sample_csv%2Funiversities.csv) and [companies.csv](sample_csv%2Fcompanies.csv). 
-The relations between authors and organizations was randomly assigned in [affiliated-to.csv](sample_csv%2Faffiliated-to.csv) by using [generateRelations.py](a2_generateRelations.py).
+The relations between authors and organizations was randomly assigned in [affiliated-to.csv](sample_csv%2Faffiliated-to.csv) by using [generateRelations.py](functions/a2_generateRelations.py).
 Once the data was prepared, we extended the model with Cypher:
 ```
 CREATE CONSTRAINT companyIdConstraint FOR (organization:Organization) REQUIRE organization.id IS UNIQUE;
@@ -186,7 +188,7 @@ CREATE (a)-[:IS_AFFILIATED_TO]->(o);
 Note that we added a constraint in order to have unique organizations with unique IDs.
 There was no reason to split Organization nodes into Universities and Companies so we grouped them into one node and setting them different type attributes.
 
-# B Querying
+# B. Querying
 In this section we wanted to exploit the graph data and to put in practice querying graph data.
 Here we include the queries we used for each of the petitions:
 1. Find the top 3 most cited papers of each conference.
@@ -203,7 +205,7 @@ RETURN c.id, c.name, papers[0..3] AS topPapers;
 ```
 MATCH (author:Author)<-[:WRITTEN_BY]-(paper:Paper)-[:BELONGS_TO]->(edition:Edition)-[:IS_FROM]->(conf:Conference)
 WITH conf.name AS conference, author.name AS authName, COUNT(DISTINCT(paper)) as numPapers
-WHERE numPapers>3
+WHERE numPapers>1
 WITH conference, COLLECT(authName) AS community, numPapers
 RETURN conference, community, numPapers
 ```
@@ -228,8 +230,8 @@ WHERE x<=numCitesList[x-1]| [numCitesList[x-1],x] ] AS hIndexList
 RETURN authorName,hIndexList[-1][1] AS h_index   
 ```
 
-# C Recommender
-In this task we created a simple reviewer recommender for editors and chairs in [C_Recommender.py](c_recommender.py).
+# C. Recommender
+In this task we created a simple reviewer recommender for editors and chairs in [C_Recommender.py](functions/c_recommender.py).
 Here we identified potential reviewers for the database community. To do that, we followed different stages:
 1. We defined the database community: We created a new node `Community` with name `database` and linked it 
 to the keywords of the database community (i.e., data management, indexing, data modeling, big data, data processing, data storage and data querying) through the edge `DEFINED_BY`. 
@@ -280,7 +282,7 @@ SET a.database_com_guru = true;
 ```
 
 
-# D Graph algorithms
+# D. Graph algorithms
 In this section we put in practice the use of different graph algorithms to query graph data. 
 Here we used two of the most well-known graph algorithms: [Node similarity](#node-similarity) and [Louvain algorithm](#louvain).
 ## Node similarity
@@ -312,7 +314,7 @@ RETURN gds.util.asNode(node1).id AS Author1, gds.util.asNode(node2).id AS Author
 ORDER BY similarity DESCENDING, Author1, Author2
 ```
 ### Results
-FALTA AQUI
+In the output it can be seen a list of two authors id and the calculated similarity between them, ordered in a descendant way by this similarity value, this would be helpful as it was said before to have a list of authors that work together a lot. But this is not 100% truthful because this similarity value would depend on the number of papers of the authors, so for instance it would not be the same a similarity of 0.5 between two authors that have 2 papers each and between two authors with 20 papers, so it is a relative value.
 
 ## Louvain 
 In this case, we utilized the Louvain algorithm. This algorithm was useful for identifying communities of strongly connected papers, 
@@ -339,7 +341,7 @@ These findings suggest that there are specific areas of research within our data
 collaborations or interdisciplinary topics. Further analysis of the communities may provide insights into the relationships between the papers and help 
 to identify research gaps and opportunities for future work.
 
-# SETTING UP Neo4j
+# Setting up Neo4j Server and program execution
 In order to set up properly the Neo4j database, follow the steps:
 1. Create a new project in Neo4j and add a local DBMS.
 2. Set your credentials to **user**: `neo4j`and **password**: `admin123`
@@ -351,4 +353,7 @@ but some of them were artificially created so you would need to manually add the
 [universities.csv](sample_csv%2Funiversities.csv) and [companies.csv](sample_csv%2Fcompanies.csv)).
 5. Install the Graph Data Science Library plugin in your local DBMS.
 6. Start the DBMS.
-5. Run the [main.py](main.py)
+7. Run the [main.py](main.py) and select the task to execute from the menu:
+```shell
+python main.py
+```

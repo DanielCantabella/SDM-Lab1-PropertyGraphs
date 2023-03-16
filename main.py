@@ -1,60 +1,37 @@
-from util import *
-import warnings
-from a2_getSampleData import getSampleData
-from a2_generateCSV import generateCSV
-from a2_splitVenues import splitVenues
-from a2_generateRelations import generateRelations
-from a2_importData2Database import importData2Database
-from a3_evolving import evolveTheGraph
-from b_queryExecution import queryExecution
-from c_recommender import recommender
-from d_algorithmExecution import algortihmExecution
-
+from functions.util import *
+from functions.partA_2_CantabellaZarate import partA2
+from functions.partA_3_CantabellaZarate import partA3
+from functions.partB_CantabellaZarate import partB
+from functions.partC_CantabellaZarate import partC
+from functions.partD_CantabellaZarate import partD
 
 if __name__ == '__main__':
-    printLine("=",70)
-    print("Property Graphs Lab")
-    printLine("=", 70)
-    print("Task A")
-    print("1. Getting Sample Data")
-    getSampleData()
-    printLine("-", 70)
-    print("2. Generate CSV")
-    generateCSV()
-    printLine("-", 70)
-    print("3 Setting the data")
-    printLine("-", 70)
-    print("3.1. Splitting Venues into Conferences and Journals")
-    splitVenues()
-    printLine("-", 70)
-    print("3.2. Generate Relations")
-    with warnings.catch_warnings():
-        warnings.filterwarnings("ignore")
-        generateRelations()
-    printLine("-", 70)
-    print("4. Upload de data to the graph")
-    importData2Database()
-    printLine("-", 70)
-    print("5. Evolving the graph")
-    printLine("-", 70)
-    evolveTheGraph()
-    printLine("=", 70)
-    print("Task B")
-    printLine("=", 70)
-    print("Query executions")
-    queryExecution()
-    printLine("=", 70)
-    print("Task C")
-    printLine("=", 70)
-    print("Recommender")
-    recommender()
-    printLine("=", 70)
-    print("Task D")
-    printLine("=", 70)
-    print("Algorithms executions")
-    algortihmExecution()
-
-
-
-
-
+    while True:
+        printLine("=", 70)
+        print("Property Graphs Lab")
+        printLine("=", 70)
+        print('Select the task you want to execute: ')
+        print("1. Task A2 - Graph loading")
+        print("2. Task A3 - Graph evolving")
+        print("3. Task B - Query execution")
+        print("4. Task C - Recommender")
+        print("5. Task D - Algorithm execution")
+        print("0. Exit")
+        choice = input("Enter your choice: ")
+        if choice == "1":
+            partA2()
+        elif choice == "2":
+            partA3()
+        elif choice == "3":
+            partB()
+        elif choice == "4":
+            partC()
+        elif choice == "5":
+            partD()
+        elif choice == "0":
+            print("Exiting the program.")
+            break
+        else:
+            print("Invalid choice. Please enter a number between 0 and 5.")
+        printLine("=", 70)
+        input("Press enter to return to the menu...")
