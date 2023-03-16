@@ -28,22 +28,21 @@ Here we describe each node in the graph database:
   * A paper can have multiple authors but only one corresponding author.
   * A paper can have multiple reviewers
   * _Attributes_:
-    * id &rarr; (e.g., id: 171188162)
-    * title &rarr; (e.g., title: Metafisica delle forme simboliche. Note su Cassirer inedito)
-    * year &rarr; (e.g., year: 1995) 
-    * url &rarr; (e.g., url: https://www.semanticscholar.org/paper/821cb451d598cd93746194acb16c3e04272cdbbc)
-    * abstract &rarr; (e.g., abstract: Objective: To screen the antifungal activity of seed extracts of...)
-    * openAccess &rarr; (e.g., openAcces: false)
-    * publicationDate &rarr; (e.g., publicationDate: "2011-08-01")
+    * id &rarr; identifier of the paper (e.g., id: 171188162)
+    * title &rarr; title of the paper (e.g., title: Metafisica delle forme simboliche. Note su Cassirer inedito)
+    * year &rarr; publication year of the paper (e.g., year: 1995) 
+    * url &rarr; url of the paper (e.g., url: https://www.semanticscholar.org/paper/821cb451d598cd93746194acb16c3e04272cdbbc)
+    * abstract &rarr; abstract text of the paper (e.g., abstract: Objective: To screen the antifungal activity of seed extracts of...)
+    * openAccess &rarr; boolean indicating if the paper has open access or not (e.g., openAcces: false)
+    * publicationDate &rarr; publication date of the paper (e.g., publicationDate: "2011-08-01")
     * updated &rarr; (e.g., updated: 2022-02-08T16:57:52.072Z)
-    * DOI &rarr; (e.g., DOI: 10.1136/ebmh.12.1.e1)
+    * DOI &rarr; DOI code of the paper (e.g., DOI: 10.1136/ebmh.12.1.e1)
     * PubMedCentral &rarr; (e.g., ) --> REMOVE FROM HERA AND IMAGE
     * PubMed &rarr; (e.g., ) --> REMOVE FROM HERA AND IMAGE
     * DBLP &rarr; (e.g., ) --> REMOVE FROM HERA AND IMAGE
     * Arxiv &rarr; (e.g., ) --> REMOVE FROM HERA AND IMAGE
     * ACL &rarr; (e.g., ) --> REMOVE FROM HERA AND IMAGE
-    * MAG &rarr; (e.g., MAG: 2463363854)
-    
+    * MAG &rarr; Microsoft Academic Graph database code (e.g., MAG: 2463363854)
 
 * **Keyword** &rarr; a paper can contain multiple keywords and a keyword can be contained in many papers
   * _Attributes_:
@@ -51,43 +50,43 @@ Here we describe each node in the graph database:
 
 * **Volume** &rarr; a journal volume that can publish many papers
   * _Attributes_:
-    * id &rarr; (e.g., id: fz3guy7i-odk0-62rp-sl7p-0fy9ex3ikwii)
-    * volume &rarr; (e.g., volume: 2)
-    * year &rarr; (e.g., year: 2021)
+    * id &rarr; identifier of the volume (e.g., id: fz3guy7i-odk0-62rp-sl7p-0fy9ex3ikwii)
+    * volume &rarr; volume number of the journal (e.g., volume: 2)
+    * year &rarr; publication year of the volume (e.g., year: 2021)
 
 
 * **Journal** &rarr; one journal could contain many journal volumes
   * _Attributes_:
-    * id &rarr; (e.g., id: 3b2c751d-4ed2-4da6-be71-4c19769543bf)
-    * name &rarr; (e.g., name: Florida Media Quarterly)
-    * issn &rarr; (e.g., issn: 1085-1976)
-    * url &rarr; (e.g., url: http://www.floridamedia.org/)
+    * id &rarr; identifier of the journal (e.g., id: 3b2c751d-4ed2-4da6-be71-4c19769543bf)
+    * name &rarr; name of the journal (e.g., name: Florida Media Quarterly)
+    * issn &rarr; International Standard Serial Number of the journal (e.g., issn: 1085-1976)
+    * url &rarr; URL of the journal (e.g., url: http://www.floridamedia.org/)
 
 
 * **Edition** &rarr; a conference edition that can held many papers
   * _Attributes_:
-    * id &rarr; (e.g., id: tiblgnnj-fed2-k6g0-n5m8-0ddbexw5ikly)
-    * startDate &rarr; (e.g., startDate: "2011-05-06")
-    * endDate &rarr; (e.g., endDate: "2011-05-14")
+    * id &rarr; identifier of the edition (e.g., id: tiblgnnj-fed2-k6g0-n5m8-0ddbexw5ikly)
+    * startDate &rarr; starting date of the conference edition (e.g., startDate: "2011-05-06")
+    * endDate &rarr; end date of the conference edition (e.g., endDate: "2011-05-14")
 
 
 * **Conference** &rarr; one conference could contain many conference editions
   * _Attributes_:
-    * id &rarr; (e.g., id: 04d55eb2-9d8a-4366-baad-c0838563c870)
-    * name &rarr; (e.g., name: The Irish Review)
-    * issn &rarr; (e.g., issn: 0790-7850)
-    * url &rarr; (e.g., url: https://theirishreview.com/)
+    * id &rarr; identifier of the conference (e.g., id: 04d55eb2-9d8a-4366-baad-c0838563c870)
+    * name &rarr; name of the conference (e.g., name: The Irish Review)
+    * issn &rarr; International Standard Serial Number of the conference (e.g., issn: 0790-7850)
+    * url &rarr; URL of the conference (e.g., url: https://theirishreview.com/)
 
 ### EDGES
 * **WRITTEN_BY** &rarr; from **Paper** to **Author** nodes. 
   * _Attributes_:
-    * It contains a boolean indicating if it is **corresponding_author** or not.
+    * corresponding_author &rarr; boolean indicating if it is **corresponding author** or not.
 
 * **REVIEWED_BY** &rarr; from **Paper** to **Author** nodes. 
   * This author is not actually an author of the paper but its reviewer.
   * An author cannot be the reviewer of its own paper.
   * _Attributes_:
-    * It contains the **grade** of the review from 1 to 5. Here we assume reviewers mark papers with a grade instead of an approved/cancelled status.
+    * with_grade &rarr; integer **grade** of the review from 1 to 5. Here we assume reviewers mark papers with a grade instead of an approved/cancelled status.
 
 * **RELATED_TO** &rarr; from **Paper** to **Keyword** nodes. 
   * A paper can contain many keywords and a keyword can be related with many papers.
@@ -98,7 +97,8 @@ Here we describe each node in the graph database:
 * **PUBLISHED_IN** &rarr; from **Paper** to **Volume** nodes.
   * Many papers can be published in a journal volume. 
   * _Attributes_:
-    * It contains the **starting** and **ending** **page** where the paper appears.
+    * startPage &rarr; **starting** **page** where the paper appears.
+    * endPage &rarr; **ending** **page** where the paper appears.
     
 * **VOLUME_FROM** &rarr; from **Volume** to **Journal**
   * A journal can be related with many volumes. A volume can be related to **only** one journal.
@@ -281,9 +281,15 @@ SET a.database_com_guru = true;
 
 
 # D Graph algorithms
-In this section we put in practice the use of different graph algorithms to query graph data. Here we used two of the most well-known graph algorithms: [Node similarity](#node-similarity) and [Louvain algorithm](#louvain).
+In this section we put in practice the use of different graph algorithms to query graph data. 
+Here we used two of the most well-known graph algorithms: [Node similarity](#node-similarity) and [Louvain algorithm](#louvain).
 ## Node similarity
-This algorithm would be applied to the nodes of type Author, focusing on the relation `WRITTEN_BY` with the Paper nodes, and would compare the similarity between these nodes, and the result would be ordered by the similarity in descendent order. The idea of this algorithm application is to get the Authors that tend to write papers together. This would be useful for example to search authors to collaborate with, so I have an author in which I trust, so by using the similarity calculated by this algorithm, I can choose other authors that have high similarity with the author I trust, because if they have a high similarity, it means that they have  a lot of papers together. 
+This algorithm would be applied to the nodes of type Author, focusing on the relation `WRITTEN_BY` with the Paper nodes, 
+and would compare the similarity between these nodes. The result would be ordered by the similarity in descendent order.
+The idea of this algorithm application is to get the Authors that tend to write papers together. 
+This would be useful, for example, to search authors to collaborate with, so I have an author in which I trust, 
+so by using the similarity calculated by this algorithm, I can choose other authors that have high similarity with the author I trust, 
+because if they have a high similarity, it means that they have  a lot of papers together. 
 
 ### Execution
 Create the graph projection where the algorithm would be applied:
@@ -305,12 +311,17 @@ YIELD node1, node2, similarity
 RETURN gds.util.asNode(node1).id AS Author1, gds.util.asNode(node2).id AS Author2, similarity
 ORDER BY similarity DESCENDING, Author1, Author2
 ```
-
+### Results
+FALTA AQUI
 
 ## Louvain 
-
+In this case, we utilized the Louvain algorithm. This algorithm was useful for identifying communities of strongly connected papers, 
+so when we projected only part of our graph (i.e., Paper nodes and `CITED_BY` edges), we were able to find different communities of papers based on the citations between them. 
+In our case, the use of this algorithm could be applied in various contexts. For example, it could be interesting to find communities of papers 
+that related to each other to identify joint research groups (i.e., papers that worked in similar areas). It could be also useful to find papers 
+from a community that an author may have overlooked or to help a student find papers related to their Master's thesis.
 ### Execution
-Create the graph projection where the algorithm would be applied:
+We first created the graph projection where the algorithm would work on. Notice that we only projected Papers and `CITED_BY` edges.
 ```
 CALL gds.graph.project('LouvainGraph', 'Paper', 'CITED_BY')
 ```
@@ -321,6 +332,12 @@ YIELD nodeId, communityId, intermediateCommunityIds
 RETURN COLLECT(gds.util.asNode(nodeId).title) AS title, communityId
 ORDER BY communityId ASC
 ```
+### Results
+The results of running the Louvain algorithm showed the existence of 8 distinct communities, ranging from 2 to 27 papers each. 
+We observed that the communities grouped different numbers of papers that were strongly related to each other due to the large number of citations.
+These findings suggest that there are specific areas of research within our dataset that are highly interconnected and may indicate potential research 
+collaborations or interdisciplinary topics. Further analysis of the communities may provide insights into the relationships between the papers and help 
+to identify research gaps and opportunities for future work.
 
 # SETTING UP Neo4j
 In order to set up properly the Neo4j database, follow the steps:
